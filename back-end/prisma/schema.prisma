@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  Int       @id @default(autoincrement())
+  email               String    @unique @db.VarChar(127)
+  name                String    @db.VarChar(127)
+  hashedPassword      String    @db.VarChar(127)
+  hashedRefreshToken  String?   @db.VarChar(250)
+  phone               String    @db.VarChar(15)
+  validation          Boolean   @default(false)
+  role                String    @default("client")
+  createdAt           DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt           DateTime  @default(now()) @db.Timestamp(0)
+  immobiles           Immobile[]
+
+  @@map("user")
+}
+
+model Immobile {
+  id              Int     @id @default(autoincrement())
+  published       Boolean @default(false)
+  type            String
+  about           String
+  vsell           String?
+  vboth           String?
+  iptu            String
+  describe        String
+  footage         Int
+  bed             Int
+  bathroom        Int
+  vacancy         Int
+  address         String
+  number          String
+  complement      String?
+  postalcode      String
+  neighborhood    String
+  state           String
+  user            User? @relation(fields: [userId], references: [id])
+  userId          Int?
+  createdAt       DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt       DateTime  @default(now()) @db.Timestamp(0)
+  photographs     Photograph[]
+  owners          ImmobileOnOwner[]
+
+  @@map("immobile")
+}
+
+model Photograph {
+  id          Int @id @default(autoincrement())
+  describe    String @db.VarChar(100)
+  url         String
+  immobile    Immobile? @relation(fields: [immobileId], references: [id])
+  immobileId  Int?
+
+  @@map("photograph")
+}
+
+model Owner {
+  id          Int @id @default(autoincrement())
+  name        String
+  email       String @unique
+  phone       String
+  immobiles   ImmobileOnOwner[]
+
+  @@map("owner")
+}
+
+model ImmobileOnOwner {
+  immobile    Immobile @relation(fields: [immobileId], references: [id])
+  immobileId  Int
+  owner       Owner @relation(fields: [ownerId], references: [id])
+  ownerId     Int
+
+  @@id([immobileId, ownerId])
+
+  @@map("immobileonowner")
+}
+
