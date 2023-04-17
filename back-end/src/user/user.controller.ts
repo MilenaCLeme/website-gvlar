@@ -13,27 +13,30 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { ShowEmailUserDTO } from './dto/show-email-get-user.dto';
 import { UpdatePatchUserDTO } from './dto/update-patch-user.dto';
 import { UpdatePutUserDTO } from './dto/update-put-user.dto';
+import { UserService } from './user.service';
 
 @Controller('users')
 export class UserController {
+  constructor(private readonly userService: UserService) {}
+
   @Post()
   async create(@Body() body: CreateUserDTO) {
-    return { body };
+    return await this.userService.createUser(body);
   }
 
   @Get()
   async list() {
-    return { users: [] };
+    return await this.userService.listUsers();
   }
 
   @Get(':id')
   async showId(@Param('id', ParseIntPipe) id: number) {
-    return { user: {}, id };
+    return await this.userService.user({ id });
   }
 
   @Post('email')
-  async showEmail(@Body() body: ShowEmailUserDTO) {
-    return { user: {}, body };
+  async showEmail(@Body() email: ShowEmailUserDTO) {
+    return await this.userService.user(email);
   }
 
   @Put(':id')
@@ -41,7 +44,7 @@ export class UserController {
     @Body() body: UpdatePutUserDTO,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return { body, id };
+    return await this.userService.updateUser(id, body);
   }
 
   @Patch(':id')
@@ -49,11 +52,11 @@ export class UserController {
     @Body() body: UpdatePatchUserDTO,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return { body, id };
+    return await this.userService.updateUser(id, body);
   }
 
   @Delete(':id')
   async delete(@Param('id', ParseIntPipe) id: number) {
-    return { id };
+    return await this.userService.deleteUser(id);
   }
 }
