@@ -1,32 +1,7 @@
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsOptional,
-  IsPhoneNumber,
-  IsString,
-  IsStrongPassword,
-} from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
+import { AuthRegisterDTO } from 'src/auth/dto/auth-register.dto';
 
-export class CreateUserDTO {
-  @IsNotEmpty()
-  @IsString()
-  name: string;
-
-  @IsNotEmpty()
-  @IsEmail()
-  email: string;
-
-  @IsNotEmpty()
-  @IsStrongPassword({
-    minLength: 6,
-    minSymbols: 0,
-  })
-  hashedPassword: string;
-
-  @IsNotEmpty()
-  @IsPhoneNumber('BR')
-  phone: string;
-
+export class CreateUserDTO extends AuthRegisterDTO {
   @IsOptional()
   @IsString()
   role?: string;
