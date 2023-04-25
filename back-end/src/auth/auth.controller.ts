@@ -1,5 +1,4 @@
 import { Body, Controller, Param, ParseIntPipe, Post } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 import { AuthForgetDTO } from './dto/auth-forget.dto';
 import { AuthLoginDTO } from './dto/auth-login.dto';
@@ -17,7 +16,7 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() body: AuthRegisterDTO) {
-    return this.userService.createUser(body);
+    return this.authService.register(body);
   }
 
   @Post('forget')
