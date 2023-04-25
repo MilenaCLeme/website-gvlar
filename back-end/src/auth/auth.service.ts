@@ -7,6 +7,9 @@ import { AuthRegisterDTO } from './dto/auth-register.dto';
 
 @Injectable()
 export class AuthService {
+  private issuer = 'login';
+  private audience = 'users';
+
   constructor(
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
@@ -24,8 +27,8 @@ export class AuthService {
         {
           expiresIn: '7 days',
           subject: String(user.id),
-          issuer: 'login',
-          audience: 'users',
+          issuer: this.issuer,
+          audience: this.audience,
         },
       ),
     };
@@ -34,8 +37,8 @@ export class AuthService {
   async checkToken(token: string) {
     try {
       const data = this.jwtService.verify(token, {
-        issuer: 'login',
-        audience: 'users',
+        issuer: this.issuer,
+        audience: this.audience,
       });
 
       return data;
@@ -45,7 +48,12 @@ export class AuthService {
   }
 
   async isValidToken(token: string) {
-    this.checkToken(token);
+    try {
+      this.checkToken(token);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
   async register(data: AuthRegisterDTO) {
