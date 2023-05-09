@@ -10,7 +10,6 @@ import {
   Put,
 } from '@nestjs/common';
 import { CreateUserDTO } from './dto/create-user.dto';
-import { ShowEmailUserDTO } from './dto/show-email-get-user.dto';
 import { UpdatePatchUserDTO } from './dto/update-patch-user.dto';
 import { UpdatePutUserDTO } from './dto/update-put-user.dto';
 import { UserService } from './user.service';
@@ -31,12 +30,12 @@ export class UserController {
 
   @Get(':id')
   async showId(@Param('id', ParseIntPipe) id: number) {
-    return await this.userService.user({ id });
+    return await this.userService.showId(id);
   }
 
-  @Post('email')
-  async showEmail(@Body() email: ShowEmailUserDTO) {
-    return await this.userService.user(email);
+  @Post('email/verification')
+  async showEmail(@Body('email') email: string) {
+    return await this.userService.showEmail(email);
   }
 
   @Put(':id')

@@ -14,6 +14,18 @@ export class UserService {
     });
   }
 
+  async showId(id: number) {
+    await this.exists(id);
+
+    return this.user({ id });
+  }
+
+  async showEmail(email: string) {
+    await this.existsEmail(email);
+
+    return this.user({ email });
+  }
+
   async listUsers(): Promise<User[]> {
     return await this.prisma.user.findMany();
   }
@@ -44,8 +56,26 @@ export class UserService {
   }
 
   async exists(id: number) {
-    if (!(await this.user({ id }))) {
+    if (
+      !(await this.prisma.user.count({
+        where: {
+          id,
+        },
+      }))
+    ) {
       throw new NotFoundException(`O usuário ${id} não existe`);
+    }
+  }
+
+  async existsEmail(email: string) {
+    if (
+      !(await this.prisma.user.count({
+        where: {
+          email,
+        },
+      }))
+    ) {
+      throw new NotFoundException(`O usuário ${email} não existe`);
     }
   }
 }
