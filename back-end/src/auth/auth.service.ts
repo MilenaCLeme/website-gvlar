@@ -1,7 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
-// import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { UserService } from 'src/user/user.service';
 import { AuthRegisterDTO } from './dto/auth-register.dto';
 
@@ -12,7 +16,7 @@ export class AuthService {
 
   constructor(
     private readonly jwtService: JwtService,
-    // private readonly prisma: PrismaService,
+    private readonly prisma: PrismaService,
     private readonly userService: UserService,
   ) {}
 
@@ -60,16 +64,35 @@ export class AuthService {
     return this.userService.createUser(data);
   }
 
-  async login(email: string, password: string) {
-    // login com email
+  async login(email: string, hashedPassword: string) {
+    const user = await this.prisma.user.findFirst({
+      where: {
+        email,
+        hashedPassword,
+      },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Email e/ou senha incorretos.');
+    }
+
+    return user;
   }
 
   async forget(email: string) {
-    // enviar email para um novo
+    const user = await this.userService.user({ email });
+
+    if (!user) {
+      throw new UnauthorizedException('Email está incorretos.');
+    }
+
+    // TO DO: Enviar o e-mail...
+
+    return true;
   }
 
-  async reset(password: string, token: string) {
-    // alterar o password
+  async reset(hashedPassword: string, token: string) {
+    // TO DO: validar o token e id.
   }
 
   async validation(id: number, token: string) {
