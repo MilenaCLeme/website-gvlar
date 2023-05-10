@@ -75,7 +75,7 @@ export class UserService {
         },
       }))
     ) {
-      throw new NotFoundException(`O usuário ${email} não existe`);
+      throw new NotFoundException(`O usuário no email ${email} não existe`);
     }
   }
 }
