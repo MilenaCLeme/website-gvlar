@@ -20,7 +20,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async createToken(user: User) {
+  createToken(user: User) {
     return {
       accessToken: this.jwtService.sign(
         {
@@ -38,7 +38,7 @@ export class AuthService {
     };
   }
 
-  async checkToken(token: string) {
+  checkToken(token: string) {
     try {
       const data = this.jwtService.verify(token, {
         issuer: this.issuer,
@@ -51,13 +51,17 @@ export class AuthService {
     }
   }
 
-  async isValidToken(token: string) {
+  isValidToken(token: string) {
     try {
       this.checkToken(token);
       return true;
     } catch (error) {
       return false;
     }
+  }
+
+  transformToken(accessToken: string) {
+    return { token: `Bearer ${accessToken}` };
   }
 
   async register(data: AuthRegisterDTO) {
@@ -76,7 +80,17 @@ export class AuthService {
       throw new UnauthorizedException('Email e/ou senha incorretos.');
     }
 
-    return user;
+    if (!user.validation) {
+      throw new UnauthorizedException('conta do e-mail não validata');
+    }
+
+    const { accessToken } = this.createToken(user);
+
+    const hashedRefreshToken = accessToken;
+
+    await this.userService.updateUser(user.id, { hashedRefreshToken });
+
+    return { accessToken, user };
   }
 
   async forget(email: string) {
