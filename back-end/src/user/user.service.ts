@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
+// import { AuthService } from 'src/auth/auth.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async user(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
@@ -30,10 +31,22 @@ export class UserService {
     return await this.prisma.user.findMany();
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
+  async createUser(data: Prisma.UserCreateInput) {
     return await this.prisma.user.create({
       data,
     });
+
+    /*
+    const { accessToken } = this.authService.createToken(user);
+
+    const update = { hashedRefreshToken: accessToken };
+
+    await this.updateUser(user.id, update);
+
+    const { token } = this.authService.transformToken(accessToken);
+
+    return { user, token };
+    */
   }
 
   async updateUser(id: number, data: Prisma.UserUpdateInput): Promise<User> {
