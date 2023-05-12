@@ -1,12 +1,24 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
+import { MailModule } from './mail/mail.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), UserModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 500,
+    }),
+    forwardRef(() => UserModule),
+    forwardRef(() => AuthModule),
+    forwardRef(() => MailModule),
+  ],
   controllers: [],
-  providers: [],
+  providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
   exports: [],
 })
 export class AppModule {}
