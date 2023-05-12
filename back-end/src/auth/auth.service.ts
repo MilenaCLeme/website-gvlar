@@ -1,13 +1,16 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   UnauthorizedException,
+  forwardRef,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserService } from 'src/user/user.service';
 import { AuthRegisterDTO } from './dto/auth-register.dto';
+import * as bycrpt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -15,8 +18,11 @@ export class AuthService {
   private audience = 'users';
 
   constructor(
+    @Inject(forwardRef(() => JwtService))
     private readonly jwtService: JwtService,
+    @Inject(forwardRef(() => PrismaService))
     private readonly prisma: PrismaService,
+    @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
   ) {}
 
@@ -60,19 +66,14 @@ export class AuthService {
     }
   }
 
-  transformToken(accessToken: string) {
-    return { token: `Bearer ${accessToken}` };
-  }
-
   async register(data: AuthRegisterDTO) {
     return this.userService.createUser(data);
   }
 
-  async login(email: string, hashedPassword: string) {
-    const user = await this.prisma.user.findFirst({
+  async login(email: string, password: string) {
+    let user = await this.prisma.user.findFirst({
       where: {
         email,
-        hashedPassword,
       },
     });
 
@@ -80,15 +81,15 @@ export class AuthService {
       throw new UnauthorizedException('Email e/ou senha incorretos.');
     }
 
-    if (!user.validation) {
-      throw new UnauthorizedException('conta do e-mail não validata');
+    if (!(await bycrpt.compare(password, user.hashedPassword))) {
+      throw new UnauthorizedException('Email e/ou senha incorretos.');
     }
 
     const { accessToken } = this.createToken(user);
 
-    const hashedRefreshToken = accessToken;
-
-    await this.userService.updateUser(user.id, { hashedRefreshToken });
+    user = await this.userService.updateUser(user.id, {
+      hashedRefreshToken: accessToken,
+    });
 
     return { accessToken, user };
   }
@@ -109,7 +110,7 @@ export class AuthService {
     // TO DO: validar o token e id.
   }
 
-  async validation(id: number, token: string) {
+  async validation(token: string) {
     // alterar o validation
   }
 }

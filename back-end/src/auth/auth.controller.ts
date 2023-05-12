@@ -29,11 +29,8 @@ export class AuthController {
     return this.authService.reset(password, token);
   }
 
-  @Post('validation/:id')
-  async validation(
-    @Body() { token }: AuthValidationDTO,
-    @Param('id', ParseIntPipe) id: number,
-  ) {
-    return this.authService.validation(id, token);
+  @Post('validation')
+  async validation(@Body() { token }: AuthValidationDTO) {
+    return this.authService.validation(token);
   }
 }
