@@ -1,11 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
-// import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from 'src/auth/auth.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import * as bycrpt from 'bcrypt';
+import { UpdatePatchUserDTO } from './dto/update-patch-user.dto';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly authService: AuthService,
+    private readonly mailService: MailService,
+  ) {}
 
   async user(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
@@ -32,25 +39,42 @@ export class UserService {
   }
 
   async createUser(data: Prisma.UserCreateInput) {
-    return await this.prisma.user.create({
+    data.hashedPassword = await bycrpt.hash(
+      data.hashedPassword,
+      await bycrpt.genSalt(),
+    );
+
+    let user = await this.prisma.user.create({
       data,
     });
 
-    /*
     const { accessToken } = this.authService.createToken(user);
 
-    const update = { hashedRefreshToken: accessToken };
+    data.hashedRefreshToken = accessToken;
 
-    await this.updateUser(user.id, update);
+    user = await this.updateUser(user.id, data);
 
-    const { token } = this.authService.transformToken(accessToken);
+    await this.mailService.sendEmailConfirmtion(user, accessToken);
 
-    return { user, token };
-    */
+    return { user, accessToken };
   }
 
-  async updateUser(id: number, data: Prisma.UserUpdateInput): Promise<User> {
+  async updateUser(id: number, data: UpdatePatchUserDTO): Promise<User> {
     await this.exists(id);
+
+    const salt = await bycrpt.genSalt();
+
+    if (data.hashedPassword) {
+      data.hashedPassword = await bycrpt.hash(data.hashedPassword, salt);
+    }
+
+    if (data.hashedRefreshToken) {
+      data.hashedRefreshToken = await bycrpt.hash(
+        data.hashedRefreshToken,
+        salt,
+      );
+    }
+
     return await this.prisma.user.update({
       where: {
         id,
