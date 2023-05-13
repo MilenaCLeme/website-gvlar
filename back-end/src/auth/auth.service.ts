@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Inject,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
   forwardRef,
 } from '@nestjs/common';
@@ -11,10 +12,12 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { UserService } from 'src/user/user.service';
 import { AuthRegisterDTO } from './dto/auth-register.dto';
 import * as bycrpt from 'bcrypt';
+import { MailService } from 'src/mail/mail.service';
+import { AuthUpdatePatchRegisterDTO } from './dto/auth-update-patch-register.dto';
 
 @Injectable()
 export class AuthService {
-  private issuer = 'login';
+  private issuer = 'gvlar';
   private audience = 'users';
 
   constructor(
@@ -24,6 +27,8 @@ export class AuthService {
     private readonly prisma: PrismaService,
     @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
+    @Inject(forwardRef(() => MailService))
+    private readonly mailService: MailService,
   ) {}
 
   createToken(user: User) {
@@ -67,7 +72,11 @@ export class AuthService {
   }
 
   async register(data: AuthRegisterDTO) {
-    return this.userService.createUser(data);
+    return await this.userService.createUser(data);
+  }
+
+  async updateRegister(id: number, data: AuthUpdatePatchRegisterDTO) {
+    return await this.userService.updateUser(id, data);
   }
 
   async login(email: string, password: string) {
@@ -85,6 +94,10 @@ export class AuthService {
       throw new UnauthorizedException('Email e/ou senha incorretos.');
     }
 
+    if (!user.validation) {
+      throw new UnauthorizedException('Email não validato');
+    }
+
     const { accessToken } = this.createToken(user);
 
     user = await this.userService.updateUser(user.id, {
@@ -95,22 +108,61 @@ export class AuthService {
   }
 
   async forget(email: string) {
-    const user = await this.userService.user({ email });
+    let user = await this.userService.user({ email });
 
     if (!user) {
       throw new UnauthorizedException('Email está incorretos.');
     }
 
-    // TO DO: Enviar o e-mail...
+    const { accessToken } = this.createToken(user);
 
-    return true;
+    user = await this.userService.updateUser(user.id, {
+      hashedRefreshToken: accessToken,
+    });
+
+    await this.mailService.sendEmailForgotPassWord(user, accessToken);
+
+    return { accessToken };
   }
 
-  async reset(hashedPassword: string, token: string) {
-    // TO DO: validar o token e id.
+  async reset(id: number, hashedPassword: string) {
+    let user = await this.userService.updateUser(id, {
+      hashedPassword,
+      validation: true,
+    });
+
+    const { accessToken } = this.createToken(user);
+
+    user = await this.userService.updateUser(id, {
+      hashedRefreshToken: accessToken,
+    });
+
+    return { accessToken, user };
   }
 
-  async validation(token: string) {
-    // alterar o validation
+  async validation(id: number, validation: boolean) {
+    if (validation) {
+      throw new NotFoundException(`O usuário ${id} já está valido`);
+    }
+
+    return await this.userService.updateUser(id, { validation: true });
+  }
+
+  async validate(email: string) {
+    let user = await this.userService.user({ email });
+
+    if (!user) {
+      throw new UnauthorizedException('Email está incorretos.');
+    }
+
+    const { accessToken } = this.createToken(user);
+
+    user = await this.userService.updateUser(user.id, {
+      hashedRefreshToken: accessToken,
+    });
+
+    await this.mailService.sendEmailConfirmtion(user, accessToken);
+
+    return { accessToken };
   }
 }

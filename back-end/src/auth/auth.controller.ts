@@ -1,10 +1,13 @@
-import { Body, Controller, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Patch, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthForgetDTO } from './dto/auth-forget.dto';
 import { AuthLoginDTO } from './dto/auth-login.dto';
 import { AuthRegisterDTO } from './dto/auth-register.dto';
 import { AuthResetDTO } from './dto/auth-reset.dto';
-import { AuthValidationDTO } from './dto/auth-validation.dto';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { User } from 'src/decorators/user.decorator';
+import { AuthValidateDTO } from './dto/auth-validate.dto';
+import { AuthUpdatePatchRegisterDTO } from './dto/auth-update-patch-register.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -19,18 +22,38 @@ export class AuthController {
     return this.authService.register(body);
   }
 
+  @UseGuards(AuthGuard)
+  @Patch('register')
+  async registerUpdate(
+    @User('id') id: number,
+    @Body() body: AuthUpdatePatchRegisterDTO,
+  ) {
+    return this.authService.updateRegister(id, body);
+  }
+
   @Post('forget')
   async forget(@Body() { email }: AuthForgetDTO) {
     return this.authService.forget(email);
   }
 
+  @UseGuards(AuthGuard)
   @Post('reset')
-  async reset(@Body() { password, token }: AuthResetDTO) {
-    return this.authService.reset(password, token);
+  async reset(@User('id') id: number, @Body() { password }: AuthResetDTO) {
+    console.log(id);
+    return this.authService.reset(id, password);
   }
 
+  @UseGuards(AuthGuard)
   @Post('validation')
-  async validation(@Body() { token }: AuthValidationDTO) {
-    return this.authService.validation(token);
+  async validation(
+    @User('id') id: number,
+    @User('validation') validation: boolean,
+  ) {
+    return this.authService.validation(id, validation);
+  }
+
+  @Post('validate')
+  async validate(@Body() { email }: AuthValidateDTO) {
+    return this.authService.validate(email);
   }
 }
