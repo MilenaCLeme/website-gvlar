@@ -1,4 +1,4 @@
-import { IsJWT, IsNotEmpty, IsStrongPassword } from 'class-validator';
+import { IsNotEmpty, IsStrongPassword } from 'class-validator';
 
 export class AuthResetDTO {
   @IsNotEmpty()
@@ -7,7 +7,4 @@ export class AuthResetDTO {
     minSymbols: 0,
   })
   password: string;
-
-  @IsJWT()
-  token: string;
 }
