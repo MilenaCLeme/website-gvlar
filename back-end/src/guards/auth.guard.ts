@@ -1,6 +1,13 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { UserService } from 'src/user/user.service';
+import * as bycrpt from 'bcrypt';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -14,17 +21,23 @@ export class AuthGuard implements CanActivate {
     const { authorization } = request;
 
     try {
-      const data = this.authService.checkToken(
-        (authorization ?? '').split(' ')[1],
-      );
+      const token = (authorization ?? '').split(' ')[1];
+
+      const data = this.authService.checkToken(token);
 
       request.tokenPayload = data;
 
-      request.user = await this.userService.showId(data.id);
+      const user = await this.userService.showId(data.id);
+
+      request.user = user;
+
+      if (!(await bycrpt.compare(token, user.hashedRefreshToken))) {
+        throw new UnauthorizedException('Token invalido');
+      }
 
       return true;
     } catch (e) {
-      return false;
+      throw new BadRequestException(e);
     }
   }
 }
