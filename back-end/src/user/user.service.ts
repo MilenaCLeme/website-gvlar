@@ -50,9 +50,7 @@ export class UserService {
 
     const { accessToken } = this.authService.createToken(user);
 
-    data.hashedRefreshToken = accessToken;
-
-    user = await this.updateUser(user.id, data);
+    user = await this.updateUser(user.id, { hashedRefreshToken: accessToken });
 
     await this.mailService.sendEmailConfirmtion(user, accessToken);
 
