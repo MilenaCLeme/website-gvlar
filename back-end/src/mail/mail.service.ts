@@ -18,7 +18,6 @@ export class MailService {
       template: './confirmation',
       context: {
         name: user.name,
-        id: user.id,
         token,
       },
     });
@@ -26,12 +25,12 @@ export class MailService {
 
   async sendEmailForgotPassWord(user: User, token: string) {
     return await this.mailerService.sendMail({
+      from: this.configService.get('MAIL_USER'),
       subject: 'Recuperação de Senha',
       to: user.email,
       template: 'forget',
       context: {
         name: user.name,
-        id: user.id,
         token,
       },
     });
