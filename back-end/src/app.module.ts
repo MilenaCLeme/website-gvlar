@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { MailModule } from './mail/mail.module';
+import { ImmobileModule } from './immobile/immobile.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { MailModule } from './mail/mail.module';
     forwardRef(() => UserModule),
     forwardRef(() => AuthModule),
     forwardRef(() => MailModule),
+    forwardRef(() => ImmobileModule),
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
