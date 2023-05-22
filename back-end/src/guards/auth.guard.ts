@@ -2,8 +2,10 @@ import {
   BadRequestException,
   CanActivate,
   ExecutionContext,
+  Inject,
   Injectable,
   UnauthorizedException,
+  forwardRef,
 } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { UserService } from 'src/user/user.service';
@@ -12,7 +14,9 @@ import * as bycrpt from 'bcrypt';
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
+    @Inject(forwardRef(() => AuthService))
     private readonly authService: AuthService,
+    @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
   ) {}
 
