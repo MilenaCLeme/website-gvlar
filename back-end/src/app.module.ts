@@ -6,6 +6,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { MailModule } from './mail/mail.module';
 import { ImmobileModule } from './immobile/immobile.module';
+import { OwnerModule } from './owner/owner.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ImmobileModule } from './immobile/immobile.module';
     forwardRef(() => AuthModule),
     forwardRef(() => MailModule),
     forwardRef(() => ImmobileModule),
+    forwardRef(() => OwnerModule),
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
