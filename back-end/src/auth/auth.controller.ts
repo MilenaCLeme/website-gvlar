@@ -8,6 +8,7 @@ import { AuthGuard } from 'src/guards/auth.guard';
 import { User } from 'src/decorators/user.decorator';
 import { AuthValidateDTO } from './dto/auth-validate.dto';
 import { AuthUpdatePatchRegisterDTO } from './dto/auth-update-patch-register.dto';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('auth')
 export class AuthController {
@@ -31,6 +32,7 @@ export class AuthController {
     return this.authService.updateRegister(id, body);
   }
 
+  @Throttle(10, 60)
   @Post('forget')
   async forget(@Body() { email }: AuthForgetDTO) {
     return this.authService.forget(email);
@@ -52,6 +54,7 @@ export class AuthController {
     return this.authService.validation(id, validation);
   }
 
+  @Throttle(10, 60)
   @Post('validate')
   async validate(@Body() { email }: AuthValidateDTO) {
     return this.authService.validate(email);
