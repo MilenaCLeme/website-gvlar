@@ -35,11 +35,7 @@ export class UserService {
   }
 
   async listUsers(): Promise<User[]> {
-    return await this.prisma.user.findMany({
-      include: {
-        immobiles: true,
-      },
-    });
+    return await this.prisma.user.findMany();
   }
 
   async createUser(data: Prisma.UserCreateInput) {
