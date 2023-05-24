@@ -1,5 +1,6 @@
 import {
   IsBoolean,
+  IsInt,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -43,16 +44,19 @@ export class CreateImmobileDTO {
   footage: number;
 
   @IsNumber()
+  @IsInt()
   @Min(0)
   @IsNotEmpty()
   room: number;
 
   @IsNumber()
+  @IsInt()
   @Min(0)
   @IsNotEmpty()
   bathroom: number;
 
   @IsNumber()
+  @IsInt()
   @Min(0)
   @IsNotEmpty()
   vacancy: number;
