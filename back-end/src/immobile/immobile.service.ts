@@ -9,7 +9,11 @@ export class ImmobileService {
     return await this.prisma.immobile.findMany({
       include: {
         user: true,
-        owners: true,
+        owners: {
+          include: {
+            owner: true,
+          },
+        },
         photographs: true,
       },
     });
@@ -42,12 +46,23 @@ export class ImmobileService {
     });
   }
 
-  async update(id: number) {
-    return id;
+  async update(id: number, data: Prisma.ImmobileUpdateInput) {
+    await this.exists(id);
+    return await this.prisma.immobile.update({
+      where: {
+        id,
+      },
+      data,
+    });
   }
 
   async delete(id: number) {
-    return id;
+    await this.exists(id);
+    return this.prisma.immobile.delete({
+      where: {
+        id,
+      },
+    });
   }
 
   async exists(id: number) {
