@@ -41,7 +41,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Post('reset')
   async reset(@User('id') id: number, @Body() { password }: AuthResetDTO) {
-    console.log(id);
     return this.authService.reset(id, password);
   }
 
