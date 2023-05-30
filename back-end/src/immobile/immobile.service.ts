@@ -1,10 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
+import { ImmobileOnOwnerService } from 'src/immobileOnOwner/immobileonowner.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ImmobileService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly immobileOnOwner: ImmobileOnOwnerService,
+  ) {}
   async immobiles() {
     return await this.prisma.immobile.findMany({
       include: {
@@ -58,6 +62,7 @@ export class ImmobileService {
 
   async delete(id: number) {
     await this.exists(id);
+    await this.immobileOnOwner.deleteImmobile(id);
     return this.prisma.immobile.delete({
       where: {
         id,
