@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { AuthService } from 'src/auth/auth.service';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -35,26 +40,46 @@ export class UserService {
   }
 
   async listUsers(): Promise<User[]> {
-    return await this.prisma.user.findMany();
+    return await this.prisma.user.findMany({
+      include: {
+        immobiles: true,
+      },
+    });
   }
 
   async createUser(data: Prisma.UserCreateInput) {
-    data.hashedPassword = await bycrpt.hash(
-      data.hashedPassword,
-      await bycrpt.genSalt(),
-    );
+    try {
+      data.hashedPassword = await bycrpt.hash(
+        data.hashedPassword,
+        await bycrpt.genSalt(),
+      );
 
-    let user = await this.prisma.user.create({
-      data,
-    });
+      let user = await this.prisma.user.create({
+        data,
+      });
 
-    const { accessToken } = this.authService.createToken(user);
+      const { accessToken } = this.authService.createToken(user);
 
-    user = await this.updateUser(user.id, { hashedRefreshToken: accessToken });
+      user = await this.updateUser(user.id, {
+        hashedRefreshToken: accessToken,
+      });
 
-    await this.mailService.sendEmailConfirmtion(user, accessToken);
+      await this.mailService.sendEmailConfirmtion(user, accessToken);
 
-    return { user, accessToken };
+      return { user, accessToken };
+    } catch (error: any) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new ConflictException(
+          'O e-mail já está em uso. Por favor, escolha um e-mail diferente.',
+        );
+      }
+      throw new InternalServerErrorException(
+        'Ocorreu um erro inesperado ao cadastrar',
+      );
+    }
   }
 
   async updateUser(id: number, data: UpdatePatchUserDTO): Promise<User> {
