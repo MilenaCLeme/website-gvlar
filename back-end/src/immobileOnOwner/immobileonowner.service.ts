@@ -3,7 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { DeleteImmobileOnOwnerDTO } from './dto/delete-immobileonowner.dto';
 import { InsertImmobileOnOwnerDTO } from './dto/insert-immobileonowner.dto';
 import { OwnerService } from 'src/owner/owner.service';
-import { ImmobileService } from 'src/immobile/immobile.service';
+import { ImmobileService } from 'src/propertie/immobile.service';
 
 @Injectable()
 export class ImmobileOnOwnerService {
