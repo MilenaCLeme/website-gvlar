@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { join } from 'path';
 import { FileService } from 'src/file/file.service';
-import { PropertieService } from 'src/propertie/propertie.service';
+import { PropertyService } from 'src/property/property.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { v4 } from 'uuid';
 
@@ -13,7 +13,7 @@ import { v4 } from 'uuid';
 export class PhotographService {
   constructor(
     private readonly fileService: FileService,
-    private readonly propertieService: PropertieService,
+    private readonly propertieService: PropertyService,
     private readonly prisma: PrismaService,
   ) {}
 
@@ -23,7 +23,7 @@ export class PhotographService {
       !(
         (await this.prisma.photograph.count({
           where: {
-            immobileId: propertieId,
+            propertyId: propertieId,
           },
         })) < max
       )
@@ -39,7 +39,7 @@ export class PhotographService {
   }
 
   async uploadPhoto(
-    propertieId: number,
+    propertyId: number,
     photo: Express.Multer.File,
     describe: string,
   ) {
@@ -48,9 +48,9 @@ export class PhotographService {
 
       const path = join(__dirname, '..', '..', 'uploads', `${fileName}`);
 
-      await this.propertieService.exists(propertieId);
+      await this.propertieService.exists(propertyId);
 
-      await this.limitPhotographByPropertieId(propertieId);
+      await this.limitPhotographByPropertieId(propertyId);
 
       await this.fileService.upload(photo, path);
 
@@ -58,9 +58,9 @@ export class PhotographService {
         data: {
           url: fileName,
           describe,
-          immobile: {
+          property: {
             connect: {
-              id: propertieId,
+              id: propertyId,
             },
           },
         },

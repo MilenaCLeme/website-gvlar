@@ -28,7 +28,7 @@
     "@nestjs/mapped-types": "^1.2.2",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/throttler": "^4.0.0",
-    "@prisma/client": "^4.12.0",
+    "@prisma/client": "^4.16.1",
     "argon2": "^0.30.3",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",

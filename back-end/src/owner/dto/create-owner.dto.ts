@@ -24,5 +24,5 @@ export class CreateOwnerDTO {
   @IsNumber()
   @IsInt()
   @Min(0)
-  idImmobile: number;
+  propertyId: number;
 }

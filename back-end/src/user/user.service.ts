@@ -42,7 +42,7 @@ export class UserService {
   async listUsers(): Promise<User[]> {
     return await this.prisma.user.findMany({
       include: {
-        immobiles: true,
+        Properties: true,
       },
     });
   }

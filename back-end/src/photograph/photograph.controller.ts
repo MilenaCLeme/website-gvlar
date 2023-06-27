@@ -20,7 +20,7 @@ export class PhotographController {
   @UseInterceptors(FileInterceptor('file'))
   @Post(':id')
   async uploadPhoto(
-    @ParamId() propertieId: number,
+    @ParamId() propertyId: number,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -33,7 +33,7 @@ export class PhotographController {
     @Body('describe') describe: string,
   ) {
     return await this.photographService.uploadPhoto(
-      propertieId,
+      propertyId,
       photo,
       describe,
     );

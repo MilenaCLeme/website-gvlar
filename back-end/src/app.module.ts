@@ -5,9 +5,9 @@ import { UserModule } from './user/user.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { MailModule } from './mail/mail.module';
-import { PropertieModule } from './propertie/propertie.module';
+import { PropertyModule } from './property/property.module';
 import { OwnerModule } from './owner/owner.module';
-import { ImmobileOnOwnerModule } from './immobileOnOwner/immobileonowner.module';
+import { PropertyAndOwnerModule } from './propertyandowner/propertyandowner.module';
 import { PhotographModule } from './photograph/photograph.module';
 import { FileModule } from './file/file.module';
 
@@ -21,9 +21,9 @@ import { FileModule } from './file/file.module';
     forwardRef(() => UserModule),
     forwardRef(() => AuthModule),
     forwardRef(() => MailModule),
-    forwardRef(() => PropertieModule),
+    forwardRef(() => PropertyModule),
     forwardRef(() => OwnerModule),
-    forwardRef(() => ImmobileOnOwnerModule),
+    forwardRef(() => PropertyAndOwnerModule),
     forwardRef(() => PhotographModule),
     forwardRef(() => FileModule),
   ],

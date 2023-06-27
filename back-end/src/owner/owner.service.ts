@@ -9,19 +9,19 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateOwnerDTO } from './dto/create-owner.dto';
 import { Owner, Prisma } from '@prisma/client';
-import { PropertieService } from 'src/propertie/propertie.service';
+import { PropertyService } from 'src/property/property.service';
 import { UpdatePatchOwnerDTO } from './dto/update-patch-owner.dto';
-import { ImmobileOnOwnerService } from 'src/immobileOnOwner/immobileonowner.service';
+import { PropertyAndOwnerService } from 'src/propertyandowner/propertyandowner.service';
 
 @Injectable()
 export class OwnerService {
   constructor(
     @Inject(forwardRef(() => PrismaService))
     private readonly prisma: PrismaService,
-    @Inject(forwardRef(() => PropertieService))
-    private readonly propertieService: PropertieService,
-    @Inject(forwardRef(() => ImmobileOnOwnerService))
-    private readonly immobileOnOwner: ImmobileOnOwnerService,
+    @Inject(forwardRef(() => PropertyService))
+    private readonly propertyService: PropertyService,
+    @Inject(forwardRef(() => PropertyAndOwnerService))
+    private readonly propertyAndOwner: PropertyAndOwnerService,
   ) {}
 
   async owner(
@@ -30,9 +30,9 @@ export class OwnerService {
     return await this.prisma.owner.findUnique({
       where: userWhereUniqueInput,
       include: {
-        immobiles: {
+        properties: {
           include: {
-            immobile: true,
+            property: true,
           },
         },
       },
@@ -42,9 +42,9 @@ export class OwnerService {
   async list() {
     return await this.prisma.owner.findMany({
       include: {
-        immobiles: {
+        properties: {
           include: {
-            immobile: true,
+            property: true,
           },
         },
       },
@@ -63,26 +63,26 @@ export class OwnerService {
 
   async create(create: CreateOwnerDTO) {
     try {
-      await this.propertieService.exists(create.idImmobile);
+      await this.propertyService.exists(create.propertyId);
       return await this.prisma.owner.create({
         data: {
           name: create.name,
           email: create.email,
           phone: create.phone,
-          immobiles: {
+          properties: {
             create: {
-              immobile: {
+              property: {
                 connect: {
-                  id: create.idImmobile,
+                  id: create.propertyId,
                 },
               },
             },
           },
         },
         include: {
-          immobiles: {
+          properties: {
             include: {
-              immobile: true,
+              property: true,
               owner: true,
             },
           },
@@ -120,7 +120,7 @@ export class OwnerService {
 
   async detele(id: number) {
     await this.exists(id);
-    await this.immobileOnOwner.deleteOwner(id);
+    await this.propertyAndOwner.deleteOwner(id);
     return await this.prisma.owner.delete({
       where: {
         id,
