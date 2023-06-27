@@ -9,7 +9,7 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateOwnerDTO } from './dto/create-owner.dto';
 import { Owner, Prisma } from '@prisma/client';
-import { ImmobileService } from 'src/immobile/immobile.service';
+import { ImmobileService } from 'src/propertie/immobile.service';
 import { UpdatePatchOwnerDTO } from './dto/update-patch-owner.dto';
 import { ImmobileOnOwnerService } from 'src/immobileOnOwner/immobileonowner.service';
 
@@ -49,6 +49,11 @@ export class OwnerService {
         },
       },
     });
+  }
+
+  async showEmail(email: string) {
+    await this.existsEmail(email);
+    return await this.owner({ email });
   }
 
   async showId(id: number) {
@@ -132,6 +137,18 @@ export class OwnerService {
       }))
     ) {
       throw new NotFoundException(`O ${id} não existe`);
+    }
+  }
+
+  async existsEmail(email: string) {
+    if (
+      !(await this.prisma.owner.count({
+        where: {
+          email,
+        },
+      }))
+    ) {
+      throw new NotFoundException(`O ${email} não existe`);
     }
   }
 }
