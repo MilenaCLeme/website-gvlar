@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { join } from 'path';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { MailService } from './mail.service';
+import { MailController } from './mail.controller';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { MailService } from './mail.service';
       inject: [ConfigService],
     }),
   ],
-  controllers: [],
+  controllers: [MailController],
   providers: [MailService],
   exports: [MailService],
 })
