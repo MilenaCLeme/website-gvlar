@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { join } from 'path';
 import { FileService } from 'src/file/file.service';
-import { ImmobileService } from 'src/propertie/immobile.service';
+import { PropertieService } from 'src/propertie/propertie.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { v4 } from 'uuid';
 
@@ -13,7 +13,7 @@ import { v4 } from 'uuid';
 export class PhotographService {
   constructor(
     private readonly fileService: FileService,
-    private readonly immobileService: ImmobileService,
+    private readonly propertieService: PropertieService,
     private readonly prisma: PrismaService,
   ) {}
 
@@ -48,7 +48,7 @@ export class PhotographService {
 
       const path = join(__dirname, '..', '..', 'uploads', `${fileName}`);
 
-      await this.immobileService.exists(propertieId);
+      await this.propertieService.exists(propertieId);
 
       await this.limitPhotographByPropertieId(propertieId);
 

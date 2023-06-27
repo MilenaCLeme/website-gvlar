@@ -3,7 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { DeleteImmobileOnOwnerDTO } from './dto/delete-immobileonowner.dto';
 import { InsertImmobileOnOwnerDTO } from './dto/insert-immobileonowner.dto';
 import { OwnerService } from 'src/owner/owner.service';
-import { ImmobileService } from 'src/propertie/immobile.service';
+import { PropertieService } from 'src/propertie/propertie.service';
 
 @Injectable()
 export class ImmobileOnOwnerService {
@@ -12,8 +12,8 @@ export class ImmobileOnOwnerService {
     private readonly prisma: PrismaService,
     @Inject(forwardRef(() => OwnerService))
     private readonly owner: OwnerService,
-    @Inject(forwardRef(() => ImmobileService))
-    private readonly immobile: ImmobileService,
+    @Inject(forwardRef(() => PropertieService))
+    private readonly propertie: PropertieService,
   ) {}
 
   async deleteOwner(id: number) {
@@ -25,7 +25,7 @@ export class ImmobileOnOwnerService {
   }
 
   async delete(immobileId_ownerId: DeleteImmobileOnOwnerDTO) {
-    await this.immobile.exists(immobileId_ownerId.immobileId);
+    await this.propertie.exists(immobileId_ownerId.immobileId);
     await this.owner.exists(immobileId_ownerId.ownerId);
     return this.prisma.immobileOnOwner.delete({
       where: {
@@ -35,7 +35,7 @@ export class ImmobileOnOwnerService {
   }
 
   async insert(data: InsertImmobileOnOwnerDTO) {
-    await this.immobile.exists(data.immobileId);
+    await this.propertie.exists(data.immobileId);
     await this.owner.exists(data.ownerId);
     return await this.prisma.immobileOnOwner.create({
       data,

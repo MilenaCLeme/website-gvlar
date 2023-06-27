@@ -9,7 +9,7 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateOwnerDTO } from './dto/create-owner.dto';
 import { Owner, Prisma } from '@prisma/client';
-import { ImmobileService } from 'src/propertie/immobile.service';
+import { PropertieService } from 'src/propertie/propertie.service';
 import { UpdatePatchOwnerDTO } from './dto/update-patch-owner.dto';
 import { ImmobileOnOwnerService } from 'src/immobileOnOwner/immobileonowner.service';
 
@@ -18,8 +18,8 @@ export class OwnerService {
   constructor(
     @Inject(forwardRef(() => PrismaService))
     private readonly prisma: PrismaService,
-    @Inject(forwardRef(() => ImmobileService))
-    private readonly immobileService: ImmobileService,
+    @Inject(forwardRef(() => PropertieService))
+    private readonly propertieService: PropertieService,
     @Inject(forwardRef(() => ImmobileOnOwnerService))
     private readonly immobileOnOwner: ImmobileOnOwnerService,
   ) {}
@@ -63,7 +63,7 @@ export class OwnerService {
 
   async create(create: CreateOwnerDTO) {
     try {
-      await this.immobileService.exists(create.idImmobile);
+      await this.propertieService.exists(create.idImmobile);
       return await this.prisma.owner.create({
         data: {
           name: create.name,

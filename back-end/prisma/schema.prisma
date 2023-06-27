@@ -14,19 +14,19 @@ model User {
   id                  Int       @id @default(autoincrement())
   email               String    @unique @db.VarChar(127)
   name                String    @db.VarChar(127)
-  hashedPassword      String    @db.VarChar(127)
+  hashedPassword      String    @db.VarChar(150)
   hashedRefreshToken  String?   @db.VarChar(250)
   phone               String    @db.VarChar(15)
   validation          Boolean   @default(false)
   role                String    @default("client")
   createdAt           DateTime  @default(now()) @db.Timestamp(0)
   updatedAt           DateTime  @default(now()) @updatedAt
-  Properties          Propertie[]
+  Properties          Property[]
 
   @@map("user")
 }
 
-model Propertie {
+model Property {
   id                Int           @id @default(autoincrement())
   published         Boolean       @default(false)
   type              String
@@ -53,17 +53,17 @@ model Propertie {
   createdAt         DateTime      @default(now()) @db.Timestamp(0)
   updatedAt         DateTime      @default(now()) @updatedAt
   photographs       Photograph[]
-  owners            PropertieAndOwner[]
+  owners            PropertyAndOwner[]
 
-  @@map("propertie")
+  @@map("property")
 }
 
 model Photograph {
   id            Int         @id @default(autoincrement())
   describe      String      @db.VarChar(100)
   url           String
-  propertie     Propertie?   @relation(fields: [propertieId], references: [id])
-  propertieId   Int?
+  property      Property?   @relation(fields: [propertyId], references: [id])
+  propertyId    Int?
 
   @@map("photograph")
 }
@@ -82,18 +82,18 @@ model Owner {
   name          String    @db.VarChar(127)
   email         String    @unique @db.VarChar(127)
   phone         String    @db.VarChar(15)
-  properties    PropertieAndOwner[]
+  properties    PropertyAndOwner[]
 
   @@map("owner")
 }
 
-model PropertieAndOwner {
-  propertie     Propertie  @relation(fields: [propertieId], references: [id])
-  propertieId   Int
+model PropertyAndOwner {
+  property      Property  @relation(fields: [propertyId], references: [id])
+  propertyId    Int
   owner         Owner     @relation(fields: [ownerId], references: [id])
   ownerId       Int
 
-  @@id([propertieId, ownerId])
+  @@id([propertyId, ownerId])
 
-  @@map("propertieandowner")
+  @@map("propertyandowner")
 }
