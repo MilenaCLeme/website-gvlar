@@ -5,9 +5,11 @@ import { UserModule } from './user/user.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { MailModule } from './mail/mail.module';
-import { ImmobileModule } from './immobile/immobile.module';
+import { PropertieModule } from './propertie/propertie.module';
 import { OwnerModule } from './owner/owner.module';
 import { ImmobileOnOwnerModule } from './immobileOnOwner/immobileonowner.module';
+import { PhotographModule } from './photograph/photograph.module';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -19,9 +21,11 @@ import { ImmobileOnOwnerModule } from './immobileOnOwner/immobileonowner.module'
     forwardRef(() => UserModule),
     forwardRef(() => AuthModule),
     forwardRef(() => MailModule),
-    forwardRef(() => ImmobileModule),
+    forwardRef(() => PropertieModule),
     forwardRef(() => OwnerModule),
     forwardRef(() => ImmobileOnOwnerModule),
+    forwardRef(() => PhotographModule),
+    forwardRef(() => FileModule),
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
