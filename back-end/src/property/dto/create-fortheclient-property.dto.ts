@@ -7,15 +7,20 @@ import {
   IsPostalCode,
   IsString,
   Min,
+  Validate,
 } from 'class-validator';
+import { IsAboutValidConstraint } from 'src/validators/isaboutvalidconstraint';
+import { IsTypePropertyValidConstraint } from 'src/validators/istypepropertyvalidconstraint';
 
 export class CreateForTheClientPropertyDTO {
   @IsString()
   @IsNotEmpty()
+  @Validate(IsTypePropertyValidConstraint)
   type: string;
 
   @IsString()
   @IsNotEmpty()
+  @Validate(IsAboutValidConstraint)
   about: string;
 
   @IsNumberString()

@@ -26,7 +26,7 @@ import { UpdatePatchForTheClientPropertyDTO } from './dto/update-patch-forthecli
 import { FilterPagePropertyDTO } from './dto/filter-page-property.dto';
 
 @UseInterceptors(LogInterceptor)
-@Controller('property')
+@Controller('properties')
 export class PropertyController {
   constructor(private readonly propertyService: PropertyService) {}
 
@@ -41,7 +41,7 @@ export class PropertyController {
   @Roles(Role.master)
   @Get()
   async list() {
-    return await this.propertyService.properties();
+    return await this.propertyService.list();
   }
 
   @UseGuards(AuthGuard, RoleGuard)
@@ -75,7 +75,7 @@ export class PropertyController {
   }
 
   @UseGuards(AuthGuard, RoleGuard)
-  @Roles(Role.master, Role.client)
+  @Roles(Role.master, Role.client, Role.worker)
   @Post('fortheclient')
   async createPropertieForTheClient(
     @Body() data: CreateForTheClientPropertyDTO,
@@ -85,13 +85,21 @@ export class PropertyController {
   }
 
   @UseGuards(AuthGuard, RoleGuard)
-  @Roles(Role.master, Role.client)
+  @Roles(Role.master, Role.client, Role.worker)
   @Put('fortheclient/:id')
   async updatePropertieForTheClient(
+    @User('id') userId: number,
     @ParamId() id: number,
     @Body() data: UpdatePatchForTheClientPropertyDTO,
   ) {
-    return await this.propertyService.update(id, data);
+    return await this.propertyService.updateClient(userId, id, data);
+  }
+
+  @UseGuards(AuthGuard, RoleGuard)
+  @Roles(Role.master, Role.client, Role.worker)
+  @Delete('fortheclient/requestdelete/:id')
+  async requestDelete(@ParamId() id: number, @User('id') userId: number) {
+    return await this.propertyService.requestDelete(id, userId);
   }
 
   @Post('pagewithfilter/:id')
@@ -100,5 +108,15 @@ export class PropertyController {
     @Body() data: FilterPagePropertyDTO,
   ) {
     return await this.propertyService.pageWithFilter(id, data);
+  }
+
+  @Get('pageproperty/:id')
+  async pageProperty(@ParamId() id: number) {
+    return await this.propertyService.pageProperty(id);
+  }
+
+  @Get('pageproperty/randomproperty')
+  async getRandomProperties() {
+    return await this.propertyService.getRandomProperties();
   }
 }
