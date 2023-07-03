@@ -114,4 +114,9 @@ export class PropertyController {
   async pageProperty(@ParamId() id: number) {
     return await this.propertyService.pageProperty(id);
   }
+
+  @Get('random/list')
+  async getRandomProperties() {
+    return await this.propertyService.getRandomProperties();
+  }
 }

@@ -3,6 +3,7 @@ import { Prisma, User, Property } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { FilterPagePropertyDTO } from './dto/filter-page-property.dto';
 import { PropertyAndOwnerService } from 'src/propertyandowner/propertyandowner.service';
+import { shuffle } from 'lodash';
 
 @Injectable()
 export class PropertyService {
@@ -205,8 +206,28 @@ export class PropertyService {
     return await this.prisma.property.findFirst({
       where: {
         id,
+        published: true,
       },
       select: this.select,
     });
+  }
+
+  async getRandomProperties() {
+    try {
+      const properties = await this.properties({
+        where: {
+          published: true,
+        },
+        select: this.select,
+      });
+
+      const suffledProperties = shuffle(properties);
+
+      const randomProperties = suffledProperties.slice(0, 10);
+
+      return randomProperties;
+    } catch (error) {
+      new NotFoundException('Erro ao buscar propriedades aleatórias');
+    }
   }
 }
