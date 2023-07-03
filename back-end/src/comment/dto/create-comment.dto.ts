@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, Validate } from 'class-validator';
+import { IsTypeCommentValidConstraint } from 'src/validators/istypecommentvalidconstraint';
 
 export class CreateCommentDTO {
   @IsString()
@@ -7,6 +8,7 @@ export class CreateCommentDTO {
 
   @IsString()
   @IsNotEmpty()
+  @Validate(IsTypeCommentValidConstraint)
   type: string;
 
   @IsString()

@@ -1,9 +1,26 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Patch,
+  Post,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { CreateCommentDTO } from './dto/create-comment.dto';
 import { ParamId } from 'src/decorators/param-id.decorator';
 import { UpdatePatchCommmentDTO } from './dto/update-patch-comment.dto';
 import { CommentService } from './comment.service';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { RoleGuard } from 'src/guards/role.guard';
+import { Roles } from 'src/decorators/roles.decorator';
+import { Role } from 'src/enums/role.enum';
+import { LogInterceptor } from 'src/interceptors/log.interceptor';
 
+@UseGuards(AuthGuard, RoleGuard)
+@Roles(Role.master, Role.worker)
+@UseInterceptors(LogInterceptor)
 @Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
@@ -23,7 +40,7 @@ export class CommentController {
     return await this.commentService.showId(id);
   }
 
-  @Patch('id')
+  @Patch(':id')
   async updatePartial(
     @ParamId() id: number,
     @Body() data: UpdatePatchCommmentDTO,
@@ -31,7 +48,7 @@ export class CommentController {
     return await this.commentService.update(id, data);
   }
 
-  @Delete('id')
+  @Delete(':id')
   async delete(@ParamId() id: number) {
     return await this.commentService.delete(id);
   }
