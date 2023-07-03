@@ -8,11 +8,19 @@ import {
   FileTypeValidator,
   MaxFileSizeValidator,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PhotographService } from './photograph.service';
 import { ParamId } from 'src/decorators/param-id.decorator';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { RoleGuard } from 'src/guards/role.guard';
+import { User } from 'src/decorators/user.decorator';
+import { User as typeUser } from '@prisma/client';
+import { LogInterceptor } from 'src/interceptors/log.interceptor';
 
+@UseGuards(AuthGuard, RoleGuard)
+@UseInterceptors(LogInterceptor)
 @Controller('photo')
 export class PhotographController {
   constructor(private readonly photographService: PhotographService) {}
@@ -20,6 +28,7 @@ export class PhotographController {
   @UseInterceptors(FileInterceptor('file'))
   @Post(':id')
   async uploadPhoto(
+    @User() user: typeUser,
     @ParamId() propertyId: number,
     @UploadedFile(
       new ParseFilePipe({
@@ -33,6 +42,7 @@ export class PhotographController {
     @Body('describe') describe: string,
   ) {
     return await this.photographService.uploadPhoto(
+      user,
       propertyId,
       photo,
       describe,

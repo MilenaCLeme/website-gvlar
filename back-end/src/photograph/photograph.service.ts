@@ -8,6 +8,7 @@ import { FileService } from 'src/file/file.service';
 import { PropertyService } from 'src/property/property.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { v4 } from 'uuid';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class PhotographService {
@@ -39,6 +40,7 @@ export class PhotographService {
   }
 
   async uploadPhoto(
+    user: User,
     propertyId: number,
     photo: Express.Multer.File,
     describe: string,
@@ -49,6 +51,10 @@ export class PhotographService {
       const path = join(__dirname, '..', '..', 'uploads', `${fileName}`);
 
       await this.propertieService.exists(propertyId);
+
+      if (user.role === 'client') {
+        await this.propertieService.releaseAuth(propertyId, user.id);
+      }
 
       await this.limitPhotographByPropertieId(propertyId);
 
