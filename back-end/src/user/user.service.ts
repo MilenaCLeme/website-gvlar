@@ -24,7 +24,14 @@ export class UserService {
   ): Promise<User | null> {
     return await this.prisma.user.findUnique({
       where: userWhereUniqueInput,
+      include: {
+        Properties: true,
+      },
     });
+  }
+
+  async users(params: Prisma.UserFindManyArgs) {
+    return await this.prisma.user.findMany(params);
   }
 
   async showId(id: number) {
@@ -40,11 +47,7 @@ export class UserService {
   }
 
   async listUsers(): Promise<User[]> {
-    return await this.prisma.user.findMany({
-      include: {
-        Properties: true,
-      },
-    });
+    return await this.users({});
   }
 
   async createUser(data: Prisma.UserCreateInput) {
@@ -115,26 +118,18 @@ export class UserService {
     });
   }
 
+  async countUser(where: Prisma.UserWhereUniqueInput): Promise<number> {
+    return await this.prisma.user.count({ where });
+  }
+
   async exists(id: number) {
-    if (
-      !(await this.prisma.user.count({
-        where: {
-          id,
-        },
-      }))
-    ) {
+    if (!(await this.countUser({ id }))) {
       throw new NotFoundException(`O usuário ${id} não existe`);
     }
   }
 
   async existsEmail(email: string) {
-    if (
-      !(await this.prisma.user.count({
-        where: {
-          email,
-        },
-      }))
-    ) {
+    if (!(await this.countUser({ email }))) {
       throw new NotFoundException(`O usuário no email ${email} não existe`);
     }
   }
