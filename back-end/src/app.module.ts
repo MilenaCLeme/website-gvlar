@@ -1,4 +1,4 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module, OnModuleInit, forwardRef } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
@@ -10,6 +10,9 @@ import { OwnerModule } from './owner/owner.module';
 import { PropertyAndOwnerModule } from './propertyandowner/propertyandowner.module';
 import { PhotographModule } from './photograph/photograph.module';
 import { FileModule } from './file/file.module';
+import { InitialUserService } from './user/initial-user/initial-user.service';
+import { PrismaService } from './prisma/prisma.service';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -26,9 +29,20 @@ import { FileModule } from './file/file.module';
     forwardRef(() => PropertyAndOwnerModule),
     forwardRef(() => PhotographModule),
     forwardRef(() => FileModule),
+    forwardRef(() => CommentModule),
   ],
   controllers: [],
-  providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
+  providers: [
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
+    PrismaService,
+    InitialUserService,
+  ],
   exports: [],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(private readonly initialUserService: InitialUserService) {}
+
+  async onModuleInit() {
+    await this.initialUserService.createInitialUser();
+  }
+}
