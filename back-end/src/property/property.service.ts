@@ -209,37 +209,4 @@ export class PropertyService {
       select: this.select,
     });
   }
-
-  async getRandomProperties() {
-    try {
-      const where: Prisma.PropertyWhereInput = {
-        AND: [{ published: { equals: true } }],
-      };
-
-      const count = await this.prisma.property.count({ where });
-
-      console.log(count);
-
-      const randomIndexes = [];
-      while (randomIndexes.length < 10) {
-        const randomIndex = Math.floor(Math.random() * count) + 1;
-        if (!randomIndexes.includes(randomIndex)) {
-          randomIndexes.push(randomIndex);
-        }
-      }
-
-      const randomProperties = await this.properties({
-        where: {
-          id: {
-            in: randomIndexes,
-          },
-        },
-        select: this.select,
-      });
-
-      return randomProperties;
-    } catch (error) {
-      throw new NotFoundException('Erro ao buscar propriedades aleatórias');
-    }
-  }
 }
