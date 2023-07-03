@@ -12,18 +12,21 @@ export class MailService {
   ) {}
 
   async sendEmail(data: MailSendDTO) {
-    return await this.mailerService.sendMail({
+    await this.mailerService.sendMail({
       to: this.configService.get('MAIL_USER'),
-      from: data.email,
-      subject: data.subject,
+      from: this.configService.get('MAIL_USER'),
+      subject: `${data.email} enviado pelo site assunto ${data.subject}`,
       template: './sendemail',
       context: {
+        email: data.email,
         name: data.name,
         phone: data.phone,
         subject: data.subject,
         text: data.text,
       },
     });
+
+    return { sucess: 'ok' };
   }
 
   async sendEmailConfirmtion(user: User, token: string) {
