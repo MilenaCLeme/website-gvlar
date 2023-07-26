@@ -1,0 +1,36 @@
+.main {
+  height: 36.875rem;
+  flex-shrink: 0;
+  margin-top: 6.44rem;
+  position: relative;
+}
+
+.title {
+  color: var(--cor-destaque, $orange);
+  font-family: Helvetica;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+  margin-top: 0.87rem;
+  margin-left: 11.75rem;
+}
+
+.container {
+  display: flex;
+  margin-left: 11.75rem;
+  margin-top: 3.75rem;
+}
+
+.img {
+  background-image: url('../../assets/loginandregister/img.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 21.97538rem;
+  height: 38.0625rem;
+  flex-shrink: 0;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+}

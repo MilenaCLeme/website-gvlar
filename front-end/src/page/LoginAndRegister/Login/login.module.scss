@@ -1,0 +1,112 @@
+.login {
+  display: flex;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 25.8125rem;
+    height: 11.8125rem;
+    align-items: flex-end;
+    margin-left: 1.25rem;
+
+    h3 {
+      color: var(--cor-destaque, $orange);
+      font-family: Helvetica;
+      font-size: 1.25rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      margin-bottom: 1.31rem;
+    }
+
+    input {
+      width: 25.8125rem;
+      height: 1.5625rem;
+      flex-shrink: 0;
+      border-radius: 0.625rem;
+      border: 2px solid var(--cor-escura, $dark);
+      background: var(--cor-clara, $white);
+      color: var(--cor-medio, $gray);
+      font-family: Helvetica;
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      outline: none;
+    }
+
+    &__alert {
+      font-family: Helvetica;
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      color: $red;
+      margin-top: 0.18rem;
+    }
+
+    &__margin {
+      margin-bottom: 1.56rem;
+    }
+
+    a {
+      color: var(--cor-medio, $gray);
+      font-family: Helvetica;
+      font-size: 0.75rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      text-decoration-line: underline;
+      margin-top: 0.2rem;
+
+      &:hover {
+        color: $orange;
+      }
+    }
+
+    button {
+      width: 12.3125rem;
+      height: 1.875rem;
+      flex-shrink: 0;
+      border-radius: 1.5625rem;
+      border: 3px solid var(--cor-escura, $dark);
+      background: var(--cor-clara, $white);
+      color: var(--cor-destaque, $orange);
+      font-family: Helvetica;
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      text-transform: uppercase;
+      margin-top: 1.81rem;
+      box-shadow: -0.5em 0.5em 1em $gray;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $orange;
+        color: $white;
+        box-shadow: none;
+      }
+
+      &:disabled {
+        cursor: default;
+        background-color: $gray;
+        color: $dark;
+        box-shadow: none;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  &__message {
+    font-family: Helvetica;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: $dark;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    color: $red;
+  }
+}
