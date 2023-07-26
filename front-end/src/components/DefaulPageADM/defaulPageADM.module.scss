@@ -1,0 +1,82 @@
+.container {
+  width: 100%;
+  min-height: 36.875rem;
+  height: auto;
+  flex-shrink: 0;
+  margin-top: 5.31rem;
+  margin-bottom: 1.13rem;
+
+  &__display {
+    display: flex;
+    width: 100%;
+    height: auto;
+  }
+
+  &__title {
+    display: flex;
+    width: auto;
+    height: 4.66463rem;
+    flex-shrink: 0;
+    align-items: center;
+    margin-left: 5.81rem;
+
+    svg {
+      width: 4.66463rem;
+      height: 4.66463rem;
+      flex-shrink: 0;
+      margin-right: 1.27rem;
+    }
+
+    h1 {
+      color: var(--cor-destaque, $orange);
+      font-family: Helvetica;
+      font-size: 2rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      margin-right: 1.27rem;
+    }
+
+    &__button {
+      display: flex;
+      align-items: center;
+      border: none;
+      background-color: transparent;
+      color: var(--cor-clara, $orange);
+      font-family: Helvetica;
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      cursor: pointer;
+
+      &__svg {
+        width: 1.875rem;
+        height: 3.63638rem;
+        flex-shrink: 0;
+        margin-right: 0.5rem;
+        background-image: url('../../assets/adm/login/loginOrange.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    }
+  }
+}
+
+.container__title__button:hover {
+  color: $dark;
+
+  .container__title__button__svg {
+    background-image: url('../../assets/adm/login/loginDark.svg');
+  }
+}
+
+.menu {
+  flex-basis: 50rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.main {
+  flex-basis: 100%;
+}
