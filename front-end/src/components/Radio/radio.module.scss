@@ -1,0 +1,32 @@
+.radio_input {
+  position: absolute;
+  opacity: 0;
+  display: none;
+}
+
+.radio_container {
+  min-width: 6.375rem;
+  height: 1rem;
+  flex-shrink: 0;
+  display: flex;
+  color: $white;
+  text-align: right;
+  font-family: Helvetica;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  align-items: baseline;
+
+  span {
+    margin-right: 0.62rem;
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 0.625rem;
+      height: 0.625rem;
+      flex-shrink: 0;
+    }
+  }
+}
