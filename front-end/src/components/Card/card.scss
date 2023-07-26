@@ -1,0 +1,43 @@
+.slick-dots {
+  /* Define o tamanho dos dots */
+  margin-bottom: 0.5rem;
+  bottom: 0;
+
+  li {
+    width: 6px;
+    height: 6px;
+    list-style-type: none;
+    background: transparent;
+  }
+
+  /* Define a cor de fundo dos dots inativos */
+  li:not(.slick-active) {
+    button {
+      width: 1px;
+      height: 1px;
+      flex-shrink: 0;
+      background-image: url('../../assets/checkbox/checkedFalse.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+
+  /* Define a cor de preenchimento (background) do dot ativo */
+  li.slick-active {
+    button {
+      width: 1px;
+      height: 1px;
+      background-image: url('../../assets/checkbox/checkedTrue.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+}
+
+.slick-dots li button:before {
+  color: transparent;
+}
+
+.slick-dots li.slick-active button:before {
+  color: transparent;
+}
