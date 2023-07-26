@@ -1,0 +1,60 @@
+.contanier {
+  width: 23.75rem;
+  height: 24rem;
+  flex-shrink: 0;
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-left: 4.31rem;
+
+  img {
+    width: 11.5625rem;
+    height: 11.5625rem;
+    flex-shrink: 0;
+    position: absolute;
+  }
+
+  &__card {
+    width: 23.75rem;
+    height: 17.5rem;
+    flex-shrink: 0;
+    border-radius: 1.5625rem;
+    border: 3px solid var(--cor-destaque, $orange);
+    margin-top: 6.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    p {
+      display: flex;
+      width: 20.5625rem;
+      height: 9rem;
+      flex-direction: column;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--cor-escura, $dark);
+      text-align: center;
+      font-family: Helvetica;
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-top: 5.56rem;
+      text-align: center;
+      margin-right: 1.56rem;
+    }
+
+    span {
+      color: var(--cor-escura, $dark);
+      font-family: Helvetica;
+      font-size: 0.75rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-top: 0.5rem;
+      margin-right: 2.44rem;
+    }
+  }
+}

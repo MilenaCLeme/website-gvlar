@@ -1,0 +1,54 @@
+.container {
+  position: absolute;
+  z-index: 1;
+  height: 8.1875rem;
+  width: 100%;
+
+  &__logo {
+    margin-top: 9.31rem;
+    margin-left: 5.87rem;
+
+    svg {
+      width: 9.4375rem;
+      height: 10.0625rem;
+      flex-shrink: 0;
+      margin-bottom: 0.81rem;
+      filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.45));
+    }
+
+    h1 {
+      width: 24.5rem;
+      color: var(--cor-destaque, $orange);
+      font-family: Helvetica;
+      font-size: 2.375rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 118.49%; /* 45.026px */
+      margin-bottom: 0.81rem;
+      text-shadow: 3px 3px 10px $dark;
+    }
+
+    p {
+      display: flex;
+      width: 22.25rem;
+      height: 3.1875rem;
+      flex-direction: column;
+      justify-content: center;
+      flex-shrink: 0;
+      color: $white;
+      font-family: Helvetica;
+      font-size: 1.25rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 118.49%; /* 23.698px */
+      text-shadow: 3px 3px 10px $dark;
+    }
+  }
+
+  &__filter {
+    width: 100%;
+    margin-top: 10.44rem;
+    display: flex;
+    justify-content: center;
+  }
+}

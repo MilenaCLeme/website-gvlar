@@ -1,0 +1,118 @@
+.container {
+  width: 100%;
+  height: 48rem;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title_announce {
+  display: flex;
+  width: 48.75rem;
+  height: 5.625rem;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--cor-destaque, $orange);
+  text-align: center;
+  font-family: Helvetica;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+  margin-top: 4.81rem;
+  margin-bottom: 2.44rem;
+}
+
+.container_announce {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 8.25rem;
+}
+
+.container_photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 7.56rem;
+
+  img {
+    width: 30rem;
+    height: 22.9375rem;
+    flex-shrink: 0;
+  }
+
+  button {
+    display: flex;
+    width: 17.1875rem;
+    height: 3.125rem;
+    padding-bottom: 0px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 0.9375rem;
+    border: 3px solid var(--cor-clara, $white);
+    background: var(--cor-destaque, $orange);
+    box-shadow: 5px 5px 5px 0px $dark;
+    color: $white;
+    text-align: center;
+    font-family: Helvetica;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+
+    &:hover {
+      cursor: pointer;
+      border-color: $dark;
+      color: $dark;
+    }
+  }
+}
+
+.container_group {
+  width: 36.25rem;
+  height: 23.81613rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.container_text {
+  display: flex;
+
+  svg {
+    width: 2.91456rem;
+    height: 3.26906rem;
+    flex-shrink: 0;
+    margin-right: 1.82rem;
+  }
+
+  &__info {
+    width: 31.51381rem;
+    height: 3.52175rem;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      display: flex;
+      width: 6.375rem;
+      height: 1.09294rem;
+      flex-direction: column;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--cor-destaque, $orange);
+      font-family: Helvetica;
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      margin-bottom: 0.3rem;
+    }
+  }
+}

@@ -1,0 +1,146 @@
+.form {
+  width: 45rem;
+  height: 3.01269rem;
+  flex-shrink: 0;
+  border-radius: 0.625rem;
+  background: rgba(85, 85, 85, 0.5);
+  mix-blend-mode: multiply;
+  border: 2px solid $white;
+  display: flex;
+  align-items: center;
+}
+
+.select_input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin-left: 1.94rem;
+  margin-right: 1.25rem;
+  width: 7.3125rem;
+  height: 1.625rem;
+  flex-shrink: 0;
+  border-radius: 3.125rem;
+  border: 3px solid $dark;
+  background: $white;
+  fill: var(--cor-escura, $dark);
+  color: $gray;
+  font-family: Helvetica;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 0.19rem;
+  background: url('../../../assets/home/arrow.svg') no-repeat calc(100% - 8px) center / 16px #fff;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.text_input {
+  width: 13.875rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  border-radius: 3.125rem;
+  border: 3px solid $dark;
+  background: $white;
+  display: flex;
+  align-items: center;
+  margin-right: 0.81rem;
+
+  input {
+    border: none;
+    height: 90%;
+    padding: 0;
+    width: 80%;
+    outline: none;
+
+    &::placeholder {
+      display: flex;
+      width: 8.625rem;
+      height: 0.875rem;
+      flex-direction: column;
+      justify-content: center;
+      flex-shrink: 0;
+      color: $gray;
+      text-align: right;
+      font-family: Helvetica;
+      font-size: 0.75rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+
+  svg {
+    width: 0.83469rem;
+    height: 0.75rem;
+    flex-shrink: 0;
+    margin-left: 0.37rem;
+    margin-right: 0.42rem;
+  }
+}
+
+.container_checks {
+  width: 7.1875rem;
+  height: 2.3125rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 1.25rem;
+
+  label {
+    cursor: pointer;
+  }
+}
+
+.button_submit {
+  width: 8.85938rem;
+  height: 1.875rem;
+  flex-shrink: 0;
+  border-radius: 0.3125rem;
+  border: 3px solid $dark;
+  background: $white;
+  box-shadow:
+    -5px 5px 5px 0px rgba(36, 32, 33, 0.5),
+    -5px 5px 5px 0px rgba(36, 32, 33, 0.5) inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor-escura, $dark);
+  text-align: right;
+  font-family: Helvetica;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  &__svg {
+    width: 1.46069rem;
+    height: 1.3125rem;
+    transform: rotate(5deg);
+    flex-shrink: 0;
+    margin-left: 0.81rem;
+    background-image: url('../../../assets/iconsAll/magnifyingGlass/magnifyingGlassColor.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
+.button_submit:hover {
+  cursor: pointer;
+  box-shadow: none;
+  background-color: $orange;
+  color: $white;
+
+  .button_submit__svg {
+    background-image: url('../../../assets/iconsAll/magnifyingGlass/magnifyingGlassWhite.svg');
+  }
+}
+
+.text_input:focus-within {
+  /* Estilos para quando o <input> estiver em foco */
+  border-color: $orange;
+}

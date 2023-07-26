@@ -1,0 +1,98 @@
+.container {
+  height: 72.5rem;
+  background-image: url('../../../img/home/livingroom.png');
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+
+  &::after {
+    content: '';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 8;
+  }
+
+  &__company {
+    display: flex;
+    justify-content: center;
+    height: 30rem;
+    margin-top: 1.13rem;
+    margin-left: 5.37rem;
+    margin-right: 5.56rem;
+    margin-bottom: 7.81rem;
+
+    &__logo {
+      margin-right: 15.35rem;
+      svg {
+        display: flex;
+        width: 27.64706rem;
+        height: 30rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+      }
+    }
+
+    &__about {
+      display: flex;
+      width: 36.0625rem;
+      height: 10.25rem;
+      flex-direction: column;
+      justify-content: center;
+      flex-shrink: 0;
+      color: $dark;
+      text-align: right;
+      font-family: Helvetica;
+      font-size: 1.125rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 0.94rem;
+    }
+
+    &__all {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+
+  &__client {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+      display: flex;
+      width: 36.25rem;
+      height: 4.6875rem;
+      flex-direction: column;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--cor-destaque, $orange);
+      text-align: center;
+      font-family: Helvetica;
+      font-size: 2rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      text-transform: uppercase;
+    }
+
+    &__box {
+      display: flex;
+      margin-top: 3.25rem;
+      width: 100%;
+      justify-content: space-evenly;
+    }
+  }
+}
