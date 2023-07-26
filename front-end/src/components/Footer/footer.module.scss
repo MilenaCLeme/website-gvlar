@@ -1,0 +1,402 @@
+.footer {
+  height: 311px;
+  background: $gray;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+
+  &__logo {
+    width: 161px;
+    height: 171px;
+    margin-right: 50px;
+  }
+}
+
+.container_one {
+  width: 353px;
+  height: 250px;
+  border-right: 2px solid white;
+  margin-right: 50px;
+
+  &__link_address {
+    text-decoration: none;
+    display: flex;
+    width: 303px;
+    height: 49px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+    margin-right: 50px;
+    margin-bottom: 40px;
+
+    &__svg {
+      width: 30px;
+      height: 38.593px;
+      flex-shrink: 0;
+      background-image: url('../../assets/footer/gps/gps.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    &__title {
+      display: flex;
+      width: 253px;
+      height: 49px;
+      flex-direction: column;
+      justify-content: center;
+      flex-shrink: 0;
+      color: $white;
+      font-family: Helvetica;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      text-transform: uppercase;
+    }
+  }
+
+  &__creci {
+    width: 158px;
+    height: 58.182px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-family: Helvetica;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+
+    svg {
+      margin-right: 20px;
+    }
+  }
+
+  &__clock {
+    width: 250px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      margin-right: 20px;
+    }
+
+    &__text {
+      width: 200px;
+      height: 54px;
+
+      h6 {
+        color: $white;
+        font-family: Helvetica;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-bottom: 4px;
+      }
+
+      p {
+        display: flex;
+        width: 200px;
+        height: 34px;
+        flex-direction: column;
+        justify-content: center;
+        flex-shrink: 0;
+        color: $white;
+        font-family: Helvetica;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+    }
+  }
+}
+
+.container_two {
+  width: 353px;
+  height: 250px;
+  border-right: 2px solid white;
+  margin-right: 50px;
+
+  &__phone {
+    display: flex;
+    width: 303px;
+    height: 49px;
+    align-items: center;
+    text-decoration: none;
+    margin-bottom: 40px;
+
+    &__svg {
+      width: 30px;
+      height: 30.08px;
+      background-image: url('../../assets/footer/whatsapp/whatsappwhite.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin-right: 28px;
+    }
+
+    &__about {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      &__number {
+        color: $white;
+        text-align: center;
+        font-family: Helvetica;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-transform: uppercase;
+      }
+
+      &__name {
+        color: $white;
+        text-align: center;
+        font-family: Helvetica;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+    }
+  }
+
+  &__mail {
+    height: 58.182px;
+    display: flex;
+    padding-right: 0px;
+    align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 40px;
+    text-decoration: none;
+    color: $white;
+    text-align: center;
+    font-family: Helvetica;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    &__svg {
+      width: 30px;
+      height: 23.57px;
+      background-image: url('../../assets/footer/mail/mailwhite.svg');
+      margin-right: 29px;
+    }
+  }
+
+  &__contact {
+    width: 250px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: $white;
+    text-align: center;
+    font-family: Helvetica;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+
+    &__svg {
+      background-image: url('../../assets/footer/phone/phone.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 30px;
+      height: 26.861px;
+      margin-right: 20px;
+    }
+  }
+}
+
+.container_three {
+  height: 250px;
+
+  &__network {
+    display: flex;
+    align-items: center;
+    max-width: 144px;
+    height: 49px;
+    color: $white;
+    font-family: Helvetica;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+
+  &__facebook {
+    margin-top: 10px;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    padding: 0px 7.009px 0px 6.923px;
+    align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 20px;
+
+    &__svg {
+      width: 16.068px;
+      height: 30px;
+      flex-shrink: 0;
+      background-image: url('../../assets/footer/facebook/facebookiconwhite.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+
+  &__instagram {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    padding: 2px 2.504px 2px 2px;
+    align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 20px;
+
+    &__svg {
+      width: 25.496px;
+      height: 26px;
+      flex-shrink: 0;
+      background-image: url('../../assets/footer/instagram/instagramiconwhite.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+
+  &__youtube {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 20px;
+
+    &__svg {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      background-image: url('../../assets/footer/youtube/youtubeiconwhite.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+
+  &__tiktok {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+
+    &__svg {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      background-image: url('../../assets/footer/tiktok/Property\ 1=Default\(3\).svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+}
+
+.container_three__youtube:hover {
+  .container_three__youtube__svg {
+    background-image: url('../../assets/footer/youtube/youtubeiconcolor.svg');
+  }
+}
+
+.container_three__tiktok:hover {
+  .container_three__tiktok__svg {
+    background-image: url('../../assets/footer/tiktok/tiktokiconcolor.svg');
+  }
+}
+
+.container_three__instagram:hover {
+  .container_three__instagram__svg {
+    background-image: url('../../assets/footer/instagram/instagramiconcolor.svg');
+  }
+}
+
+.container_three__facebook:hover {
+  .container_three__facebook__svg {
+    background-image: url('../../assets/footer/facebook/facebookiconcolor.svg');
+  }
+}
+
+.container_two__contact:hover {
+  .container_two__contact__svg {
+    background-image: url('../../assets/footer/phone/phonecolor.svg');
+  }
+}
+
+.container_two__mail:hover {
+  .container_two__mail__svg {
+    background-image: url('../../assets/footer/mail/mailcolor.svg');
+  }
+}
+
+.container_two__phone:hover {
+  .container_two__phone__svg {
+    background-image: url('../../assets/footer/whatsapp/whatsappcolor.svg');
+  }
+}
+
+.container_one__link_address:hover {
+  .container_one__link_address__svg {
+    background-image: url('../../assets/footer/gps/gpscolor.svg');
+  }
+}
+
+.info_developers {
+  height: 20px;
+  background: $orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    color: $white;
+    padding-top: 5px;
+    font-family: Helvetica;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+
+  &__company {
+    width: 22.372px;
+    height: 11px;
+    margin-right: 2.63px;
+    margin-left: 2.63px;
+
+    &__img {
+      width: 22.372px;
+      height: 11px;
+      background-image: url('../../img/footer/mn/MNlogobranco.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      &:hover {
+        background-image: url('../../img/footer/mn/MNlogocolor.png');
+      }
+    }
+  }
+}
