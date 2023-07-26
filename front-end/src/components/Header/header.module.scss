@@ -1,0 +1,213 @@
+.header {
+  width: 100%;
+  height: 8.1875rem;
+  background: linear-gradient(
+    180deg,
+    rgba(36, 32, 33, 0) 30.5%,
+    rgba(36, 32, 33, 0.5) 30.53%,
+    rgba(217, 217, 217, 0) 100%
+  );
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.nav {
+  background: $orange;
+  height: 2.5rem;
+  width: 100%;
+  pointer-events: all;
+
+  ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
+}
+
+.link_home {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-left: 5.13rem;
+
+  &__svg {
+    margin-top: 0.31rem;
+    margin-right: 0.17rem;
+    width: 1.47025rem;
+    height: 1.625rem;
+    background-image: url('../../assets/header/logoHome/logoHomeWhite.svg');
+    background-repeat: no-repeat;
+  }
+
+  &__title {
+    margin-top: 0.14rem;
+    display: flex;
+    width: 4.14119rem;
+    height: 1.35775rem;
+    flex-direction: column;
+    justify-content: center;
+    color: $white;
+    text-align: center;
+    font-family: Helvetica;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+}
+
+.half {
+  display: flex;
+  align-items: flex-start;
+}
+
+.link_filter {
+  margin-top: 0.25rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+
+  &__svg {
+    width: 1.54713rem;
+    height: 1.39019rem;
+    background-image: url('../../assets/iconsAll/magnifyingGlass/magnifyingGlassWhite.svg');
+    background-size: cover;
+    transform: rotate(18.739deg);
+  }
+
+  &__title {
+    display: flex;
+    width: 5rem;
+    height: 1.875rem;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: $white;
+    text-align: right;
+    font-family: Helvetica;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+}
+
+.house {
+  margin-top: 0.25rem;
+  margin-left: 0.44rem;
+  margin-right: 0.44rem;
+  width: 2.02688rem;
+  height: 1.875rem;
+  background-image: url('../../assets/header/house/houseOne.svg');
+  background-size: cover;
+  animation-name: lights;
+  animation-duration: 2400ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.link_create {
+  width: 4.0625rem;
+  height: 0.875rem;
+  display: flex;
+  align-items: center;
+  margin-top: 0.75rem;
+
+  a {
+    text-decoration: none;
+    color: $white;
+    text-align: right;
+    font-family: Helvetica;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+
+    &:hover {
+      color: $gray;
+    }
+  }
+}
+
+.link_login {
+  text-decoration: none;
+  display: flex;
+  min-width: 4.9375rem;
+  height: 2rem;
+  padding: 0.0625rem 0rem 0.0625rem 0.0625rem;
+  justify-content: center;
+  align-items: center;
+  margin-right: 81.81px;
+  margin-top: 0.25rem;
+
+  &__svg {
+    margin-right: 0.44rem;
+    width: 1.875rem;
+    height: 1.875rem;
+    background-image: url('../../assets/header/login/loginWhite.svg');
+    background-size: cover;
+  }
+
+  &__title {
+    color: $white;
+    text-align: right;
+    font-family: Helvetica;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+}
+
+//hover
+.link_home:hover {
+  .link_home__svg {
+    background-image: url('../../assets/header/logoHome/logoHomeColor.svg');
+  }
+
+  .link_home__title {
+    color: $gray;
+  }
+}
+
+.link_filter:hover {
+  .link_filter__svg {
+    background-image: url('../../assets/iconsAll/magnifyingGlass/magnifyingGlassColor.svg');
+  }
+
+  .link_filter__title {
+    color: $gray;
+  }
+}
+
+.link_login:hover {
+  .link_login__svg {
+    background-image: url('../../assets/header/login/loginColor.svg');
+  }
+
+  .link_login__title {
+    color: $gray;
+  }
+}
+
+//animation
+@keyframes lights {
+  0% {
+    background-image: url('../../assets/header/house/houseOne.svg');
+  }
+
+  50% {
+    background-image: url('../../assets/header/house/houseTwo.svg');
+  }
+
+  100% {
+    background-image: url('../../assets/header/house/houseThree.svg');
+  }
+}
