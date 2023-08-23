@@ -1,0 +1,66 @@
+.net {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  width: 117px;
+  height: 20px;
+}
+
+.title {
+  width: 134px;
+  height: 34px;
+  text-align: left;
+  font: normal normal bold 12px/14px Helvetica;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.facebook {
+  width: 11px;
+  height: 20px;
+  background-image: url('../../../../assets/contact/facebook/faceWhite.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &:hover {
+    background-image: url('../../../../assets/contact/facebook/faceColor.svg');
+  }
+}
+
+.instagram {
+  width: 20px;
+  height: 20px;
+  background-image: url('../../../../assets/contact/instagram/instagram.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &:hover {
+    background-image: url('../../../../assets/contact/instagram/instagramColor.svg');
+  }
+}
+
+.youtube {
+  width: 20px;
+  height: 14px;
+  background-image: url('../../../../assets/contact/youtube/youtube.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &:hover {
+    background-image: url('../../../../assets/contact/youtube/youtubeColor.svg');
+  }
+}
+
+.tiktok {
+  width: 17px;
+  height: 20px;
+  background-image: url('../../../../assets/contact/tiktok/tiktok.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &:hover {
+    background-image: url('../../../../assets/contact/tiktok/tiktokColor.svg');
+  }
+}

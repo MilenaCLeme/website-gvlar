@@ -1,0 +1,32 @@
+.contact {
+  width: 67px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+
+  &:hover {
+    div {
+      background-image: url('../../../../assets/contact/contactOrange.svg');
+    }
+  }
+
+  div {
+    width: 20px;
+    height: 18px;
+    background-image: url('../../../../assets/contact/contactWhite.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  span {
+    width: 39px;
+    height: 14px;
+    text-align: left;
+    font: normal normal normal 12px/14px Helvetica;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 0.8;
+  }
+}

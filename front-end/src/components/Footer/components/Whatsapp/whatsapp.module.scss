@@ -1,0 +1,44 @@
+.whatsapp {
+  width: 112px;
+  height: 27px;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:hover {
+    div {
+      background-image: url('../../../../assets/contact/whatsapp/sappOrange.svg');
+    }
+  }
+
+  div {
+    width: 20px;
+    height: 20px;
+    background-image: url('../../../../assets/contact/whatsapp/sappWhite.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  p {
+    width: 88px;
+    height: 27px;
+    text-align: left;
+    font: normal normal normal 12px/14px Helvetica;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 0.8;
+    display: flex;
+    flex-direction: column;
+
+    span {
+      width: 53px;
+      height: 13px;
+      text-align: left;
+      font: normal normal 300 10px/14px Helvetica;
+      letter-spacing: 0px;
+      color: #ffffff;
+      opacity: 0.8;
+    }
+  }
+}
