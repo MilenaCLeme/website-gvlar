@@ -1,11 +1,7 @@
-import DefaulPage from './components/DefaulPage';
+import Router from './router';
 
 function App() {
-  return (
-    <>
-      <DefaulPage />
-    </>
-  );
+  return <Router />;
 }
 
 export default App;
