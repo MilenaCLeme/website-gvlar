@@ -1,7 +1,9 @@
+import DefaulPage from './components/DefaulPage';
+
 function App() {
   return (
     <>
-      <p>teste</p>
+      <DefaulPage />
     </>
   );
 }
