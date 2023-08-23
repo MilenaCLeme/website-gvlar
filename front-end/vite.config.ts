@@ -17,4 +17,11 @@ export default defineConfig({
     }),
     react(),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import '../src/style/variables.scss';`,
+      },
+    },
+  },
 });
