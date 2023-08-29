@@ -1,12 +1,12 @@
 .footer {
   width: 100%;
   height: auto;
-  min-width: 360px;
   min-height: 540px;
   max-height: 1220px;
   background-image: url('../../../img/footer/small.jpg');
   display: flex;
   position: relative;
+  z-index: 1;
 
   @media (min-width: $mobile) {
     display: none;
