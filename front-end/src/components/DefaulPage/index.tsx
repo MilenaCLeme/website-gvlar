@@ -7,9 +7,9 @@ const DefaulPage = () => {
   return (
     <>
       <Header />
-      <div className={style.main}>
+      <main className={style.main}>
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </>
   );
