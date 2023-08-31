@@ -77,20 +77,20 @@ export interface User extends CreateUserClient {
 }
 
 export interface GetUser {
-  accessToken?: string;
-  user?: User;
+  accessToken: string;
+  user: User;
 }
 
-export interface Error {
-  error?: string;
-  message?: string | string[];
-  statusCode?: number;
+export interface ErrorAxios {
+  error: string;
+  message: string;
+  statusCode: number;
 }
 
 export interface Message {
   status: number;
   message: string;
-  type: string;
+  type?: string | null;
 }
 
 //form
@@ -123,4 +123,8 @@ export interface SendProperty {
 export interface CreateUser extends CreateUserClient {
   confirmation: string;
   check: boolean;
+}
+
+export interface Sucess {
+  sucess: string;
 }
