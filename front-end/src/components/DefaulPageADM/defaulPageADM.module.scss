@@ -1,0 +1,93 @@
+.main {
+  margin-top: 103px;
+  display: flex;
+
+  @media (max-width: $desk) {
+    margin: 0;
+    justify-content: center;
+  }
+}
+
+.box {
+  width: 40%;
+  margin-left: 32px;
+
+  @media (max-width: $desk) {
+    display: none;
+  }
+
+  @media (min-width: $desk-min) {
+  }
+}
+
+.position {
+  width: 35%;
+  position: fixed;
+}
+
+.box_all {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 39px;
+}
+
+.box_text {
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin-right: 6px;
+    width: 40px;
+    height: 40px;
+  }
+
+  h1 {
+    text-align: left;
+    font: normal normal bold 18px/28px Helvetica;
+    letter-spacing: 0px;
+    color: #ee811f;
+    opacity: 1;
+  }
+}
+
+.button {
+  width: 64px;
+  height: 40px;
+  display: flex;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  align-items: center;
+  justify-content: space-between;
+  font: normal normal bold 18px/28px Helvetica;
+  letter-spacing: 0px;
+  color: #ee811f;
+  opacity: 1;
+  cursor: pointer;
+
+  &:hover {
+    color: #555555;
+
+    div {
+      background-image: url('../../assets/door/doorClosetGray.svg');
+    }
+  }
+
+  div {
+    width: 21px;
+    height: 40px;
+    background-image: url('../../assets/door/doorClosetOrange.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+.main_outlet {
+  flex-basis: 60%;
+
+  @media (max-width: $desk) {
+    flex-basis: 100%;
+    min-width: none;
+  }
+}
