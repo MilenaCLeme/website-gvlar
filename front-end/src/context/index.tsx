@@ -1,5 +1,6 @@
+import { checkToken } from '@/service/api/auth';
 import { User } from '@/types';
-import { ReactNode, createContext, useMemo, useState } from 'react';
+import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
 
 type PropsContext = {
   user: User | null;
@@ -28,13 +29,13 @@ interface AuxProps {
 export function ContextProvider({ children }: AuxProps) {
   const [user, setUser] = useState<User | null>(DEFAULT_VALUE.user);
   const [token, setToken] = useState<string>(DEFAULT_VALUE.token);
-  /*
+
   useEffect(() => {
     async function CallApiLocalStore() {
       const token = localStorage.getItem('gvlar');
       if (token) {
-        const data = await checkTokenValidity(token);
-        if (data?.user && data.accessToken) {
+        const data = await checkToken(token);
+        if (data && 'user' in data) {
           setUser(data.user);
           setToken(data.accessToken);
         }
@@ -47,13 +48,11 @@ export function ContextProvider({ children }: AuxProps) {
   useEffect(() => {
     if (token === '') {
       localStorage.removeItem('gvlar');
-    }
-
-    if (!(token === '')) {
+    } else {
       localStorage.setItem('gvlar', token);
     }
   }, [token]);
-*/
+
   const value = useMemo(
     () => ({
       user,
