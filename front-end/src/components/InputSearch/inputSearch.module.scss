@@ -1,0 +1,35 @@
+.search {
+  width: 225px;
+  height: 21px;
+  padding-left: 8px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 2px solid #242021;
+  border-radius: 10px;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+
+  div {
+    width: 18px;
+    height: 15px;
+    background-image: url('../../assets/magnifynigGlass/magnifynigGlassGray.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  input {
+    outline: none;
+    padding-left: 4px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+  }
+}
+
+.active {
+  border-color: #ee811f;
+
+  div {
+    background-image: url('../../assets/magnifynigGlass/magnifynigGlassOrange.svg');
+  }
+}
