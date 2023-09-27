@@ -16,7 +16,7 @@ const InputCheck: React.FC<InputCheckProps> = ({
   ...props
 }: InputCheckProps) => {
   return (
-    <label className={className}>
+    <label htmlFor={props.name || props.id} className={className}>
       <input className={style.input} {...props} />
       <span className={style.svg}>{checked ? <CheckedTrue /> : <CheckedFalse />}</span>
       {label}

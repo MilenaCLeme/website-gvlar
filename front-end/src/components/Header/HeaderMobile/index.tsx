@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ReactModal from 'react-modal';
 import Menu from '@/assets/menu/MenuOpen.svg';
 import Closet from '@/assets/menu/MenuCloset.svg';
@@ -6,10 +6,13 @@ import style from './headerMobile.module.scss';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { Context } from '@/context';
+import { firstWord } from '@/functions/text';
 
 ReactModal.setAppElement('#root');
 
 const HeaderMobile = () => {
+  const { user } = useContext(Context);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
 
   const isMobile = useMediaQuery({ maxWidth: 820 });
@@ -57,15 +60,15 @@ const HeaderMobile = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink className={style.announce} to='/'>
+              <NavLink className={style.announce} to={user ? '/adm/imoveis' : '/login'}>
                 <div />
                 <span>Anunciar</span>
               </NavLink>
             </li>
             <li>
-              <NavLink className={style.login} to='/'>
+              <NavLink className={style.login} to={user ? '/adm' : '/login'}>
                 <div />
-                <span>Entrar</span>
+                <span>{user ? firstWord(user.name) : 'Entrar'}</span>
               </NavLink>
             </li>
           </nav>

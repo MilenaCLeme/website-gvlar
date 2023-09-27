@@ -10,6 +10,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }: ProtectedRo
   const { token } = useContext(Context);
   const { pathname } = useLocation();
 
+  if (token !== '' && pathname === '/login') {
+    return <Navigate to='/adm' replace />;
+  }
+
   if (token === '' && pathname !== '/login') {
     return <Navigate to='/login' replace />;
   }
