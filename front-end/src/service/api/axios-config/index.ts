@@ -1,8 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
 import { errorInterceptor, responseInterceptor } from './interceptors';
+import { Environment } from '@/env';
 
 const api: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: Environment.URL_BASE,
+  headers: {
+    'Content-type': 'application/json',
+  },
 });
 
 api.interceptors.response.use(
