@@ -8,7 +8,8 @@ import style from './loginAndRegisterMobile.module.scss';
 import classNames from 'classnames';
 import { validateEmail, validatePassword, validatePhone } from '@/functions/validate';
 import InputCheck from '@/components/InputCheck';
-import Message from '../Message';
+import Message from '@/components/Message';
+import '@/style/message.scss';
 
 interface LoginAndRegisterMobileProps {
   login: Login;
@@ -62,7 +63,6 @@ const LoginAndRegisterMobile: React.FC<LoginAndRegisterMobileProps> = ({
             name='Entrar'
             disabled={login.email === '' || login.password === '' || !validateEmail(login.email)}
             onClick={() => handleLoginClick()}
-            className={style.button}
           />
         </div>
       </form>
@@ -105,7 +105,7 @@ const LoginAndRegisterMobile: React.FC<LoginAndRegisterMobileProps> = ({
               onChange={handleCreateChange}
             />
             {!validatePassword(create.hashedPassword) && (
-              <p>
+              <p className='message'>
                 A senha deve ter no mínimo 6 caracteres e conter pelo menos 1 letra maiúscula e 1
                 letra minúscula.
               </p>
@@ -118,7 +118,7 @@ const LoginAndRegisterMobile: React.FC<LoginAndRegisterMobileProps> = ({
               onChange={handleCreateChange}
             />
             {!(create.hashedPassword === create.confirmation) && !(create.confirmation === '') && (
-              <p>As senhas estão diferentes! Elas devem ser iguais.</p>
+              <p className='message'>As senhas estão diferentes! Elas devem ser iguais.</p>
             )}
             <div className={style.box_check}>
               <InputCheck
@@ -144,7 +144,6 @@ const LoginAndRegisterMobile: React.FC<LoginAndRegisterMobileProps> = ({
                   !validatePassword(create.hashedPassword)
                 }
                 name='Cadastrar'
-                className={style.button}
                 onClick={() =>
                   handleRegisterClick({
                     name: create.name,
