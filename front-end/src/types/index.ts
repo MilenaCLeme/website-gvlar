@@ -5,10 +5,22 @@ export interface Photograph {
   propertyId: number;
 }
 
+export interface Upload {
+  file: File | null;
+  describe: string;
+}
+
+export interface Owner {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+}
+
 export interface Property {
   id: number;
   published: boolean;
-  type: string;
+  business: string;
   about: string;
   sell: string | null;
   rental: string | null;
@@ -30,7 +42,8 @@ export interface Property {
   register: number;
   createdAt: string;
   updatedAt: string;
-  photographs: Photograph[];
+  photographs?: Photograph[];
+  owners?: Owner[];
 }
 
 export interface PageFilter {
@@ -127,4 +140,12 @@ export interface CreateUser extends CreateUserClient {
 
 export interface Sucess {
   sucess: string;
+}
+
+//button
+export interface Button {
+  name: string;
+  onClick: () => void;
+  className?: string;
+  disabled?: boolean;
 }
