@@ -1,50 +1,45 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import { ErrorAxios } from '@/types';
+import { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { useEffect, useState } from 'react';
 
 interface ConfigRequest {
   axiosInstance: AxiosInstance;
   method: 'get' | 'post' | 'put' | 'delete' | 'patch';
   url: string;
   config?: AxiosRequestConfig<any>;
-  info?: any;
 }
 
-export default function useAxios(configRequest: ConfigRequest) {
-  const { axiosInstance, method, url, config = {}, info = {} } = configRequest;
-  const [data, setData] = useState<AxiosResponse | undefined>();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const effectRun = useRef(false);
+const useAxios = (configRequest: ConfigRequest) => {
+  const { axiosInstance, method, url, config = {} } = configRequest;
+  const [data, setData] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<ErrorAxios | null>({} as ErrorAxios);
 
   useEffect(() => {
-    const controller = new AbortController();
-
     const fetchData = async () => {
       try {
         const res = await axiosInstance[method](url, {
-          ...info,
           ...config,
-          signal: controller.signal,
         });
-        setData(res);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          setError(error.message);
+
+        setData(res.data);
+      } catch (error: any) {
+        if ('message' in error) {
+          setError({ ...error });
         } else {
-          console.error('Erro inesperado:', error);
+          console.log('Erro inesperado:', error);
         }
       } finally {
         setLoading(false);
       }
     };
 
-    if (effectRun.current) fetchData();
-
-    return () => {
-      controller.abort();
-      effectRun.current = true;
-    };
-  }, [axiosInstance, method, url, config, info]);
+    if (loading) {
+      fetchData().then((r) => r);
+    }
+  }, [axiosInstance, method, url, config, loading]);
 
   return [data, loading, error];
-}
+};
+
+export { useAxios };
