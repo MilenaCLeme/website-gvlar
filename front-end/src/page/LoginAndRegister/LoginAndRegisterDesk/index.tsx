@@ -1,13 +1,14 @@
 import { CreateUser, CreateUserClient, Login, Message as MessageProps } from '@/types';
 import { FormEvent } from 'react';
 import Logo from '@/assets/gvlar/logoBlack.svg';
-import Message from '../Message';
+import Message from '@/components/Message';
 import Input from '@/components/Input';
 import { NavLink } from 'react-router-dom';
 import Button from '@/components/Button';
 import { validateEmail, validatePassword, validatePhone } from '@/functions/validate';
 import InputCheck from '@/components/InputCheck';
 import style from './loginAndRegisterDesk.module.scss';
+import '@/style/message.scss';
 
 interface LoginAndRegisterDeskProps {
   login: Login;
@@ -58,7 +59,6 @@ const LoginAndRegisterDesk: React.FC<LoginAndRegisterDeskProps> = ({
         <NavLink to=''>Esqueci a senha</NavLink>
         <div className={style.box_button}>
           <Button
-            className={style.button}
             name='Entrar'
             disabled={login.email === '' || login.password === '' || !validateEmail(login.email)}
             onClick={() => handleLoginClick()}
@@ -99,7 +99,7 @@ const LoginAndRegisterDesk: React.FC<LoginAndRegisterDeskProps> = ({
             onChange={handleCreateChange}
           />
           {!validatePassword(create.hashedPassword) && (
-            <p>
+            <p className='message'>
               A senha deve ter no mínimo 6 caracteres e conter pelo menos 1 letra maiúscula e 1
               letra minúscula.
             </p>
@@ -112,7 +112,7 @@ const LoginAndRegisterDesk: React.FC<LoginAndRegisterDeskProps> = ({
             onChange={handleCreateChange}
           />
           {!(create.hashedPassword === create.confirmation) && !(create.confirmation === '') && (
-            <p>As senhas estão diferentes! Elas devem ser iguais.</p>
+            <p className='message'>As senhas estão diferentes! Elas devem ser iguais.</p>
           )}
           <div className={style.box_check}>
             <InputCheck
@@ -138,7 +138,6 @@ const LoginAndRegisterDesk: React.FC<LoginAndRegisterDeskProps> = ({
                 !validatePassword(create.hashedPassword)
               }
               name='Cadastrar'
-              className={style.button}
               onClick={() =>
                 handleRegisterClick({
                   name: create.name,
