@@ -1,4 +1,4 @@
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LoginAndRegisterMobile from './LoginAndRegisterMobile';
 import { FormEvent, useCallback, useContext, useState } from 'react';
 import { CreateUser, CreateUserClient, Login, Message } from '@/types';
@@ -11,7 +11,7 @@ import LoginAndRegisterDesk from './LoginAndRegisterDesk';
 import { validateEmail } from '@/functions/validate';
 
 const LoginAndRegister = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { setUser, setToken } = useContext(Context);
 
   const [message, setMessage] = useState<Message>({} as Message);
@@ -50,6 +50,8 @@ const LoginAndRegister = () => {
     if (data && 'user' in data) {
       setUser(data.user);
       setToken(data.accessToken);
+
+      navigate('/adm');
     }
   };
 
