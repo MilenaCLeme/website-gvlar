@@ -56,7 +56,7 @@ const LoginAndRegisterDesk: React.FC<LoginAndRegisterDeskProps> = ({
           value={login.password === undefined ? '' : login.password}
           onChange={handleLoginChange}
         />
-        <NavLink to=''>Esqueci a senha</NavLink>
+        <NavLink to='/verificar/email'>Esqueci a senha</NavLink>
         <div className={style.box_button}>
           <Button
             name='Entrar'
@@ -119,6 +119,7 @@ const LoginAndRegisterDesk: React.FC<LoginAndRegisterDeskProps> = ({
               className={style.label_check}
               type='checkbox'
               name='check'
+              id='check'
               label={
                 <div>
                   <p>concordo com os</p>
