@@ -1,7 +1,7 @@
 import { Context } from '@/context';
 import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import Link from '../Link';
+import Link from '@/components/Link';
 import style from './nav.module.scss';
 
 const Nav = () => {
@@ -21,7 +21,11 @@ const Nav = () => {
         </li>
         {user && user?.role !== 'client' && (
           <li>
-            <Link name='Painel ADM' to='/' action={false} />
+            <Link
+              name='Painel ADM'
+              to='/adm/controle'
+              action={pathname === '/adm/controle' || pathname === '/adm/controle/usuario'}
+            />
           </li>
         )}
       </ul>
