@@ -3,9 +3,20 @@
   flex-direction: column;
   align-items: flex-end;
   margin-right: 5%;
+  margin-bottom: 69px;
+
+  @media (max-width: $desk) {
+    margin-right: 5%;
+    margin-top: 183px;
+    margin-left: 5%;
+  }
 
   table {
     margin-top: 21px;
+
+    @media (max-width: $desk) {
+      margin-top: 8px;
+    }
   }
 }
 
@@ -15,6 +26,16 @@
 
   button {
     margin-left: 12px;
+
+    @media (max-width: $desk) {
+      margin-left: 8px;
+    }
+
+    &:disabled {
+      @media (max-width: $desk) {
+        margin-left: 8px;
+      }
+    }
   }
 }
 
@@ -26,7 +47,6 @@
   opacity: 1;
   width: 310px;
   height: 25px;
-  margin-bottom: 69px;
   text-align: center;
   font: normal normal bold 14px/18px Helvetica;
   letter-spacing: 0px;
@@ -43,7 +63,7 @@
 
   &:disabled {
     box-shadow: none;
-    text-align: left;
+    text-align: center;
     font: normal normal bold 14px/18px Helvetica;
     letter-spacing: 0px;
     color: #b6b5b5;
