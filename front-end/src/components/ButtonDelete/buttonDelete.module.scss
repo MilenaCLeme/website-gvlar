@@ -1,4 +1,5 @@
 .button {
+  width: 152px;
   height: 25px;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: -3px 3px 6px #00000029;
@@ -14,6 +15,10 @@
   color: #ff2f0e;
   opacity: 1;
   cursor: pointer;
+
+  @media (max-width: $desk) {
+    width: 132px;
+  }
 
   &:disabled {
     background: #ffffff 0% 0% no-repeat padding-box;
@@ -38,5 +43,10 @@
     background-image: url('../../assets/delete/deleteRed.svg');
     background-repeat: no-repeat;
     background-size: cover;
+
+    @media (max-width: $desk) {
+      width: 7px;
+      height: 8px;
+    }
   }
 }
