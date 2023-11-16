@@ -1,6 +1,6 @@
 .table {
   width: 100%;
-  min-width: 300px;
+  min-width: 200px;
 
   thead {
     height: 40px;
@@ -11,6 +11,7 @@
       text-align: center;
       vertical-align: middle;
       font: normal normal bold 18px/16px Helvetica;
+      font-size: max(16px, min(18px, 2vw));
       letter-spacing: 0px;
       color: #ffffff;
       opacity: 1;
@@ -18,7 +19,9 @@
   }
 
   tbody {
-    height: 30px;
+    tr {
+      height: 40px;
+    }
 
     td {
       border: 1px solid #555555;
@@ -38,6 +41,11 @@
 
 .border {
   border-radius: 10px 0 0 0;
+  min-width: 50px;
+
+  @media (max-width: $desk) {
+    min-width: 30px;
+  }
 }
 
 .border_left {
@@ -49,5 +57,12 @@
 
   span {
     margin-right: 22px;
+    @media (max-width: $desk) {
+      margin-right: 2px;
+    }
   }
+}
+
+.disabled {
+  cursor: auto;
 }
