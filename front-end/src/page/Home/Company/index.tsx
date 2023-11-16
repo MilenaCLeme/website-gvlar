@@ -2,7 +2,7 @@ import GVlar from '@/assets/gvlar/logoWhite.svg';
 import style from './company.module.scss';
 import AnimatedText from './AnimatedText';
 import CardClient from './CartClient';
-import Nelson from '@/img/WhatsApp Image 2023-11-14 at 11.47.15.jpeg';
+import Nelson from '@/img/home/personNelson.jpeg';
 
 const Company = () => {
   return (

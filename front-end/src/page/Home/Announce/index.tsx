@@ -2,7 +2,7 @@ import style from './announce.module.scss';
 import Security from '@/assets/onlyOne/security.svg';
 import Agreement from '@/assets/onlyOne/agreement.svg';
 import MegaPhone from '@/assets/megaphone/megaphoneDivulgation.svg';
-import AnnounceImage from '@/img/arte_anuncio.png';
+import AnnounceImage from '@/img/home/family.png';
 import ButtonPhone from '../components/ButtonPhone';
 
 const Announce = () => {
