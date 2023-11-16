@@ -1,0 +1,40 @@
+.main {
+  margin-right: 5%;
+  margin-bottom: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  @media (max-width: $desk) {
+    margin-left: 5%;
+    margin-bottom: 2%;
+  }
+}
+
+.search {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.box {
+  display: flex;
+  margin-top: 20px;
+
+  button {
+    margin-left: 12px;
+
+    @media (max-width: $desk) {
+      margin-left: 8px;
+    }
+
+    &:disabled {
+      @media (max-width: $desk) {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+
+.margin {
+  margin-bottom: 20px;
+}
