@@ -1,4 +1,4 @@
-.section {
+.form {
   width: 100%;
 }
 
@@ -38,7 +38,7 @@
 
 .delete {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
   margin-right: 10px;
   background: #ff2f0e 0% 0% no-repeat padding-box;
@@ -70,6 +70,10 @@ input[type='file'] {
   justify-content: space-between;
   align-items: center;
 
+  @media (max-width: $desk) {
+    align-items: flex-end;
+  }
+
   label {
     cursor: pointer;
     width: 161px;
@@ -90,6 +94,10 @@ input[type='file'] {
     align-items: center;
     justify-content: center;
 
+    @media (max-width: $desk) {
+      font-size: 12px;
+    }
+
     &:hover {
       background: #ffffff 0% 0% no-repeat padding-box;
       border: 1px solid #ee811f;
@@ -109,6 +117,11 @@ input[type='file'] {
     min-width: 250px;
     overflow: hidden;
 
+    @media (max-width: $desk) {
+      min-width: 50px;
+      margin-right: 4px;
+    }
+
     p {
       text-align: left;
       font: normal normal normal 12px/16px Helvetica;
@@ -116,6 +129,10 @@ input[type='file'] {
       color: #242021;
       opacity: 1;
       padding-left: 12px;
+
+      @media (max-width: $desk) {
+        font-size: 8px;
+      }
     }
   }
 }
@@ -134,6 +151,9 @@ input[type='file'] {
     color: #242021;
     opacity: 1;
     flex-basis: 60%;
+    @media (max-width: $desk) {
+      margin-right: 4px;
+    }
 
     input {
       margin-top: 8px;
