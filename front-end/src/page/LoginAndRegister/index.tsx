@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import LoginAndRegisterMobile from './LoginAndRegisterMobile';
-import { FormEvent, useCallback, useContext, useState } from 'react';
+import { FormEvent, useCallback, useContext, useEffect, useState } from 'react';
 import { CreateUser, CreateUserClient, Login, Message } from '@/types';
 import Image from '@/img/login/imgLogin.png';
 import style from './loginAndRegister.module.scss';
@@ -27,6 +27,14 @@ const LoginAndRegister = () => {
     },
     [login],
   );
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (message.message) {
+        setMessage({} as Message);
+      }
+    }, 10000);
+  }, [message]);
 
   const handleCreateChange = useCallback(
     (e: FormEvent<HTMLInputElement>) => {
