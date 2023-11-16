@@ -24,7 +24,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
   handlePhotoDeleteOnClick,
 }: UploadImagesProps) => {
   return (
-    <section className={style.section}>
+    <form className={style.form}>
       <div className={style.box}>
         <Glider
           slidesToShow={3}
@@ -73,7 +73,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           onClick={() => handlePhotoOnClick()}
         />
       </div>
-    </section>
+    </form>
   );
 };
 
