@@ -1,5 +1,14 @@
 import api from '../axios-config';
-import { CreateUserClient, ErrorAxios, GetUser, Login, Sucess, UpdateUser, User } from '@/types';
+import {
+  CreateUserClient,
+  ErrorAxios,
+  GetUser,
+  Login,
+  Reset,
+  Sucess,
+  UpdateUser,
+  User,
+} from '@/types';
 
 interface ChangePassword {
   passwordOld: string;
@@ -113,6 +122,51 @@ export const changePassword = async (token: string, body: ChangePassword) => {
     );
 
     return data as User;
+  } catch (error: any) {
+    if ('message' in error) {
+      return error as ErrorAxios;
+    } else {
+      console.log('Erro inesperado:', error);
+    }
+  }
+};
+
+export const validationEmail = async (id: number) => {
+  try {
+    const { data } = await api.get<Sucess>(`/auth/validation/${id}`);
+
+    return data as Sucess;
+  } catch (error: any) {
+    if ('message' in error) {
+      return error as ErrorAxios;
+    } else {
+      console.log('Erro inesperado:', error);
+    }
+  }
+};
+
+export const forgetPassword = async (email: string) => {
+  try {
+    const { data } = await api.post<Sucess>(`/auth/forget`, { email });
+
+    return data as Sucess;
+  } catch (error: any) {
+    if ('message' in error) {
+      return error as ErrorAxios;
+    } else {
+      console.log('Erro inesperado:', error);
+    }
+  }
+};
+
+export const resetPassword = async (id: number, reset: Reset) => {
+  try {
+    const { data } = await api.post<Sucess>(`/auth/reset/${id}`, {
+      password: reset.password,
+      number: reset.one + reset.two + reset.three + reset.four,
+    });
+
+    return data as Sucess;
   } catch (error: any) {
     if ('message' in error) {
       return error as ErrorAxios;
