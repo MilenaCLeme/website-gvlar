@@ -1,0 +1,61 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 5%;
+
+  @media (max-width: $desk) {
+    margin-top: 183px;
+    margin-left: 5%;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: flex-end;
+
+  svg {
+    width: 28px;
+    height: 25px;
+    margin-right: 26px;
+    transform: rotate(0deg);
+    animation-name: bell;
+    animation-duration: 2400ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+
+    @keyframes bell {
+      0% {
+        transform: rotate(50deg);
+      }
+      50% {
+        transform: rotate(-50deg);
+      }
+      100% {
+        transform: rotate(50deg);
+      }
+    }
+  }
+
+  h1 {
+    text-align: left;
+    font: normal normal bold 18px/14px Helvetica;
+    letter-spacing: 0px;
+    color: #ee811f;
+    opacity: 1;
+  }
+}
+
+.nav {
+  margin-top: 10px;
+
+  ul {
+    display: flex;
+
+    li {
+      width: 150px;
+      height: 25px;
+      margin-left: 12px;
+    }
+  }
+}
