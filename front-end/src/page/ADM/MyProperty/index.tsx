@@ -11,10 +11,12 @@ import FormProperty from '@/components/FormProperty';
 import { Message as TypeMessage, Property, Upload } from '@/types';
 import { apiCep } from '@/service/api/cep';
 import { disabledProperty } from '@/functions/disabled';
-import { createProperty } from '@/service/api/property';
+import { updateProperty, createProperty, deleteProperty } from '@/service/api/property';
 import UploadImages from '@/components/UploadImages';
 import { deletePhoto, uploadPhoto } from '@/service/api/photo';
 import Message from '@/components/Message';
+import { scrollToTop } from '@/functions/scroll';
+import { filterSearch } from '@/functions/filter';
 
 const MyProperty = () => {
   const { token } = useContext(Context);
@@ -24,8 +26,9 @@ const MyProperty = () => {
   const [photo, setPhoto] = useState<boolean>(false);
   const [upload, setUpload] = useState<Upload>({} as Upload);
   const [message, setMessage] = useState<TypeMessage>({} as TypeMessage);
+  const [search, setSearch] = useState<string>('');
 
-  const [data, _loading, _error] = useAxios({
+  const [data, _loading, _error, sendData] = useAxios({
     axiosInstance: api,
     method: 'get',
     url: '/properties/list/client',
@@ -161,8 +164,6 @@ const MyProperty = () => {
   const handlePhotoDeleteOnClick = async (id: number) => {
     const data = await deletePhoto(id, token);
 
-    console.log(data);
-
     if (data && 'message' in data) {
       setMessage({ message: data.message, status: data.statusCode, type: 'image' });
     }
@@ -172,16 +173,61 @@ const MyProperty = () => {
     }
   };
 
+  const handleUpdatePropertyOnClick = async () => {
+    const data = await updateProperty(token, property);
+
+    if (data && 'message' in data) {
+      setMessage({ message: data.message, status: data.statusCode, type: 'create' });
+    }
+
+    if (data && 'about' in data) {
+      setCreate(false);
+      sendData();
+      setPhoto(false);
+      scrollToTop();
+    }
+  };
+
+  const handleDeletePropertyOnClick = async () => {
+    if (idProperty > 0) {
+      const data = await deleteProperty(idProperty, token);
+
+      if (data && 'message' in data) {
+        setMessage({ message: data.message, status: data.statusCode, type: 'delete' });
+      }
+
+      if (data && 'about' in data) {
+        setMessage({
+          message:
+            'Você solicitou a retirada de um imóvel de nosso banco de dados e agora deseja desfazer essa solicitação, pedimos que entre em contato com a GVlar para realizar o processo de reversão',
+          status: 201,
+          type: 'delete',
+        });
+        setIdProperty(0);
+        sendData();
+      }
+    }
+  };
+
   return (
     <div className={style.main}>
-      <InputSearch type='text' placeholder='busque aqui o imóvel' />
+      <InputSearch
+        type='text'
+        value={search}
+        onChange={(e) => setSearch(e.currentTarget.value)}
+        placeholder='busque aqui o imóvel'
+      />
       {data && (
-        <Table
-          idProperty={idProperty}
-          onChangeRadio={handleIdPropertyChange}
-          iten='property'
-          properties={data}
-        />
+        <>
+          {message.type === 'delete' && <Message mss={message} />}
+          <Table
+            idItem={idProperty}
+            onChangeRadio={handleIdPropertyChange}
+            iten='property'
+            properties={search === '' ? data : filterSearch(data, search)}
+            about='user'
+          />
+        </>
       )}
       <div className={style.box}>
         <Button
@@ -196,7 +242,7 @@ const MyProperty = () => {
         <ButtonDelete
           name='Solicitar retirada'
           disabled={idProperty === 0}
-          onClick={() => console.log('teste')}
+          onClick={() => handleDeletePropertyOnClick()}
         />
       </div>
       {create && (
@@ -220,6 +266,12 @@ const MyProperty = () => {
                 handlePhotoOnClick={handlePhotoOnClick}
                 photo={property.photographs ? property.photographs : []}
                 handlePhotoDeleteOnClick={handlePhotoDeleteOnClick}
+              />
+              <Button
+                className={style.button}
+                name='Salvar alterações'
+                disabled={disabledProperty(property)}
+                onClick={() => handleUpdatePropertyOnClick()}
               />
             </>
           )}
