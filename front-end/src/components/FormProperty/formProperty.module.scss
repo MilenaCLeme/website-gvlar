@@ -88,38 +88,64 @@
 }
 
 .box {
-  width: 100%;
   margin-bottom: 12px;
+  width: 100%;
 }
 
 .one {
   margin-right: 12px;
-  flex-basis: 20%;
+  flex-basis: 33%;
+
+  @media (max-width: $desk) {
+    padding-left: 8px;
+  }
+
   input {
-    min-width: 86px;
+    min-width: 80px;
+
+    @media (max-width: $desk) {
+      padding-left: 4px;
+    }
   }
 }
 
 .two {
   margin-right: 12px;
-  flex-basis: 45%;
+  flex-basis: 33%;
+
+  @media (max-width: $desk) {
+    padding-left: 8px;
+  }
+
   input {
-    min-width: 212px;
+    min-width: 120px;
+
+    @media (max-width: $desk) {
+      padding-left: 4px;
+    }
   }
 }
 
 .three {
-  flex-basis: 30%;
+  flex-basis: 33%;
+
   input {
-    min-width: 152px;
+    min-width: 86px;
+
+    @media (max-width: $desk) {
+      padding-left: 4px;
+    }
   }
 }
 
 .address {
-  flex-basis: 77.5%;
-
+  flex-basis: 66%;
   input {
-    min-width: 379px;
+    min-width: 220px;
+
+    @media (max-width: $desk) {
+      padding-left: 4px;
+    }
   }
 }
 
@@ -152,17 +178,30 @@
 }
 
 .currency_one {
-  flex-basis: 34%;
   margin-right: 12px;
+
+  @media (max-width: $desk) {
+    margin-right: 8px;
+  }
+
   input {
     min-width: 154px;
+
+    @media (max-width: $desk) {
+      min-width: 100px;
+      padding-left: 4px;
+    }
   }
 }
 
 .currency_two {
-  flex-basis: 34%;
   input {
     min-width: 154px;
+
+    @media (max-width: $desk) {
+      min-width: 100px;
+      padding-left: 4px;
+    }
   }
 }
 
@@ -171,11 +210,22 @@
   flex-direction: column;
   margin-right: 20px;
 
+  @media (max-width: $desk) {
+    margin-right: 8px;
+  }
+
   div {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     margin-bottom: 8px;
+
+    svg {
+      @media (max-width: $desk) {
+        width: 24px;
+        height: 24px;
+      }
+    }
 
     h3 {
       text-align: left;
@@ -183,6 +233,10 @@
       letter-spacing: 0px;
       color: #242021;
       opacity: 1;
+
+      @media (max-width: $desk) {
+        font-size: 12px;
+      }
     }
 
     p {
@@ -191,11 +245,19 @@
       letter-spacing: 0px;
       color: #242021;
       opacity: 1;
+
+      @media (max-width: $desk) {
+        font-size: 8px;
+      }
     }
 
     label {
       margin-bottom: 0;
       margin-right: 4px;
+
+      @media (max-width: $desk) {
+        margin-right: 2px;
+      }
 
       input {
         min-width: 40px;
