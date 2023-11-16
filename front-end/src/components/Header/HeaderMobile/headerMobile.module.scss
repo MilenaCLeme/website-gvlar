@@ -124,6 +124,7 @@
     height: 21px;
     text-align: left;
     font: normal normal bold 18px/28px Helvetica;
+    font-size: max(18px, min(28px, 2vw));
     letter-spacing: 0px;
     color: #ffffff;
     opacity: 1;
@@ -160,6 +161,7 @@
     height: 21px;
     text-align: left;
     font: normal normal bold 18px/21px Helvetica;
+    font-size: max(18px, min(21px, 2vw));
     letter-spacing: 0px;
     color: #ffffff;
     opacity: 1;
@@ -196,6 +198,7 @@
     height: 21px;
     text-align: left;
     font: normal normal bold 18px/21px Helvetica;
+    font-size: max(18px, min(21px, 2vw));
     letter-spacing: 0px;
     color: #ffffff;
     opacity: 1;
