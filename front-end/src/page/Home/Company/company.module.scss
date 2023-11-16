@@ -1,0 +1,80 @@
+.main {
+  width: 100%;
+  height: auto;
+  min-height: 600px;
+  background-color: rgba(36, 32, 33, 0.8);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 36px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: $desk) {
+    flex-direction: row;
+    margin: 36px;
+    width: 80%;
+  }
+
+  svg {
+    width: 103px;
+    height: auto;
+    margin-top: 24px;
+    margin-bottom: 16px;
+
+    @media (min-width: $desk) {
+      width: 50%;
+      margin: 0;
+      max-width: 300px;
+    }
+  }
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: $desk) {
+    align-items: flex-end;
+    height: 100%;
+  }
+}
+
+.text {
+  width: 80%;
+  text-align: center;
+  font: normal normal normal 12px Helvetica;
+  font-size: max(14px, min(16px, 2vw));
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+  margin-bottom: 25px;
+  width: 70%;
+
+  @media (min-width: $desk) {
+    margin-bottom: 68px;
+    text-align: left;
+  }
+}
+
+.title {
+  width: 80%;
+  text-align: center;
+  font: normal normal bold 28px Helvetica;
+  font-size: max(28px, min(16px, 2vw));
+  letter-spacing: 0px;
+  color: #ee811f;
+  opacity: 1;
+  margin-top: 12px;
+
+  @media (min-width: $desk) {
+    width: 387px;
+    margin-bottom: 20px;
+  }
+}
