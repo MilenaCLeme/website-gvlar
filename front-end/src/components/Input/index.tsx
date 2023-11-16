@@ -7,6 +7,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   onChange: (e: React.FormEvent<HTMLInputElement>) => void;
   label?: string | ReactNode;
   className?: string;
+  inputRef?: React.RefObject<HTMLInputElement>;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -14,6 +15,7 @@ const Input: React.FC<InputProps> = ({
   onChange,
   label,
   className,
+  inputRef,
   ...props
 }: InputProps) => {
   const handleKeyUp = useCallback(
@@ -42,6 +44,7 @@ const Input: React.FC<InputProps> = ({
         autoComplete='off'
         onKeyUp={handleKeyUp}
         onChange={onChange}
+        ref={inputRef}
         {...props}
       />
     </label>
