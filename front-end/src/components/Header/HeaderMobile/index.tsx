@@ -36,7 +36,7 @@ const HeaderMobile = () => {
           overlay: {
             backgroundColor: 'rgba(36,32,33,0.2)',
             visibility: isMobile ? 'visible' : 'hidden',
-            zIndex: '2',
+            zIndex: '3',
           },
         }}
       >
