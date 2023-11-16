@@ -1,4 +1,5 @@
-import { Property } from '@/types';
+import { Property, Reset } from '@/types';
+import { validatePassword } from '../validate';
 
 export function disabledProperty(property: Property): boolean {
   if (
@@ -57,6 +58,40 @@ export function disabledProperty(property: Property): boolean {
   }
 
   if (property.footage === 0) {
+    return true;
+  }
+
+  return false;
+}
+
+export function disabledResetPassword(form: Reset) {
+  if (
+    form.password === undefined ||
+    form.confirmation === undefined ||
+    form.one === undefined ||
+    form.two === undefined ||
+    form.three === undefined ||
+    form.four === undefined
+  ) {
+    return true;
+  }
+
+  if (
+    form.password === '' ||
+    form.confirmation === '' ||
+    form.one === '' ||
+    form.two === '' ||
+    form.three === '' ||
+    form.four === ''
+  ) {
+    return true;
+  }
+
+  if (!validatePassword(form.password)) {
+    return true;
+  }
+
+  if (!(form.password === form.confirmation)) {
     return true;
   }
 
