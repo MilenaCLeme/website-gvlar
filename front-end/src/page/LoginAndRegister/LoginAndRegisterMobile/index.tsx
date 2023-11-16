@@ -57,7 +57,7 @@ const LoginAndRegisterMobile: React.FC<LoginAndRegisterMobileProps> = ({
           value={login.password === undefined ? '' : login.password}
           onChange={handleLoginChange}
         />
-        <NavLink to=''>Esqueci a senha</NavLink>
+        <NavLink to='/verificar/email'>Esqueci a senha</NavLink>
         <div>
           <Button
             name='Entrar'
@@ -125,6 +125,7 @@ const LoginAndRegisterMobile: React.FC<LoginAndRegisterMobileProps> = ({
                 className={style.label_check}
                 type='checkbox'
                 name='check'
+                id='check'
                 label={
                   <div>
                     <p>concordo com os</p>
