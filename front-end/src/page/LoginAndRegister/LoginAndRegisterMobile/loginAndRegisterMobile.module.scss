@@ -8,6 +8,7 @@
   opacity: 1;
   text-align: center;
   font: normal normal bold 14px/18px Helvetica;
+  font-size: max(14px, min(18px, 2vw));
   letter-spacing: 0px;
   color: #ee811f;
   opacity: 1;
@@ -28,6 +29,7 @@
     box-shadow: none;
     cursor: auto;
     font: normal normal bold 14px/18px Helvetica;
+    font-size: max(14px, min(18px, 2vw));
     letter-spacing: 0px;
     color: #b6b5b5;
     opacity: 1;
@@ -57,6 +59,7 @@
 .title {
   text-align: left;
   font: normal normal bold 24px/28px Helvetica;
+  font-size: max(24px, min(28px, 2vw));
   letter-spacing: 0px;
   color: #ee811f;
   opacity: 1;
@@ -72,6 +75,7 @@
   h3 {
     text-align: end;
     font: normal normal bold 14px/16px Helvetica;
+    font-size: max(14px, min(16px, 2vw));
     letter-spacing: 0px;
     color: #ee811f;
     opacity: 1;
@@ -86,6 +90,7 @@
     height: 12px;
     text-align: end;
     font: normal normal normal 10px/16px Helvetica;
+    font-size: max(10px, min(16px, 2vw));
     letter-spacing: 0px;
     color: #555555;
     opacity: 1;
@@ -93,6 +98,7 @@
     &:hover {
       text-decoration: underline;
       font: oblique normal normal 10px/16px Helvetica;
+      font-size: max(10px, min(16px, 2vw));
       letter-spacing: 0px;
       color: #ee811f;
       opacity: 1;
@@ -125,6 +131,7 @@
   opacity: 1;
   text-align: center;
   font: normal normal bold 16px/28px Helvetica;
+  font-size: max(16px, min(28px, 2vw));
   letter-spacing: 0px;
   color: #ee811f;
   opacity: 1;
@@ -165,11 +172,17 @@
 
 .label_check {
   display: flex;
-  width: 134px;
+  width: 149px;
   height: 23px;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+
+  svg {
+    width: 10px;
+    height: 10px;
+    margin: 0;
+  }
 
   div {
     display: flex;
@@ -177,6 +190,7 @@
     p {
       text-align: left;
       font: normal normal normal 10px/18px Helvetica;
+      font-size: max(10px, min(18px, 2vw));
       letter-spacing: 0px;
       color: #555555;
       opacity: 1;
@@ -185,6 +199,7 @@
     a {
       text-align: left;
       font: normal normal normal 10px/14px Helvetica;
+      font-size: max(10px, min(14px, 2vw));
       letter-spacing: 0px;
       color: #555555;
       opacity: 1;
@@ -194,6 +209,7 @@
         text-align: left;
         text-decoration: underline;
         font: oblique normal normal 10px/14px Helvetica;
+        font-size: max(10px, min(14px, 2vw));
         letter-spacing: 0px;
         color: #ee811f;
         opacity: 1;
