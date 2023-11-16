@@ -1,0 +1,33 @@
+.main {
+  width: 100%;
+  height: auto;
+  min-height: 600px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  width: 50%;
+  text-align: center;
+  font: normal normal bold 16px/20px Helvetica;
+  font-size: max(16px, min(20px, 2vw));
+  letter-spacing: 0px;
+  color: #ee811f;
+  opacity: 1;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.subtitle {
+  width: 70%;
+  text-align: center;
+  font: normal normal bold 24px/28px Helvetica;
+  font-size: max(24px, min(28px, 2vw));
+  letter-spacing: 0px;
+  color: #ee811f;
+  opacity: 1;
+  margin-bottom: 30px;
+}
