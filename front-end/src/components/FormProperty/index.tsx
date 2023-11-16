@@ -59,6 +59,7 @@ const FormProperty: React.FC<FormProperty> = ({ property, handlePropertyChange }
           onChange={handlePropertyChange}
         />
         <InputSelect
+          iten='property'
           valeu={property.about === undefined ? '' : property.about}
           handleChange={handlePropertyChange}
         />
@@ -102,7 +103,11 @@ const FormProperty: React.FC<FormProperty> = ({ property, handlePropertyChange }
             name='zone'
             label='Zona'
             onChange={handlePropertyChange}
-            value={property.zone === null || property.zone === undefined ? '' : property.zone}
+            value={
+              property.zone === null || property.zone === undefined || property.zone === undefined
+                ? ''
+                : property.zone
+            }
           />
           <Input
             type='text'
@@ -128,7 +133,7 @@ const FormProperty: React.FC<FormProperty> = ({ property, handlePropertyChange }
             label='Complemento'
             name='complement'
             value={
-              property.complement === null || property.complement === null
+              property.complement === null || property.complement === undefined
                 ? ''
                 : property.complement
             }
