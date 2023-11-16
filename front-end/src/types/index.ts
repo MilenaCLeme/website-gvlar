@@ -15,6 +15,13 @@ export interface Owner {
   name: string;
   email: string;
   phone: string;
+  propertyId?: number;
+}
+
+export interface Owners {
+  owner: Owner;
+  ownerId: number;
+  propertyId: number;
 }
 
 export interface Property {
@@ -42,8 +49,9 @@ export interface Property {
   register: number;
   createdAt: string;
   updatedAt: string;
-  photographs?: Photograph[];
-  owners?: Owner[];
+  user: User;
+  photographs: Photograph[];
+  owners: Owners[];
 }
 
 export interface PageFilter {
@@ -148,4 +156,13 @@ export interface Button {
   onClick: () => void;
   className?: string;
   disabled?: boolean;
+}
+
+export interface Reset {
+  password: string;
+  confirmation: string;
+  one: string;
+  two: string;
+  three: string;
+  four: string;
 }
