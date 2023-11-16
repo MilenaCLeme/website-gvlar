@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { Context } from '@/context';
 import Nav from './components/Nav';
 import style from './defaulPageADM.module.scss';
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { logout } from '@/service/api/auth';
 
 const DefaulPageADM = () => {
