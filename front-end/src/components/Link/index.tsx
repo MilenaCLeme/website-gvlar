@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
-import style from './nav.module.scss';
+import style from './link.module.scss';
 
 interface LinkProps {
   name: string;
