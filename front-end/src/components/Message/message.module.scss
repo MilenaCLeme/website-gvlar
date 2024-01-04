@@ -1,0 +1,43 @@
+.message {
+  text-align: center;
+  font: normal normal normal 14px/16px Helvetica;
+  font-size: max(14px, min(16px, 2vw));
+  letter-spacing: 0px;
+  color: #555555;
+  opacity: 1;
+  width: 100%;
+  margin-bottom: 0.5rem;
+
+  @media (max-width: $desk) {
+    font-size: 12px;
+  }
+
+  &__alert {
+    color: #ff2f0e;
+  }
+
+  &__ok {
+    font-weight: 600;
+  }
+}
+
+.button {
+  width: 100%;
+  border: 1px solid #ee811f;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: center;
+  font: normal normal normal 14px/16px Helvetica;
+  letter-spacing: 0px;
+  color: #555555;
+  opacity: 1;
+  border-radius: 5px;
+  color: #ee811f;
+
+  &:hover {
+    letter-spacing: 0px;
+    opacity: 1;
+    color: #555555;
+    border-color: #555555;
+  }
+}

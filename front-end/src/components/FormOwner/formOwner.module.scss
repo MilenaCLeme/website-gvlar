@@ -1,0 +1,83 @@
+.form {
+  margin-bottom: 25px;
+  width: 100%;
+
+  label {
+    text-align: left;
+    font: normal normal bold 12px/15px Helvetica;
+    letter-spacing: 0px;
+    color: #ee811f;
+    opacity: 1;
+  }
+}
+
+.flex {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.one {
+  flex-basis: 50%;
+  padding-right: 38px;
+
+  @media (max-width: $desk) {
+    padding-right: 4px;
+  }
+
+  input {
+    min-width: 100px;
+
+    @media (max-width: $desk) {
+      padding-left: 4px;
+    }
+  }
+}
+
+.two {
+  flex-basis: 50%;
+
+  input {
+    min-width: 100px;
+
+    @media (max-width: $desk) {
+      padding-left: 4px;
+    }
+  }
+}
+
+.three {
+  flex-basis: 70%;
+  padding-right: 38px;
+
+  @media (max-width: $desk) {
+    padding-right: 0;
+  }
+
+  input {
+    min-width: 80px;
+
+    @media (max-width: $desk) {
+      padding-left: 4px;
+    }
+  }
+}
+
+.subtitle {
+  text-align: end;
+  font: normal normal bold 14px/16px Helvetica;
+  letter-spacing: 0px;
+  color: #ee811f;
+  opacity: 1;
+}
+
+.box {
+  display: flex;
+
+  button {
+    width: 75px;
+
+    margin-left: 4px;
+  }
+}

@@ -1,0 +1,73 @@
+.form {
+  input {
+    margin-bottom: 8px;
+  }
+}
+
+.textarea {
+  width: 100%;
+  height: 192px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 2px solid #242021;
+  border-radius: 10px;
+  opacity: 1;
+
+  &::placeholder {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 8px;
+    text-align: left;
+    font: normal normal normal 14px/16px Helvetica;
+    font-size: max(14px, min(16px, 2vw));
+    letter-spacing: 0px;
+    color: #555555;
+    opacity: 1;
+  }
+}
+
+.box-botao-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.box-info {
+  text-align: left;
+  font: normal normal normal 8px/10px Helvetica;
+  font-size: max(12px, min(14px, 2vw));
+  letter-spacing: 0px;
+  color: #ffffff;
+}
+
+.label_check {
+  display: flex;
+  flex-direction: column;
+  p {
+    text-align: left;
+    font: normal normal normal 10px/18px Helvetica;
+    font-size: max(10px, min(18px, 2vw));
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 1;
+    height: 12px;
+  }
+  a {
+    margin-top: 4px;
+    text-align: left;
+    font: normal normal normal 10px/14px Helvetica;
+    font-size: max(10px, min(14px, 2vw));
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 1;
+    height: 12px;
+
+    &:hover {
+      text-align: left;
+      text-decoration: underline;
+      font: oblique normal normal 10px/14px Helvetica;
+      font-size: max(10px, min(14px, 2vw));
+      letter-spacing: 0px;
+      color: #ee811f;
+      opacity: 1;
+    }
+  }
+}

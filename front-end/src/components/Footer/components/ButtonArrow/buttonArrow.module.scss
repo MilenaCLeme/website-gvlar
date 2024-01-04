@@ -1,0 +1,36 @@
+.button {
+  width: 30px;
+  height: 30px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: -2px 2px 4px #ee811f;
+  opacity: 1;
+  margin-right: 21px;
+  border: none;
+  border-radius: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    width: 35px;
+    height: 35px;
+    background: #ee811f 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    opacity: 1;
+    box-shadow: none;
+
+    div {
+      width: 25px;
+      height: 13px;
+      background-image: url('../../../../assets/arrow/arrowWhite.svg');
+    }
+  }
+
+  div {
+    width: 20px;
+    height: 10px;
+    background-image: url('../../../../assets/arrow/arrowOrange.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}

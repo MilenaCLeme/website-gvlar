@@ -1,0 +1,31 @@
+.clock {
+  width: 120px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    div {
+      background-image: url('../../../../assets/clock/clockOrange.svg');
+    }
+  }
+
+  div {
+    width: 17px;
+    height: 17px;
+    background-image: url('../../../../assets/clock/clockWhite.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  p {
+    width: 93px;
+    height: 28px;
+    text-align: left;
+    font: normal normal normal 12px/14px Helvetica;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 0.8;
+  }
+}

@@ -1,0 +1,154 @@
+.openMenu {
+  animation-name: openMenu;
+  animation-duration: 0.3s;
+  position: absolute;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  min-width: 180px;
+  width: 50%;
+  height: 400px;
+  background: #242021 0% 0% no-repeat padding-box;
+  box-shadow: 3px 3px 6px #00000029;
+  border-radius: 0px 0px 56px 0px;
+  opacity: 1;
+
+  @keyframes openMenu {
+    from {
+      left: -100vw;
+    }
+    to {
+      left: 0;
+    }
+  }
+
+  @media (min-width: $mobile) {
+    display: none;
+  }
+}
+
+.closeMenu {
+  animation-name: closeMenu;
+  animation-duration: 0.3s;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  min-width: 180px;
+  width: 50%;
+  height: 400px;
+  background: #242021 0% 0% no-repeat padding-box;
+  box-shadow: 3px 3px 6px #00000029;
+  border-radius: 0px 0px 56px 0px;
+  opacity: 1;
+
+  @keyframes closeMenu {
+    from {
+      left: 0;
+    }
+    to {
+      left: -100vw;
+    }
+  }
+
+  @media (min-width: $mobile) {
+    display: none;
+  }
+}
+
+.modal {
+  min-width: 180px;
+  width: 50%;
+  height: 400px;
+
+  @media (min-width: $mobile) {
+    display: none;
+  }
+}
+
+.button {
+  position: fixed;
+  margin-top: 89px;
+  margin-left: 18px;
+  border: none;
+  background-color: transparent;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+
+  @media (min-width: $mobile) {
+    display: none;
+  }
+
+  svg {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.closet {
+  border: none;
+  background-color: transparent;
+  margin-top: 32px;
+  margin-left: 24px;
+  cursor: pointer;
+}
+
+.user {
+  margin-top: 25px;
+  margin-bottom: 8px;
+  width: 100%;
+  min-width: 147px;
+  margin-left: 12px;
+  margin-right: 21px;
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  h3 {
+    text-align: left;
+    font: normal normal bold 16px/28px Helvetica;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 1;
+    margin-left: 8px;
+  }
+}
+
+.button_closet {
+  margin-top: 24px;
+  margin-left: 15px;
+  width: 53px;
+  height: 21px;
+  display: flex;
+  text-align: left;
+  font: normal normal bold 18px/28px Helvetica;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  &:hover {
+    color: #ee811f;
+
+    div {
+      background-image: url('../../../assets/door/door.svg');
+    }
+  }
+
+  div {
+    width: 10px;
+    height: 20px;
+    background-image: url('../../../assets/door/doorOrange.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
