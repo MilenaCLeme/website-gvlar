@@ -1,7 +1,9 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
+  forwardRef,
 } from '@nestjs/common';
 import { join } from 'path';
 import { FileService } from 'src/file/file.service';
@@ -13,8 +15,11 @@ import { User } from '@prisma/client';
 @Injectable()
 export class PhotographService {
   constructor(
+    @Inject(forwardRef(() => FileService))
     private readonly fileService: FileService,
+    @Inject(forwardRef(() => PropertyService))
     private readonly propertieService: PropertyService,
+    @Inject(forwardRef(() => PrismaService))
     private readonly prisma: PrismaService,
   ) {}
 
@@ -60,7 +65,7 @@ export class PhotographService {
 
       await this.fileService.upload(photo, path);
 
-      const photograph = await this.prisma.photograph.create({
+      await this.prisma.photograph.create({
         data: {
           url: fileName,
           describe,
@@ -72,7 +77,12 @@ export class PhotographService {
         },
       });
 
-      return photograph;
+      const propertie = await this.propertieService.update(propertyId, {
+        published: false,
+        situation: 'em analise',
+      });
+
+      return propertie;
     } catch (error) {
       throw new BadRequestException(error);
     }
@@ -82,7 +92,7 @@ export class PhotographService {
     try {
       await this.exists(photoId);
 
-      const { url } = await this.prisma.photograph.delete({
+      const { url, propertyId } = await this.prisma.photograph.delete({
         where: {
           id: photoId,
         },
@@ -92,7 +102,29 @@ export class PhotographService {
 
       await this.fileService.delete(path);
 
-      return { url, sucesso: 'ok' };
+      const propertie = await this.propertieService.property({
+        id: propertyId,
+      });
+
+      return propertie;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+
+  async deletePhotoForProperty(id: number) {
+    try {
+      const propertieId = await this.prisma.photograph.findMany({
+        where: {
+          propertyId: id,
+        },
+      });
+
+      if (propertieId.length > 0) {
+        propertieId.map(async ({ id }) => {
+          await this.deletePhoto(id);
+        });
+      }
     } catch (error) {
       throw new BadRequestException(error);
     }

@@ -9,16 +9,19 @@ export class IsTypePropertyValidConstraint
 {
   validate(type: string) {
     const invalidTypes = [
-      'apartamento',
-      'térrea',
-      'sobrado',
-      'galpão',
-      'terreno',
+      'Apartamento',
+      'Casa Térreo',
+      'Sobrado',
+      'Galpão',
+      'Terreno',
     ];
-    return invalidTypes.includes(type.toLowerCase());
+
+    if (type !== undefined) {
+      return invalidTypes.includes(type);
+    }
   }
 
   defaultMessage() {
-    return `type must be either "apartamento" or "térrea" or "sobrado" or "galpão" or "terreno"`;
+    return `Selecione o tipo do Imóvel`;
   }
 }

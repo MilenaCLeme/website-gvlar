@@ -10,6 +10,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import * as bycrpt from 'bcrypt';
 import { UpdatePatchUserDTO } from './dto/update-patch-user.dto';
 import { MailService } from 'src/mail/mail.service';
+import { PropertyService } from 'src/property/property.service';
 
 @Injectable()
 export class UserService {
@@ -17,6 +18,7 @@ export class UserService {
     private readonly prisma: PrismaService,
     private readonly authService: AuthService,
     private readonly mailService: MailService,
+    private readonly propertyService: PropertyService,
   ) {}
 
   async user(
@@ -24,9 +26,6 @@ export class UserService {
   ): Promise<User | null> {
     return await this.prisma.user.findUnique({
       where: userWhereUniqueInput,
-      include: {
-        Properties: true,
-      },
     });
   }
 
@@ -50,6 +49,11 @@ export class UserService {
     return await this.users({});
   }
 
+  encodeString(input: string) {
+    const encoded = Buffer.from(input).toString('base64');
+    return encoded;
+  }
+
   async createUser(data: Prisma.UserCreateInput) {
     try {
       data.hashedPassword = await bycrpt.hash(
@@ -57,15 +61,11 @@ export class UserService {
         await bycrpt.genSalt(),
       );
 
-      let user = await this.prisma.user.create({
+      const user = await this.prisma.user.create({
         data,
       });
 
-      const { accessToken } = this.authService.createToken(user);
-
-      user = await this.updateUser(user.id, {
-        hashedRefreshToken: accessToken,
-      });
+      const accessToken = this.encodeString(`${user.id}`);
 
       await this.mailService.sendEmailConfirmtion(user, accessToken);
 
@@ -111,6 +111,7 @@ export class UserService {
 
   async deleteUser(id: number): Promise<User> {
     await this.exists(id);
+    await this.propertyService.updateRegisterForUserMaster(id);
     return await this.prisma.user.delete({
       where: {
         id,

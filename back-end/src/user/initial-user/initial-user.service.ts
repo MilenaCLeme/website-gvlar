@@ -15,10 +15,10 @@ export class InitialUserService {
 
         const newUser = await this.prisma.user.create({
           data: {
-            name: 'teste',
+            name: 'teste master',
             email: 'segunda4@uorak.com',
             hashedPassword: password,
-            phone: '163673-8616',
+            phone: '(86) 3917-3135',
             validation: true,
             role: 'master',
           },

@@ -1,16 +1,22 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  forwardRef,
+} from '@nestjs/common';
 import { Prisma, User, Property } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { FilterPagePropertyDTO } from './dto/filter-page-property.dto';
 import { PropertyAndOwnerService } from 'src/propertyandowner/propertyandowner.service';
 import { shuffle } from 'lodash';
+import { PhotographService } from 'src/photograph/photograph.service';
 
 @Injectable()
 export class PropertyService {
   private select = {
     id: true,
     about: true,
-    type: true,
+    business: true,
     iptu: true,
     rental: true,
     sell: true,
@@ -21,12 +27,17 @@ export class PropertyService {
     garage: true,
     city: true,
     state: true,
+    area: true,
     photographs: true,
   };
 
   constructor(
+    @Inject(forwardRef(() => PrismaService))
     private readonly prisma: PrismaService,
+    @Inject(forwardRef(() => PropertyAndOwnerService))
     private readonly propertyAndOwner: PropertyAndOwnerService,
+    @Inject(forwardRef(() => PhotographService))
+    private readonly photoService: PhotographService,
   ) {}
   async list() {
     return await this.properties({
@@ -49,6 +60,24 @@ export class PropertyService {
   async property(where: Prisma.PropertyWhereUniqueInput) {
     return await this.prisma.property.findUnique({
       where,
+      include: {
+        user: true,
+        owners: {
+          include: {
+            owner: true,
+          },
+        },
+        photographs: true,
+      },
+    });
+  }
+
+  async showSituation() {
+    return await this.countProperty({
+      OR: [
+        { situation: { equals: 'em analise' } },
+        { situation: { equals: 'solicitação de exclusão' } },
+      ],
     });
   }
 
@@ -67,6 +96,15 @@ export class PropertyService {
             id: user.id,
           },
         },
+      },
+      include: {
+        owners: {
+          include: {
+            owner: true,
+          },
+        },
+        photographs: true,
+        user: true,
       },
     });
   }
@@ -101,11 +139,35 @@ export class PropertyService {
         id,
       },
       data,
+      include: {
+        owners: {
+          include: {
+            owner: true,
+          },
+        },
+        photographs: true,
+        user: true,
+      },
     });
+  }
+
+  async updateRegisterForUserMaster(id: number) {
+    try {
+      const registerUser = await this.propertiesListClient(id);
+
+      if (registerUser.length > 0) {
+        registerUser.map(async ({ id }) => {
+          await this.update(id, { user: { connect: { id: 1 } } });
+        });
+      }
+    } catch (error) {
+      new NotFoundException('Erro ao buscar propriedades do usuário');
+    }
   }
 
   async delete(id: number) {
     await this.exists(id);
+    await this.photoService.deletePhotoForProperty(id);
     await this.propertyAndOwner.deleteImmobile(id);
     return this.prisma.property.delete({
       where: {
@@ -136,68 +198,193 @@ export class PropertyService {
     }
   }
 
-  hasFilter(data: FilterPagePropertyDTO): boolean {
-    return (
-      (data.type !== undefined && data.type !== '') ||
-      (data.text !== undefined && data.text !== '') ||
-      (data.minV !== undefined && Number(data.minV) > 0) ||
-      (data.maxV !== undefined && Number(data.maxV) > 0) ||
-      (data.minFoo !== undefined && data.minFoo > 0) ||
-      (data.maxFoo !== undefined && data.maxFoo > 0) ||
-      (data.bathroom !== undefined && data.bathroom > 0) ||
-      (data.garage !== undefined && data.garage > 0) ||
-      (data.bedroom !== undefined && data.bedroom > 0)
-    );
+  async filter(page: number, data: FilterPagePropertyDTO) {
+    try {
+      const thisWhere: Prisma.PropertyWhereInput = this.createWhere(data);
+
+      const pageSize = 25;
+
+      const totalItems = await this.countProperty(thisWhere);
+
+      const totalPages = Math.ceil(totalItems / pageSize); // Calcula o número total de páginas
+      const maxSkip = Math.max((totalPages - 1) * pageSize, 0); // Calcula o número máximo de itens que podem ser pulados
+
+      const skip = Math.min((page - 1) * pageSize, maxSkip);
+
+      const order: Prisma.Enumerable<Prisma.PropertyOrderByWithRelationInput> =
+        this.orderBy(data);
+
+      const filteredItems = await this.properties({
+        where: thisWhere,
+        skip,
+        take: pageSize,
+        select: this.select,
+        orderBy: order,
+      });
+
+      const nextPage = totalItems > page * pageSize ? page + 1 : false;
+
+      const previousPage = page > 1 ? page - 1 : false;
+
+      return {
+        items: filteredItems,
+        totalItems,
+        nextPage,
+        page,
+        previousPage,
+      };
+    } catch (error) {
+      new NotFoundException('Erro ao buscar propriedades');
+    }
   }
 
-  async pageWithFilter(page: number, data: FilterPagePropertyDTO) {
-    const filtersOr: Prisma.PropertyWhereInput[] = [
-      { type: { equals: data.type, mode: 'insensitive' } },
-      { zone: { contains: data.text, mode: 'insensitive' } },
-      { state: { contains: data.text, mode: 'insensitive' } },
-      { city: { contains: data.text, mode: 'insensitive' } },
-      { area: { contains: data.text, mode: 'insensitive' } },
-      { address: { contains: data.text, mode: 'insensitive' } },
-      { sell: { gte: data.minV, lte: data.maxV } },
-      { rental: { gte: data.minV, lte: data.maxV } },
-      { footage: { gte: data.maxFoo, lte: data.minFoo } },
-      { bathroom: { gt: data.bathroom } },
-      { garage: { gt: data.garage } },
-      { bedroom: { gt: data.bedroom } },
-    ];
+  private orderBy(filters: FilterPagePropertyDTO) {
+    if (filters.order && filters.business && !(filters.business === 'ambos')) {
+      const name = filters.business === 'venda' ? 'sell' : 'rental';
+      const order: Prisma.SortOrder =
+        filters.order === 'Preço Menor' ? 'asc' : 'desc';
+      return {
+        [name]: order,
+      };
+    }
 
-    const filtersAnd = [{ published: { equals: true } }];
+    if (filters.order) {
+      const order: Prisma.SortOrder =
+        filters.order === 'Preço Menor' ? 'asc' : 'desc';
+      return {
+        rental: order,
+      };
+    }
 
-    const where: Prisma.PropertyWhereInput = this.hasFilter(data)
-      ? { OR: filtersOr, AND: filtersAnd }
-      : { AND: filtersAnd };
+    return {};
+  }
 
-    const pageSize = 20;
-    const totalItems = await this.countProperty(where);
+  private createWhere(filters: FilterPagePropertyDTO) {
+    const or: Prisma.PropertyWhereInput[] = [];
+    const and: Prisma.PropertyWhereInput[] = [{ published: { equals: true } }];
 
-    const totalPages = Math.ceil(totalItems / pageSize); // Calcula o número total de páginas
-    const maxSkip = Math.max((totalPages - 1) * pageSize, 0); // Calcula o número máximo de itens que podem ser pulados
+    if (filters.business && !(filters.business === 'ambos')) {
+      and.push({
+        business: {
+          in: [filters.business, 'ambos'],
+        },
+      });
+    }
 
-    const skip = Math.min((page - 1) * pageSize, maxSkip);
+    if (filters.about) {
+      and.push({
+        about: {
+          equals: filters.about,
+          mode: 'insensitive',
+        },
+      });
+    }
 
-    const filteredItems = await this.properties({
-      where,
-      skip,
-      take: pageSize,
-      select: this.select,
-    });
+    if (filters.text) {
+      or.push(
+        {
+          zone: {
+            contains: filters.text,
+            mode: 'insensitive',
+          },
+        },
+        {
+          state: {
+            contains: filters.text,
+            mode: 'insensitive',
+          },
+        },
+        {
+          city: {
+            contains: filters.text,
+            mode: 'insensitive',
+          },
+        },
+        {
+          area: {
+            contains: filters.text,
+            mode: 'insensitive',
+          },
+        },
+        {
+          address: {
+            contains: filters.text,
+            mode: 'insensitive',
+          },
+        },
+      );
+    }
 
-    const nextPage = totalItems > page * pageSize ? page + 1 : false;
+    if (filters.minV && filters.maxV) {
+      const name = filters.business === 'venda' ? 'sell' : 'rental';
+      and.push({
+        [name]: {
+          gte: filters.minV,
+          lte: filters.maxV,
+        },
+      });
+    } else if (filters.minV) {
+      const name = filters.business === 'venda' ? 'sell' : 'rental';
+      and.push({
+        [name]: {
+          gte: filters.minV,
+        },
+      });
+    } else if (filters.maxV) {
+      const name = filters.business === 'venda' ? 'sell' : 'rental';
+      and.push({
+        [name]: {
+          lte: filters.maxV,
+        },
+      });
+    }
 
-    const previousPage = page > 1 ? page - 1 : false;
+    if (filters.minFoo && filters.maxFoo) {
+      and.push(
+        {
+          footage: {
+            gte: filters.minFoo,
+          },
+        },
+        {
+          footage: {
+            lte: filters.maxFoo,
+          },
+        },
+      );
+    } else if (filters.minFoo) {
+      and.push({
+        footage: {
+          gte: filters.minFoo,
+        },
+      });
+    } else if (filters.maxFoo) {
+      and.push({
+        footage: {
+          lte: filters.maxFoo,
+        },
+      });
+    }
 
-    return {
-      items: filteredItems,
-      totalItems,
-      nextPage,
-      page,
-      previousPage,
-    };
+    if (filters.bathroom) {
+      and.push({
+        bathroom: { gte: filters.bathroom },
+      });
+    }
+
+    if (filters.garage) {
+      and.push({
+        garage: { gte: filters.garage },
+      });
+    }
+
+    if (filters.bedroom) {
+      and.push({
+        bedroom: { gte: filters.bedroom },
+      });
+    }
+
+    return or.length === 0 ? { AND: and } : { OR: or, AND: and };
   }
 
   async pageProperty(id: number) {
@@ -228,6 +415,27 @@ export class PropertyService {
       return randomProperties;
     } catch (error) {
       new NotFoundException('Erro ao buscar propriedades aleatórias');
+    }
+  }
+
+  async propertiesListClient(id: number) {
+    try {
+      const properties = await this.properties({
+        where: { register: id },
+        include: {
+          owners: {
+            include: {
+              owner: true,
+            },
+          },
+          photographs: true,
+          user: true,
+        },
+      });
+
+      return properties;
+    } catch (error) {
+      new NotFoundException('Erro ao buscar propriedades');
     }
   }
 }

@@ -32,7 +32,7 @@ export class UserController {
     return await this.userService.createUser(body);
   }
 
-  @Roles(Role.master)
+  @Roles(Role.master, Role.worker)
   @Get()
   async list() {
     return await this.userService.listUsers();
@@ -56,7 +56,7 @@ export class UserController {
     return await this.userService.updateUser(id, body);
   }
 
-  @Roles(Role.master)
+  @Roles(Role.master, Role.worker)
   @Patch(':id')
   async updatePartial(@ParamId() id: number, @Body() body: UpdatePatchUserDTO) {
     return await this.userService.updateUser(id, body);

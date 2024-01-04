@@ -50,12 +50,13 @@ export class OwnerService {
       },
     });
   }
-
+  /*
   async showEmail(email: string) {
     await this.existsEmail(email);
     return await this.owner({ email });
   }
 
+  */
   async showId(id: number) {
     await this.exists(id);
     return await this.owner({ id });
@@ -64,7 +65,8 @@ export class OwnerService {
   async create(create: CreateOwnerDTO) {
     try {
       await this.propertyService.exists(create.propertyId);
-      return await this.prisma.owner.create({
+
+      await this.prisma.owner.create({
         data: {
           name: create.name,
           email: create.email,
@@ -79,15 +81,9 @@ export class OwnerService {
             },
           },
         },
-        include: {
-          properties: {
-            include: {
-              property: true,
-              owner: true,
-            },
-          },
-        },
       });
+
+      return await this.propertyService.property({ id: create.propertyId });
     } catch (error) {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&

@@ -13,6 +13,8 @@ import { FileModule } from './file/file.module';
 import { InitialUserService } from './user/initial-user/initial-user.service';
 import { PrismaService } from './prisma/prisma.service';
 import { CommentModule } from './comment/comment.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -20,6 +22,10 @@ import { CommentModule } from './comment/comment.module';
     ThrottlerModule.forRoot({
       ttl: 60,
       limit: 500,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
     }),
     forwardRef(() => UserModule),
     forwardRef(() => AuthModule),

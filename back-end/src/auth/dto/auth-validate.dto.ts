@@ -1,6 +1,6 @@
 import { IsEmail } from 'class-validator';
 
 export class AuthValidateDTO {
-  @IsEmail()
+  @IsEmail({}, { message: 'O email deve ser válido.' })
   email: string;
 }

@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Inject,
   Injectable,
-  NotFoundException,
   UnauthorizedException,
   forwardRef,
 } from '@nestjs/common';
@@ -14,6 +13,7 @@ import { AuthRegisterDTO } from './dto/auth-register.dto';
 import * as bycrpt from 'bcrypt';
 import { MailService } from 'src/mail/mail.service';
 import { AuthUpdatePatchRegisterDTO } from './dto/auth-update-patch-register.dto';
+import { AuthChangeDTO } from './dto/auth-change.dto';
 
 @Injectable()
 export class AuthService {
@@ -71,6 +71,24 @@ export class AuthService {
     }
   }
 
+  async checkTokenValidity(user: User) {
+    const { accessToken } = this.createToken(user);
+
+    user = await this.userService.updateUser(user.id, {
+      hashedRefreshToken: accessToken,
+    });
+
+    return { accessToken, user };
+  }
+
+  async logout(user: User) {
+    await this.userService.updateUser(user.id, {
+      hashedRefreshToken: null,
+    });
+
+    return { sucess: 'Ok' };
+  }
+
   async register(data: AuthRegisterDTO) {
     return await this.userService.createUser(data);
   }
@@ -107,6 +125,12 @@ export class AuthService {
     return { accessToken, user };
   }
 
+  generateRandom4DigitNumber() {
+    const randomNumber = Math.floor(Math.random() * 10000);
+
+    return randomNumber.toString().padStart(4, '0');
+  }
+
   async forget(email: string) {
     let user = await this.userService.user({ email });
 
@@ -114,55 +138,83 @@ export class AuthService {
       throw new UnauthorizedException('Email está incorretos.');
     }
 
-    const { accessToken } = this.createToken(user);
+    const encodeid = this.userService.encodeString(`${user.id}`);
+
+    const numberRandom = this.generateRandom4DigitNumber();
 
     user = await this.userService.updateUser(user.id, {
-      hashedRefreshToken: accessToken,
+      hashedRefreshToken: numberRandom,
     });
 
-    await this.mailService.sendEmailForgotPassWord(user, accessToken);
+    await this.mailService.sendEmailForgotPassWord(
+      user,
+      encodeid,
+      numberRandom,
+    );
 
-    return { accessToken };
+    return { sucess: 'Ok' };
   }
 
-  async reset(id: number, hashedPassword: string) {
-    let user = await this.userService.updateUser(id, {
+  async reset(id: number, hashedPassword: string, number: string) {
+    await this.userService.showId(id);
+
+    const user = await this.userService.user({ id });
+
+    if (!(await bycrpt.compare(number, user.hashedRefreshToken))) {
+      throw new UnauthorizedException('codigo invalido');
+    }
+
+    await this.mailService.sendEmailResetPassWord(user);
+
+    await this.userService.updateUser(id, {
       hashedPassword,
       validation: true,
     });
 
-    const { accessToken } = this.createToken(user);
-
-    user = await this.userService.updateUser(id, {
-      hashedRefreshToken: accessToken,
-    });
-
-    return { accessToken, user };
+    return { sucess: 'Ok' };
   }
 
-  async validation(id: number, validation: boolean) {
-    if (validation) {
-      throw new NotFoundException(`O usuário ${id} já está valido`);
+  async changePassword(id: number, body: AuthChangeDTO) {
+    await this.userService.showId(id);
+
+    let user = await this.userService.user({ id });
+
+    if (!(await bycrpt.compare(body.passwordOld, user.hashedPassword))) {
+      throw new UnauthorizedException('Senha antiga não valida');
     }
 
-    return await this.userService.updateUser(id, { validation: true });
+    user = await this.userService.updateUser(id, {
+      hashedPassword: body.passwordNew,
+    });
+
+    return user;
+  }
+
+  async validation(id: number) {
+    await this.userService.showId(id);
+
+    const user = await this.userService.user({ id });
+
+    if (user.validation) {
+      throw new BadRequestException('Usuario já validato');
+    }
+
+    await this.userService.updateUser(id, { validation: true });
+
+    return { sucess: 'Ok' };
   }
 
   async validate(email: string) {
-    let user = await this.userService.user({ email });
+    const user = await this.userService.user({ email });
 
     if (!user) {
       throw new UnauthorizedException('Email está incorretos.');
     }
 
-    const { accessToken } = this.createToken(user);
-
-    user = await this.userService.updateUser(user.id, {
-      hashedRefreshToken: accessToken,
-    });
+    const accessToken = this.userService.encodeString(`${user.id}`);
 
     await this.mailService.sendEmailConfirmtion(user, accessToken);
 
-    return { accessToken };
+    return { sucess: 'Ok' };
   }
 }

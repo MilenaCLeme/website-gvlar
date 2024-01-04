@@ -2,41 +2,40 @@ import {
   IsInt,
   IsNotEmpty,
   IsNumber,
-  IsNumberString,
   IsOptional,
   IsPostalCode,
   IsString,
   Min,
   Validate,
 } from 'class-validator';
-import { IsAboutValidConstraint } from 'src/validators/isaboutvalidconstraint';
+import { IsBusinessValidConstraint } from 'src/validators/isbusinessvalidconstraint';
 import { IsTypePropertyValidConstraint } from 'src/validators/istypepropertyvalidconstraint';
 
 export class CreateForTheClientPropertyDTO {
   @IsString()
   @IsNotEmpty()
-  @Validate(IsTypePropertyValidConstraint)
-  type: string;
+  @Validate(IsBusinessValidConstraint)
+  business: string;
 
   @IsString()
-  @IsNotEmpty()
-  @Validate(IsAboutValidConstraint)
+  @IsNotEmpty({ message: 'O tipo do Imóvel é obrigatório.' })
+  @Validate(IsTypePropertyValidConstraint)
   about: string;
 
-  @IsNumberString()
+  @IsNumber()
   @IsOptional()
-  sell?: string;
+  sell?: number;
 
-  @IsNumberString()
+  @IsNumber()
   @IsOptional()
-  rental?: string;
+  rental?: number;
 
-  @IsNumberString()
-  @IsNotEmpty()
-  iptu: string;
+  @IsNumber()
+  @IsNotEmpty({ message: 'O iptu é obrigatório.' })
+  iptu: number;
 
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'A descrição é obrigatório.' })
   description: string;
 
   @IsNumber()
@@ -63,34 +62,34 @@ export class CreateForTheClientPropertyDTO {
   garage: number;
 
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'O endereço é obrigatório.' })
   address: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'O numero é obrigatório.' })
   number: string;
 
   @IsString()
   @IsOptional()
   complement?: string;
 
-  @IsPostalCode('BR')
-  @IsNotEmpty()
+  @IsPostalCode('BR', { message: 'CEP invalido.' })
+  @IsNotEmpty({ message: 'O CEP é obrigatório.' })
   zipcode: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'O Bairro é obrigatório.' })
   area: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'O cidade é obrigatório.' })
   city: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'O estado é obrigatório.' })
   state: string;
 
   @IsString()
-  @IsNotEmpty()
-  zone: string;
+  @IsOptional()
+  zone?: string;
 }

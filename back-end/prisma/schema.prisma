@@ -29,11 +29,11 @@ model User {
 model Property {
   id                Int           @id @default(autoincrement())
   published         Boolean       @default(false)
-  type              String
+  business          String
   about             String
-  sell              Decimal?      @db.Decimal(13, 2)
-  rental            Decimal?      @db.Decimal(13, 2)
-  iptu              Decimal       @db.Decimal(13, 2)
+  sell              Float?
+  rental            Float?
+  iptu              Float
   description       String
   footage           Int
   bedroom           Int
@@ -46,7 +46,7 @@ model Property {
   area              String
   city              String
   state             String
-  zone              String
+  zone              String?
   situation         String        @default("em analise")
   user              User?         @relation(fields: [register], references: [id])
   register          Int?
@@ -80,7 +80,7 @@ model Comment {
 model Owner {
   id            Int       @id @default(autoincrement())
   name          String    @db.VarChar(127)
-  email         String    @unique @db.VarChar(127)
+  email         String    @db.VarChar(127) //@unique @db.VarChar(127)
   phone         String    @db.VarChar(15)
   properties    PropertyAndOwner[]
 

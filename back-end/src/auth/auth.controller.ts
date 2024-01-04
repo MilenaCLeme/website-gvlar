@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Patch,
   Post,
   UseGuards,
@@ -17,6 +18,9 @@ import { AuthValidateDTO } from './dto/auth-validate.dto';
 import { AuthUpdatePatchRegisterDTO } from './dto/auth-update-patch-register.dto';
 import { Throttle } from '@nestjs/throttler';
 import { LogInterceptor } from 'src/interceptors/log.interceptor';
+import { User as UserType } from '@prisma/client';
+import { ParamId } from 'src/decorators/param-id.decorator';
+import { AuthChangeDTO } from './dto/auth-change.dto';
 
 @UseInterceptors(LogInterceptor)
 @Controller('auth')
@@ -30,6 +34,18 @@ export class AuthController {
   @Post('register')
   async register(@Body() body: AuthRegisterDTO) {
     return this.authService.register(body);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('check-token')
+  async checkTokenValidity(@User() user: UserType) {
+    return this.authService.checkTokenValidity(user);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('logout')
+  async logout(@User() user: UserType) {
+    return this.authService.logout(user);
   }
 
   @UseGuards(AuthGuard)
@@ -47,19 +63,23 @@ export class AuthController {
     return this.authService.forget(email);
   }
 
-  @UseGuards(AuthGuard)
-  @Post('reset')
-  async reset(@User('id') id: number, @Body() { password }: AuthResetDTO) {
-    return this.authService.reset(id, password);
+  @Post('reset/:id')
+  async reset(
+    @ParamId() id: number,
+    @Body() { password, number }: AuthResetDTO,
+  ) {
+    return this.authService.reset(id, password, number);
   }
 
   @UseGuards(AuthGuard)
-  @Post('validation')
-  async validation(
-    @User('id') id: number,
-    @User('validation') validation: boolean,
-  ) {
-    return this.authService.validation(id, validation);
+  @Patch('changepassword')
+  async changePassword(@User('id') id: number, @Body() body: AuthChangeDTO) {
+    return this.authService.changePassword(id, body);
+  }
+
+  @Get('validation/:id')
+  async validation(@ParamId() id: number) {
+    return this.authService.validation(id);
   }
 
   @Throttle(10, 60)

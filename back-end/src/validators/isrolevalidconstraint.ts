@@ -11,6 +11,6 @@ export class IsRoleValidConstraint implements ValidatorConstraintInterface {
   }
 
   defaultMessage() {
-    return `role must be either "client" or "worker"`;
+    return `Funções validas comun ou ADM`;
   }
 }

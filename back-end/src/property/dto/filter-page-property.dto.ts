@@ -1,35 +1,34 @@
-import {
-  IsInt,
-  IsNumber,
-  IsNumberString,
-  IsOptional,
-  IsString,
-  Min,
-} from 'class-validator';
+import { IsInt, IsNumber, IsOptional, IsString, Min } from 'class-validator';
 
 export class FilterPagePropertyDTO {
   @IsString()
   @IsOptional()
-  type?: string;
+  business?: string;
+
+  @IsString()
+  @IsOptional()
+  about?: string;
 
   @IsString()
   @IsOptional()
   text?: string;
 
-  @IsNumberString()
+  @IsNumber()
   @IsOptional()
-  minV?: string;
-
-  @IsNumberString()
-  @IsOptional()
-  maxV?: string;
+  minV?: number;
 
   @IsNumber()
+  @IsOptional()
+  maxV?: number;
+
+  @IsNumber()
+  @IsInt()
   @Min(0)
   @IsOptional()
   minFoo?: number;
 
   @IsNumber()
+  @IsInt()
   @Min(0)
   @IsOptional()
   maxFoo?: number;
@@ -51,4 +50,8 @@ export class FilterPagePropertyDTO {
   @Min(0)
   @IsOptional()
   garage?: number;
+
+  @IsString()
+  @IsOptional()
+  order?: string;
 }

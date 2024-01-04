@@ -38,7 +38,7 @@ export class PropertyController {
   }
 
   @UseGuards(AuthGuard, RoleGuard)
-  @Roles(Role.master)
+  @Roles(Role.master, Role.worker)
   @Get()
   async list() {
     return await this.propertyService.list();
@@ -86,7 +86,7 @@ export class PropertyController {
 
   @UseGuards(AuthGuard, RoleGuard)
   @Roles(Role.master, Role.client, Role.worker)
-  @Put('fortheclient/:id')
+  @Patch('fortheclient/:id')
   async updatePropertieForTheClient(
     @User('id') userId: number,
     @ParamId() id: number,
@@ -97,9 +97,30 @@ export class PropertyController {
 
   @UseGuards(AuthGuard, RoleGuard)
   @Roles(Role.master, Role.client, Role.worker)
-  @Delete('fortheclient/requestdelete/:id')
+  @Delete('fortheclient/:id')
   async requestDelete(@ParamId() id: number, @User('id') userId: number) {
     return await this.propertyService.requestDelete(id, userId);
+  }
+
+  @UseGuards(AuthGuard, RoleGuard)
+  @Roles(Role.master, Role.client, Role.worker)
+  @Get('list/client')
+  async listPropertyClient(@User() user: UserType) {
+    return await this.propertyService.propertiesListClient(user.id);
+  }
+
+  @UseGuards(AuthGuard, RoleGuard)
+  @Roles(Role.master, Role.worker)
+  @Get('list/client/:id')
+  async listPropertyClientIDClient(@ParamId() id: number) {
+    return await this.propertyService.propertiesListClient(id);
+  }
+
+  @UseGuards(AuthGuard, RoleGuard)
+  @Roles(Role.master, Role.worker)
+  @Get('situation/count')
+  async showSituation() {
+    return await this.propertyService.showSituation();
   }
 
   @Post('pagewithfilter/:id')
@@ -107,16 +128,16 @@ export class PropertyController {
     @ParamId() id: number,
     @Body() data: FilterPagePropertyDTO,
   ) {
-    return await this.propertyService.pageWithFilter(id, data);
-  }
-
-  @Get('pageproperty/:id')
-  async pageProperty(@ParamId() id: number) {
-    return await this.propertyService.pageProperty(id);
+    return await this.propertyService.filter(id, data);
   }
 
   @Get('random/list')
   async getRandomProperties() {
     return await this.propertyService.getRandomProperties();
+  }
+
+  @Get('pageproperty/:id')
+  async pageProperty(@ParamId() id: number) {
+    return await this.propertyService.pageProperty(id);
   }
 }

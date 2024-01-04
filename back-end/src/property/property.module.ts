@@ -5,6 +5,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { UserModule } from 'src/user/user.module';
 import { PropertyAndOwnerModule } from 'src/propertyandowner/propertyandowner.module';
+import { PhotographModule } from 'src/photograph/photograph.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { PropertyAndOwnerModule } from 'src/propertyandowner/propertyandowner.mo
     forwardRef(() => AuthModule),
     forwardRef(() => UserModule),
     forwardRef(() => PropertyAndOwnerModule),
+    forwardRef(() => PhotographModule),
   ],
   controllers: [PropertyController],
   providers: [PropertyService],

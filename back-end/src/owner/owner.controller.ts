@@ -37,13 +37,13 @@ export class OwnerController {
   async showId(@ParamId() id: number) {
     return await this.ownerService.showId(id);
   }
-
+  /*
   @Roles(Role.master, Role.worker)
   @Post('email/verification')
   async showEmail(@Body('email') email: string) {
     return await this.ownerService.showEmail(email);
   }
-
+  */
   @Roles(Role.master, Role.worker)
   @Post()
   async create(@Body() data: CreateOwnerDTO) {
@@ -62,7 +62,7 @@ export class OwnerController {
     return await this.ownerService.update(id, data);
   }
 
-  @Roles(Role.master)
+  @Roles(Role.master, Role.worker)
   @Delete(':id')
   async delete(@ParamId() id: number) {
     return await this.ownerService.detele(id);
