@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  Int       @id @default(autoincrement())
+  email               String    @unique @db.VarChar(127)
+  name                String    @db.VarChar(127)
+  hashedPassword      String    @db.VarChar(150)
+  hashedRefreshToken  String?   @db.VarChar(250)
+  phone               String    @db.VarChar(15)
+  validation          Boolean   @default(false)
+  role                String    @default("client")
+  createdAt           DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt           DateTime  @default(now()) @updatedAt
+  Properties          Property[]
+
+  @@map("user")
+}
+
+model Property {
+  id                Int           @id @default(autoincrement())
+  published         Boolean       @default(false)
+  business          String
+  about             String
+  sell              Float?
+  rental            Float?
+  iptu              Float
+  description       String
+  footage           Int
+  bedroom           Int
+  bathroom          Int
+  garage            Int
+  address           String
+  number            String
+  complement        String?
+  zipcode           String
+  area              String
+  city              String
+  state             String
+  zone              String?
+  situation         String        @default("em analise")
+  user              User?         @relation(fields: [register], references: [id])
+  register          Int?
+  createdAt         DateTime      @default(now()) @db.Timestamp(0)
+  updatedAt         DateTime      @default(now()) @updatedAt
+  photographs       Photograph[]
+  owners            PropertyAndOwner[]
+
+  @@map("property")
+}
+
+model Photograph {
+  id            Int         @id @default(autoincrement())
+  describe      String      @db.VarChar(100)
+  url           String
+  property      Property?   @relation(fields: [propertyId], references: [id])
+  propertyId    Int?
+
+  @@map("photograph")
+}
+
+model Comment {
+  id        Int    @id @default(autoincrement())
+  name      String @db.VarChar(127)
+  type      String @db.VarChar(50)
+  comment   String
+
+  @@map("comment")
+}
+
+model Owner {
+  id            Int       @id @default(autoincrement())
+  name          String    @db.VarChar(127)
+  email         String    @db.VarChar(127) //@unique @db.VarChar(127)
+  phone         String    @db.VarChar(15)
+  properties    PropertyAndOwner[]
+
+  @@map("owner")
+}
+
+model PropertyAndOwner {
+  property      Property  @relation(fields: [propertyId], references: [id])
+  propertyId    Int
+  owner         Owner     @relation(fields: [ownerId], references: [id])
+  ownerId       Int
+
+  @@id([propertyId, ownerId])
+
+  @@map("propertyandowner")
+}
