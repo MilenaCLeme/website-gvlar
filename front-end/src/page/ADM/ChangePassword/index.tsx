@@ -5,9 +5,10 @@ import { Context } from '@/context';
 import { validatePassword } from '@/functions/validate';
 import { changePassword } from '@/service/api/auth';
 import { Message as MessageType } from '@/types';
-import { FormEvent, useCallback, useContext, useState } from 'react';
+import { FormEvent, useCallback, useContext, useEffect, useState } from 'react';
 import style from './changePassword.module.scss';
 import '@/style/message.scss';
+import { scrollToTop } from '@/functions/scroll';
 
 interface Form {
   passwordOld: string;
@@ -19,6 +20,10 @@ const ChangePassword = () => {
   const { token, setUser } = useContext(Context);
   const [form, setForm] = useState({} as Form);
   const [message, setMessage] = useState({} as MessageType);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   const handleFormChange = useCallback(
     (e: FormEvent<HTMLInputElement>) => {

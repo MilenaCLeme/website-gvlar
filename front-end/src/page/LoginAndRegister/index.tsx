@@ -9,6 +9,7 @@ import { Context } from '@/context';
 import { firstWord } from '@/functions/text';
 import LoginAndRegisterDesk from './LoginAndRegisterDesk';
 import { validateEmail } from '@/functions/validate';
+import { scrollToTop } from '@/functions/scroll';
 
 const LoginAndRegister = () => {
   const navigate = useNavigate();
@@ -17,6 +18,10 @@ const LoginAndRegister = () => {
   const [message, setMessage] = useState<Message>({} as Message);
   const [login, setLogin] = useState<Login>({} as Login);
   const [create, setCreate] = useState<CreateUser>({} as CreateUser);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   const handleLoginChange = useCallback(
     (e: FormEvent<HTMLInputElement>) => {

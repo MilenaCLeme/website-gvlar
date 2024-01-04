@@ -24,14 +24,42 @@ export interface Owners {
   propertyId: number;
 }
 
+export interface Card {
+  id: number;
+  published: boolean;
+  business: string;
+  about: string;
+  sell: number | null;
+  rental: number | null;
+  iptu: number;
+  description: string;
+  footage: number;
+  bedroom: number;
+  bathroom: number;
+  garage: number;
+  address: string;
+  number: string;
+  complement?: string | null;
+  zipcode: string;
+  area: string;
+  city: string;
+  state: string;
+  situation: string;
+  zone: string | null;
+  register: number;
+  createdAt: string;
+  updatedAt: string;
+  photographs: Photograph[];
+}
+
 export interface Property {
   id: number;
   published: boolean;
   business: string;
   about: string;
-  sell: string | null;
-  rental: string | null;
-  iptu: string;
+  sell: number | null | string;
+  rental: number | null | string;
+  iptu: number | string;
   description: string;
   footage: number;
   bedroom: number;
@@ -55,7 +83,7 @@ export interface Property {
 }
 
 export interface PageFilter {
-  items: Property[];
+  items: Card[];
   nextPage: boolean;
   page: number;
   previousPage: boolean;
@@ -63,15 +91,17 @@ export interface PageFilter {
 }
 
 export interface FilterPageProperty {
-  type?: string;
+  business?: string;
+  about?: string;
   text?: string;
-  minV?: string;
-  maxV?: string;
-  minFoo?: string;
-  maxFoo?: string;
-  bedroom?: string;
-  bathroom?: string;
-  garage?: string;
+  minV?: number | string;
+  maxV?: number | string;
+  minFoo?: number;
+  maxFoo?: number;
+  bedroom?: number;
+  bathroom?: number;
+  garage?: number;
+  order?: string;
 }
 
 // User
@@ -123,9 +153,9 @@ export interface UpdateUser {
 export interface SendProperty {
   type: string;
   about: string;
-  sell: string | null;
-  rental: string | null;
-  iptu: string;
+  sell: number | null | string;
+  rental: number | null | string;
+  iptu: number | string;
   description: string;
   footage: number;
   bedroom: number;
@@ -165,4 +195,12 @@ export interface Reset {
   two: string;
   three: string;
   four: string;
+}
+
+export interface SendEmail {
+  name?: string;
+  phone?: string;
+  email?: string;
+  subject?: string;
+  text?: string;
 }

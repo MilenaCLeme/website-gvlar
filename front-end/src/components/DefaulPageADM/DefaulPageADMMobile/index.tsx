@@ -58,7 +58,7 @@ const DefaulPageADMMobile: React.FC<DefaulPageADMMobileProps> = ({
               <h3>Olá, {firstWord(user.name)}</h3>
             </div>
           )}
-          <Nav />
+          <Nav onClik={toggleModal} />
           <button type='button' onClick={() => logoutLogin()} className={style.button_closet}>
             <div />
             Sair

@@ -1,0 +1,21 @@
+.custom {
+  display: flex;
+  align-items: center;
+
+  svg {
+    color: #fff;
+  }
+}
+
+.custom-date {
+  width: 100px;
+
+  p {
+    margin-left: 4px;
+    font: normal normal normal 18px Helvetica;
+    font-size: max(14px, min(16px, 2vw));
+    letter-spacing: 0px;
+    color: #fff;
+    opacity: 1;
+  }
+}

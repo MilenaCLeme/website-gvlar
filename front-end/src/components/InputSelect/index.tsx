@@ -11,7 +11,7 @@ interface Option {
 }
 
 interface InputSelectProps {
-  iten: 'property' | 'user' | 'adm';
+  iten: 'property' | 'user' | 'adm' | 'order';
   valeu?: string;
   handleChange: (e: FormEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
@@ -47,6 +47,12 @@ const InputSelect: React.FC<InputSelectProps> = ({
     { value: 'alugado', label: 'alugado' },
   ];
 
+  const optinosOrder: Option[] = [
+    { value: '', label: 'Ordenar' },
+    { value: 'Preço Menor', label: 'Preço Menor' },
+    { value: 'Preço Maior', label: 'Preço Maior' },
+  ];
+
   useEffect(() => {
     const handleClickFora = (event: MouseEvent) => {
       if (inputRef.current && inputRef.current.contains(event.target as Node)) {
@@ -79,6 +85,7 @@ const InputSelect: React.FC<InputSelectProps> = ({
           [style.options]: open,
           [style.closet]: !open,
           [style.user]: iten === 'user',
+          [style.order]: iten === 'order',
         })}
       >
         {open &&
@@ -124,6 +131,22 @@ const InputSelect: React.FC<InputSelectProps> = ({
               key={index}
               type='button'
               name='situation'
+              value={value}
+            >
+              {label}
+            </button>
+          ))}
+        {open &&
+          iten === 'order' &&
+          optinosOrder.map(({ label, value }, index) => (
+            <button
+              onClick={(e: FormEvent<HTMLButtonElement>) => {
+                handleChange(e);
+                setOPen(false);
+              }}
+              key={index}
+              type='button'
+              name='order'
               value={value}
             >
               {label}

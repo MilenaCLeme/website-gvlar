@@ -14,6 +14,10 @@ export function transformText(text: string | undefined, about: string) {
   if (about === 'adm') {
     return text;
   }
+
+  if (about === 'order') {
+    return text === '' ? 'Ordenar' : text;
+  }
 }
 
 export function removeLettersAndLimit(str: string): string {

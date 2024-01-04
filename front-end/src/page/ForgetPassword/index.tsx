@@ -6,10 +6,15 @@ import { forgetPassword } from '@/service/api/auth';
 import { Message as TypeMessage } from '@/types';
 import { FormEvent, useEffect, useState } from 'react';
 import style from './forgetPassword.module.scss';
+import { scrollToTop } from '@/functions/scroll';
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState<string>('');
   const [message, setMessage] = useState<TypeMessage>({} as TypeMessage);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {

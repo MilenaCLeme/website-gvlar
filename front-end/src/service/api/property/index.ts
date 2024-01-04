@@ -1,5 +1,6 @@
-import { ErrorAxios, Property } from '@/types';
+import { Card, ErrorAxios, FilterPageProperty, PageFilter, Property } from '@/types';
 import api from '../axios-config';
+import { transformarPageFilter, transformationStringinFloat } from '@/functions/transformation';
 
 export const createProperty = async (token: string, body: Property) => {
   try {
@@ -8,9 +9,15 @@ export const createProperty = async (token: string, body: Property) => {
       {
         business: body.business,
         about: body.about,
-        sell: body.sell === undefined || body.business === 'aluguel' ? null : body.sell,
-        rental: body.rental === undefined || body.business === 'venda' ? null : body.rental,
-        iptu: body.iptu,
+        sell:
+          body.sell === undefined || body.sell === null || body.business === 'aluguel'
+            ? null
+            : transformationStringinFloat(body.sell),
+        rental:
+          body.rental === undefined || body.rental === null || body.business === 'venda'
+            ? null
+            : transformationStringinFloat(body.rental),
+        iptu: transformationStringinFloat(body.iptu),
         description: body.description,
         footage: body.footage,
         bedroom: body.bedroom,
@@ -47,9 +54,15 @@ export const updateProperty = async (token: string, body: Property) => {
       {
         business: body.business,
         about: body.about,
-        sell: body.sell === undefined || body.business === 'aluguel' ? null : body.sell,
-        rental: body.rental === undefined || body.business === 'venda' ? null : body.rental,
-        iptu: body.iptu,
+        sell:
+          body.sell === undefined || body.sell === null || body.business === 'aluguel'
+            ? null
+            : transformationStringinFloat(body.sell),
+        rental:
+          body.rental === undefined || body.rental === null || body.business === 'venda'
+            ? null
+            : transformationStringinFloat(body.rental),
+        iptu: transformationStringinFloat(body.iptu),
         description: body.description,
         footage: body.footage,
         bedroom: body.bedroom,
@@ -118,9 +131,15 @@ export const updatePropertyMaster = async (token: string, body: Property) => {
         situation: body.situation,
         business: body.business,
         about: body.about,
-        sell: body.sell === undefined || body.business === 'aluguel' ? null : body.sell,
-        rental: body.rental === undefined || body.business === 'venda' ? null : body.rental,
-        iptu: body.iptu,
+        sell:
+          body.sell === undefined || body.sell === null || body.business === 'aluguel'
+            ? null
+            : transformationStringinFloat(body.sell),
+        rental:
+          body.rental === undefined || body.rental === null || body.business === 'venda'
+            ? null
+            : transformationStringinFloat(body.rental),
+        iptu: transformationStringinFloat(body.iptu),
         description: body.description,
         footage: body.footage,
         bedroom: body.bedroom,
@@ -156,6 +175,37 @@ export const deletePropertyMaster = async (id: number, token: string) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     return data as Property;
+  } catch (error: any) {
+    if ('message' in error) {
+      return error as ErrorAxios;
+    } else {
+      console.log('Erro inesperado:', error);
+    }
+  }
+};
+
+export const pageWithFilter = async (page: number, body: FilterPageProperty) => {
+  try {
+    const filter = transformarPageFilter(body);
+    const { data } = await api.post<PageFilter>(`/properties/pagewithfilter/${page}`, {
+      ...filter,
+    });
+
+    return data as PageFilter;
+  } catch (error: any) {
+    if ('message' in error) {
+      return error as ErrorAxios;
+    } else {
+      console.log('Erro inesperado:', error);
+    }
+  }
+};
+
+export const pageId = async (id: number) => {
+  try {
+    const { data } = await api.get<Card>(`/properties/pageproperty/${id}`);
+
+    return data as Card;
   } catch (error: any) {
     if ('message' in error) {
       return error as ErrorAxios;

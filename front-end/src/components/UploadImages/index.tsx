@@ -6,7 +6,7 @@ import { Environment } from '@/env';
 import style from './uploadImages.module.scss';
 import Glider from 'react-glider';
 import 'glider-js/glider.min.css';
-import './glider.css';
+import './glider.scss';
 
 interface UploadImagesProps {
   handleUploadChange: (e: ChangeEvent<HTMLInputElement> | FormEvent<HTMLInputElement>) => void;
@@ -26,30 +26,32 @@ const UploadImages: React.FC<UploadImagesProps> = ({
   return (
     <form className={style.form}>
       <div className={style.box}>
-        <Glider
-          slidesToShow={3}
-          slidesToScroll={2}
-          itemWidth={133}
-          dots={false}
-          hasArrows
-          scrollLock={false}
-          draggable
-          rewind={false}
-        >
-          {photo.map(({ id, describe, url }) => (
-            <div className={style.photo} key={id}>
-              <button
-                className={style.delete}
-                type='button'
-                onClick={() => handlePhotoDeleteOnClick(id)}
-              >
-                x
-              </button>
-              <img src={`${Environment.URL_BASE}/uploads/${url}`} alt={describe} />
-            </div>
-          ))}
-        </Glider>
-        <p>Limite de 10 Imagens</p>
+        <div className={style.glider}>
+          <Glider
+            slidesToShow={'auto'}
+            slidesToScroll={1}
+            itemWidth={133}
+            exactWidth
+            draggable
+            dots={false}
+            hasArrows
+            scrollLock={false}
+          >
+            {photo.map(({ id, describe, url }) => (
+              <div className={style.photo} key={id}>
+                <button
+                  className={style.delete}
+                  type='button'
+                  onClick={() => handlePhotoDeleteOnClick(id)}
+                >
+                  x
+                </button>
+                <img src={`${Environment.URL_BASE}/uploads/${url}`} alt={describe} />
+              </div>
+            ))}
+          </Glider>
+        </div>
+        <p>Limite de 10 Imagens / Total: {photo.length} </p>
       </div>
       <div className={style.custom}>
         <label htmlFor='photo'>

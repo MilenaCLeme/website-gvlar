@@ -9,6 +9,7 @@ import { validateEmail, validatePassword, validatePhone } from '@/functions/vali
 import InputCheck from '@/components/InputCheck';
 import style from './loginAndRegisterDesk.module.scss';
 import '@/style/message.scss';
+import { Environment } from '@/env';
 
 interface LoginAndRegisterDeskProps {
   login: Login;
@@ -123,7 +124,13 @@ const LoginAndRegisterDesk: React.FC<LoginAndRegisterDeskProps> = ({
               label={
                 <div>
                   <p>concordo com os</p>
-                  <NavLink to='/'>termos e condições de uso</NavLink>
+                  <a
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    href={`${Environment.URL_DOMINIO}/termos`}
+                  >
+                    termos e condições de uso
+                  </a>
                 </div>
               }
               checked={create.check}

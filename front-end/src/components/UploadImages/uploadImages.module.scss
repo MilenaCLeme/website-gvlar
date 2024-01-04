@@ -38,7 +38,7 @@
 
 .delete {
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
   margin-right: 10px;
   background: #ff2f0e 0% 0% no-repeat padding-box;
@@ -164,4 +164,13 @@ input[type='file'] {
   button {
     width: 161px;
   }
+}
+
+.glider {
+  display: block;
+  padding: 0px;
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 58px;
+  max-width: 360px;
 }

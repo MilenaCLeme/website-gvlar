@@ -1,4 +1,4 @@
-import { Property, Reset } from '@/types';
+import { FilterPageProperty, Property, Reset } from '@/types';
 import { validatePassword } from '../validate';
 
 export function disabledProperty(property: Property): boolean {
@@ -92,6 +92,16 @@ export function disabledResetPassword(form: Reset) {
   }
 
   if (!(form.password === form.confirmation)) {
+    return true;
+  }
+
+  return false;
+}
+
+export function disabledFilter(filter: FilterPageProperty) {
+  const newFilter = Object.entries(filter);
+
+  if (newFilter.length === 0) {
     return true;
   }
 

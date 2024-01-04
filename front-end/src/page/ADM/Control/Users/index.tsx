@@ -22,6 +22,8 @@ import DeletePropertyAndUser from '@/components/DeletePropertyAndUser';
 import Message from '@/components/Message';
 import { updatePartialUser, deleteUser as deleteUserMaster } from '@/service/api/user';
 import { filterUser } from '@/functions/filter';
+import { transformarProperty } from '@/functions/transformation';
+import { scrollToTop } from '@/functions/scroll';
 
 const Users = () => {
   const { token, user } = useContext(Context);
@@ -43,6 +45,10 @@ const Users = () => {
     url: '/users',
     config: { headers: { Authorization: `Bearer ${token}` } },
   });
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   const handleIdPropertyChange = useCallback(
     (e: FormEvent<HTMLInputElement>) => {
@@ -186,9 +192,10 @@ const Users = () => {
 
   const handleUpdateOnClick = async () => {
     if (idProperty > 0 && properties) {
-      const property: Property =
+      let property: Property =
         properties.find(({ id }: Property) => id === idProperty) ?? ({} as Property);
 
+      property = transformarProperty(property);
       setProperty({ ...property });
       setMessage({} as TypeMessage);
       setOwner({} as Owner);
@@ -197,13 +204,14 @@ const Users = () => {
   };
 
   const handleCreateOwnerOnClick = async () => {
-    const data = await createOwner(token, { ...owner, propertyId: idProperty });
+    let data = await createOwner(token, { ...owner, propertyId: idProperty });
 
     if (data && 'message' in data) {
       setMessage({ message: data.message, status: data.statusCode, type: 'owner' });
     }
 
     if (data && 'about' in data) {
+      data = transformarProperty(data);
       await handlePropertyListingsOnClick();
       setProperty({ ...data });
     }
@@ -233,13 +241,14 @@ const Users = () => {
     formData.append('describe', upload.describe);
 
     if (property.id) {
-      const data = await uploadPhoto(property.id, formData, token);
+      let data = await uploadPhoto(property.id, formData, token);
 
       if (data && 'message' in data) {
         setMessage({ message: data.message, status: data.statusCode, type: 'image' });
       }
 
       if (data && 'about' in data) {
+        data = transformarProperty(data);
         setProperty({ ...data });
         await handlePropertyListingsOnClick();
       }
@@ -249,13 +258,14 @@ const Users = () => {
   };
 
   const handlePhotoDeleteOnClick = async (id: number) => {
-    const data = await deletePhoto(id, token);
+    let data = await deletePhoto(id, token);
 
     if (data && 'message' in data) {
       setMessage({ message: data.message, status: data.statusCode, type: 'image' });
     }
 
     if (data && 'about' in data) {
+      data = transformarProperty(data);
       setProperty({ ...data });
       await handlePropertyListingsOnClick();
     }

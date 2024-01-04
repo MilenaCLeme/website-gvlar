@@ -48,25 +48,49 @@ const HeaderMobile = () => {
           </button>
           <nav className={style.nav}>
             <li>
-              <NavLink className={style.home} to='/'>
+              <NavLink
+                className={style.home}
+                onClick={() => {
+                  toggleModal();
+                }}
+                to='/'
+              >
                 <div />
                 <span>Home</span>
               </NavLink>
             </li>
             <li>
-              <NavLink className={style.filter} to='/'>
+              <NavLink
+                className={style.filter}
+                onClick={() => {
+                  toggleModal();
+                }}
+                to='/encontrar/imovel'
+              >
                 <div />
                 <span>Encontrar</span>
               </NavLink>
             </li>
             <li>
-              <NavLink className={style.announce} to={user ? '/adm/imoveis' : '/login'}>
+              <NavLink
+                className={style.announce}
+                onClick={() => {
+                  toggleModal();
+                }}
+                to={user ? '/adm/imoveis' : '/login'}
+              >
                 <div />
                 <span>Anunciar</span>
               </NavLink>
             </li>
             <li>
-              <NavLink className={style.login} to={user ? '/adm' : '/login'}>
+              <NavLink
+                className={style.login}
+                onClick={() => {
+                  toggleModal();
+                }}
+                to={user ? '/adm' : '/login'}
+              >
                 <div />
                 <span>{user ? firstWord(user.name) : 'Entrar'}</span>
               </NavLink>

@@ -7,6 +7,7 @@ import { Message as MessageType } from '@/types';
 import { FormEvent, useCallback, useContext, useEffect, useState } from 'react';
 import style from './myData.module.scss';
 import Message from '@/components/Message';
+import { scrollToTop } from '@/functions/scroll';
 
 interface Form {
   name: string;
@@ -18,6 +19,10 @@ const MyData = () => {
   const { user, token, setUser } = useContext(Context);
   const [form, setForm] = useState<Form>({} as Form);
   const [message, setMessage] = useState<MessageType>({} as MessageType);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   useEffect(() => {
     if (user) {

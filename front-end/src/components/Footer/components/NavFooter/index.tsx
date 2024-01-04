@@ -11,10 +11,10 @@ const NavFooter = () => {
         <div />
         <span>Home</span>
       </NavLink>
-      <NavLink className={style.about} to='/'>
+      <NavLink className={style.about} to='/sobrenos'>
         Sobre nós
       </NavLink>
-      <NavLink className={style.filter} to='/'>
+      <NavLink className={style.filter} to='/encontrar/imovel'>
         Encontre o seu imóvel
       </NavLink>
       <NavLink className={style.announce} to={user ? '/adm/imoveis' : '/login'}>

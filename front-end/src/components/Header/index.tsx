@@ -19,7 +19,7 @@ const Header = () => {
         </li>
         <div className={style.center}>
           <li>
-            <NavLink className={style.filter} to='/'>
+            <NavLink className={style.filter} to='/encontrar/imovel'>
               <div />
               <span>Encontrar</span>
             </NavLink>

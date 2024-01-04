@@ -1,0 +1,209 @@
+.banner {
+  width: 100%;
+  height: 100vh;
+  min-height: 460px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  @media (min-width: $desk) {
+    min-height: 502px;
+  }
+
+  @media (min-width: $mobile) {
+    height: 70vh;
+  }
+}
+
+.video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.one {
+  @media (min-width: $mobile) {
+    display: none;
+  }
+}
+
+.two {
+  @media (max-width: $desk) {
+    display: none;
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(36, 32, 33, 0.8);
+}
+
+.main-mobile {
+  margin-top: 112px;
+  width: 80%;
+
+  @media (min-width: $mobile) {
+    display: none;
+  }
+}
+
+.main-desk {
+  width: 80%;
+  display: flex;
+  margin-top: 113px;
+  min-height: 440px;
+  align-items: center;
+}
+
+.title-mobile {
+  text-align: left;
+  font: normal normal bold 32px/28px Helvetica;
+  font-size: max(32px, min(28px, 2vw));
+  letter-spacing: 0px;
+  color: #ffffff;
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+.box-title-mobile {
+  width: 210px;
+  height: 0px;
+  border: 2px solid #ee811f;
+  opacity: 1;
+  border-radius: 20px;
+  margin-top: 8px;
+}
+
+.box-sub-title-mobile {
+  text-align: start;
+  font: normal normal normal 12px/16px Helvetica;
+  font-size: max(12px, min(16px, 2vw));
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+  width: 80%;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.box-contact {
+  margin-top: 32px;
+
+  a {
+    margin-bottom: 12px;
+  }
+}
+
+.address {
+  display: flex;
+  width: 197px;
+  height: 28px;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  justify-content: space-between;
+
+  &:hover {
+    div {
+      background-image: url('../../assets/gps/GPSOrange.svg');
+    }
+  }
+
+  div {
+    width: 16px;
+    height: 20px;
+    background-image: url('../../assets/gps/GPS.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  span {
+    width: 173px;
+    height: 28px;
+    text-align: left;
+    font: normal normal normal 12px/14px Helvetica;
+    letter-spacing: 0px;
+    color: #ffffff;
+  }
+}
+
+.net {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  width: 159px;
+  height: 20px;
+  margin-bottom: 23px;
+}
+
+.title {
+  width: 242px;
+  text-align: left;
+  font: normal normal bold 12px/14px Helvetica;
+  font-size: max(12px, min(14px, 2vw));
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.facebook {
+  width: 11px;
+  height: 20px;
+  background-image: url('../../assets/contact/facebook/faceWhite.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &:hover {
+    background-image: url('../../assets/contact/facebook/faceColor.svg');
+  }
+}
+
+.instagram {
+  width: 20px;
+  height: 20px;
+  background-image: url('../../assets/contact/instagram/instagram.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &:hover {
+    background-image: url('../../assets/contact/instagram/instagramColor.svg');
+  }
+}
+
+.youtube {
+  width: 20px;
+  height: 14px;
+  background-image: url('../../assets/contact/youtube/youtube.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &:hover {
+    background-image: url('../../assets/contact/youtube/youtubeColor.svg');
+  }
+}
+
+.tiktok {
+  width: 17px;
+  height: 20px;
+  background-image: url('../../assets/contact/tiktok/tiktok.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &:hover {
+    background-image: url('../../assets/contact/tiktok/tiktokColor.svg');
+  }
+}

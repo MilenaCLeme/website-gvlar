@@ -12,6 +12,7 @@ import classNames from 'classnames';
 import { disabledResetPassword } from '@/functions/disabled';
 import Message from '@/components/Message';
 import { resetPassword } from '@/service/api/auth';
+import { scrollToTop } from '@/functions/scroll';
 
 const ResetPassword = () => {
   const { id } = useParams();
@@ -27,6 +28,10 @@ const ResetPassword = () => {
 
   const [reset, setReset] = useState<Reset>({} as Reset);
   const [message, setMessage] = useState<TypeMessage>({} as TypeMessage);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {

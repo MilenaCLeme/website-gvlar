@@ -7,17 +7,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 32px;
 }
 
 .title {
   width: 50%;
   text-align: center;
   font: normal normal bold 16px/20px Helvetica;
-  font-size: max(16px, min(20px, 2vw));
+  font-size: max(16px, min(28px, 2vw));
   letter-spacing: 0px;
   color: #ee811f;
   opacity: 1;
-  margin-top: 16px;
+  margin-top: 40px;
   margin-bottom: 24px;
 }
 
@@ -30,4 +31,18 @@
   color: #ee811f;
   opacity: 1;
   margin-bottom: 30px;
+}
+
+.glider {
+  display: block;
+  padding: 0px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.custom {
+  height: 500px;
+  display: flex;
 }

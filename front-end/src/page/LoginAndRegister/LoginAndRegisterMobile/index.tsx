@@ -10,6 +10,7 @@ import { validateEmail, validatePassword, validatePhone } from '@/functions/vali
 import InputCheck from '@/components/InputCheck';
 import Message from '@/components/Message';
 import '@/style/message.scss';
+import { Environment } from '@/env';
 
 interface LoginAndRegisterMobileProps {
   login: Login;
@@ -129,7 +130,13 @@ const LoginAndRegisterMobile: React.FC<LoginAndRegisterMobileProps> = ({
                 label={
                   <div>
                     <p>concordo com os</p>
-                    <NavLink to='/'>termos e condições de uso</NavLink>
+                    <a
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      href={`${Environment.URL_DOMINIO}/termos`}
+                    >
+                      termos e condições de uso
+                    </a>
                   </div>
                 }
                 checked={create.check}

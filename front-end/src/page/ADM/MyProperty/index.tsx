@@ -4,7 +4,7 @@ import Table from '@/components/Table';
 import { Context } from '@/context';
 import api from '@/service/api/axios-config';
 import { useAxios } from '@/service/hook/use-axios';
-import { ChangeEvent, FormEvent, useCallback, useContext, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useContext, useEffect, useState } from 'react';
 import ButtonDelete from '@/components/ButtonDelete';
 import style from './myProperty.module.scss';
 import FormProperty from '@/components/FormProperty';
@@ -17,6 +17,7 @@ import { deletePhoto, uploadPhoto } from '@/service/api/photo';
 import Message from '@/components/Message';
 import { scrollToTop } from '@/functions/scroll';
 import { filterSearch } from '@/functions/filter';
+import { transformarProperty } from '@/functions/transformation';
 
 const MyProperty = () => {
   const { token } = useContext(Context);
@@ -27,6 +28,10 @@ const MyProperty = () => {
   const [upload, setUpload] = useState<Upload>({} as Upload);
   const [message, setMessage] = useState<TypeMessage>({} as TypeMessage);
   const [search, setSearch] = useState<string>('');
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   const [data, _loading, _error, sendData] = useAxios({
     axiosInstance: api,
@@ -119,13 +124,14 @@ const MyProperty = () => {
   );
 
   const handleCreatePropertyOnClick = async () => {
-    const data = await createProperty(token, property);
+    let data = await createProperty(token, property);
 
     if (data && 'message' in data) {
       setMessage({ message: data.message, status: data.statusCode, type: 'create' });
     }
 
     if (data && 'about' in data) {
+      data = transformarProperty(data);
       setProperty({ ...data });
       setPhoto(true);
     }
@@ -133,8 +139,8 @@ const MyProperty = () => {
 
   const handleUpdateOnClick = async () => {
     if (idProperty > 0) {
-      const property: Property = data.find(({ id }: Property) => id === idProperty);
-
+      let property: Property = data.find(({ id }: Property) => id === idProperty);
+      property = transformarProperty(property);
       setProperty({ ...property });
       setCreate(true);
       setPhoto(true);
@@ -147,13 +153,14 @@ const MyProperty = () => {
     formData.append('describe', upload.describe);
 
     if (property.id) {
-      const data = await uploadPhoto(property.id, formData, token);
+      let data = await uploadPhoto(property.id, formData, token);
 
       if (data && 'message' in data) {
         setMessage({ message: data.message, status: data.statusCode, type: 'image' });
       }
 
       if (data && 'about' in data) {
+        data = transformarProperty(data);
         setProperty({ ...data });
       }
 
@@ -162,13 +169,14 @@ const MyProperty = () => {
   };
 
   const handlePhotoDeleteOnClick = async (id: number) => {
-    const data = await deletePhoto(id, token);
+    let data = await deletePhoto(id, token);
 
     if (data && 'message' in data) {
       setMessage({ message: data.message, status: data.statusCode, type: 'image' });
     }
 
     if (data && 'about' in data) {
+      data = transformarProperty(data);
       setProperty({ ...data });
     }
   };

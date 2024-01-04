@@ -18,6 +18,8 @@ import FormUser from '@/components/FormUser';
 import Message from '@/components/Message';
 import { updatePartialUser, deleteUser as deleteUserMaster } from '@/service/api/user';
 import DeletePropertyAndUser from '@/components/DeletePropertyAndUser';
+import { transformarProperty } from '@/functions/transformation';
+import { scrollToTop } from '@/functions/scroll';
 
 const Properties = () => {
   const { token, user } = useContext(Context);
@@ -37,6 +39,10 @@ const Properties = () => {
     url: '/properties',
     config: { headers: { Authorization: `Bearer ${token}` } },
   });
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -151,8 +157,8 @@ const Properties = () => {
 
   const handleUpdateOnClick = async () => {
     if (idProperty > 0) {
-      const property: Property = data.find(({ id }: Property) => id === idProperty);
-
+      let property: Property = data.find(({ id }: Property) => id === idProperty);
+      property = transformarProperty(property);
       setDeleteUser(false);
       setDeleteProperty(false);
       setProperty({ ...property });
@@ -166,13 +172,14 @@ const Properties = () => {
     formData.append('describe', upload.describe);
 
     if (property.id) {
-      const data = await uploadPhoto(property.id, formData, token);
+      let data = await uploadPhoto(property.id, formData, token);
 
       if (data && 'message' in data) {
         setMessage({ message: data.message, status: data.statusCode, type: 'image' });
       }
 
       if (data && 'about' in data) {
+        data = transformarProperty(data);
         setProperty({ ...data });
         sendData();
       }
@@ -182,25 +189,27 @@ const Properties = () => {
   };
 
   const handlePhotoDeleteOnClick = async (id: number) => {
-    const data = await deletePhoto(id, token);
+    let data = await deletePhoto(id, token);
 
     if (data && 'message' in data) {
       setMessage({ message: data.message, status: data.statusCode, type: 'image' });
     }
 
     if (data && 'about' in data) {
+      data = transformarProperty(data);
       setProperty({ ...data });
     }
   };
 
   const handleCreateOwnerOnClick = async () => {
-    const data = await createOwner(token, { ...owner, propertyId: idProperty });
+    let data = await createOwner(token, { ...owner, propertyId: idProperty });
 
     if (data && 'message' in data) {
       setMessage({ message: data.message, status: data.statusCode, type: 'owner' });
     }
 
     if (data && 'about' in data) {
+      data = transformarProperty(data);
       setProperty({ ...data });
       sendData();
     }

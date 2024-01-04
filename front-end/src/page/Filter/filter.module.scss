@@ -1,0 +1,215 @@
+.main {
+  @media (min-width: $mobile) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.title {
+  text-align: center;
+  font: normal normal bold 24px/28px Helvetica;
+  font-size: max(24px, min(28px, 2vw));
+  letter-spacing: 0px;
+  color: #ee811f;
+  opacity: 1;
+  margin-top: 100px;
+  margin-bottom: 90px;
+
+  @media (max-width: $mobile) {
+    display: none;
+  }
+}
+
+.glider {
+  display: block;
+  padding: 0px;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
+
+  @media (max-width: $mobile) {
+    width: 86%;
+  }
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+  justify-content: center;
+}
+
+.page {
+  background-color: #b6b5b5;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #b6b5b5;
+  border-radius: 50%;
+  margin-right: 4px;
+  margin-left: 4px;
+  text-align: center;
+  font: normal normal bold 12px Helvetica;
+  font-size: max(12px, min(14px, 2vw));
+  letter-spacing: 0px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.2;
+  }
+}
+
+.action {
+  background-color: #ee811f;
+  cursor: auto;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ee811f;
+  border-radius: 50%;
+  margin-right: 8px;
+  margin-left: 8px;
+  text-align: center;
+  font: normal normal bold 12px Helvetica;
+  font-size: max(12px, min(14px, 2vw));
+  letter-spacing: 0px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  min-height: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.box-filters {
+  width: 80%;
+  display: flex;
+  flex-direction: column-reverse;
+  margin-bottom: 16px;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: $desk) {
+    margin-left: 10%;
+  }
+}
+
+.box-filters-select-and-clean {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.filter {
+  border: none;
+  font: normal normal bold 12px Helvetica;
+  font-weight: 600;
+  color: #fff;
+  background-color: #ee811f;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: max(12px, min(14px, 2vw));
+  cursor: pointer;
+  margin-right: 8px;
+  margin-bottom: 8px;
+
+  &:hover {
+    background-color: #b6b5b5;
+  }
+}
+
+.clean {
+  border: none;
+  background-color: transparent;
+  font: normal normal normal 12px Helvetica;
+  font-size: max(12px, min(14px, 2vw));
+  text-decoration: underline;
+  cursor: pointer;
+  color: #ee811f;
+
+  &:hover {
+    color: #0000ff;
+  }
+}
+
+.box-information-about-filters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box-information-about-filters-text {
+  width: 80%;
+  font: normal normal normal 14px Helvetica;
+  font-size: max(16px, min(20px, 2vw));
+  text-align: center;
+  margin-bottom: 16px;
+  color: #242021;
+
+  @media (min-width: $desk) {
+    width: 60%;
+  }
+}
+
+.box-information-about-filters-form {
+  width: 80%;
+  margin-bottom: 16px;
+
+  @media (min-width: $desk) {
+    width: 40%;
+  }
+
+  input {
+    margin-bottom: 8px;
+  }
+}
+
+.button {
+  width: 75px;
+  height: 25px;
+  color: #fff;
+  background: #ee811f 0% 0% no-repeat padding-box;
+  box-shadow: -3px 3px 6px #00000029;
+  border: none;
+  border-radius: 5px;
+  opacity: 1;
+  text-align: center;
+  font: normal normal bold 14px/18px Helvetica;
+  letter-spacing: 0px;
+  opacity: 1;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    background: #fff 0% 0% no-repeat padding-box;
+    border: 1px solid #ee811f;
+    color: #ee811f;
+    border-radius: 5px;
+    box-shadow: none;
+  }
+
+  &:disabled {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #b6b5b5;
+    border-radius: 5px;
+    box-shadow: none;
+    cursor: auto;
+    font: normal normal bold 14px/18px Helvetica;
+    letter-spacing: 0px;
+    color: #b6b5b5;
+    opacity: 1;
+  }
+}

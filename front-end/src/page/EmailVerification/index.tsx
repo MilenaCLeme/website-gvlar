@@ -5,12 +5,17 @@ import { validationEmail } from '@/service/api/auth';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import style from './emailVerification.module.scss';
+import { scrollToTop } from '@/functions/scroll';
 
 const EmailVerification = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [load, setLoad] = useState<boolean>(true);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   useEffect(() => {
     const callApi = async () => {

@@ -1,0 +1,22 @@
+.button {
+  background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: -3px 3px 6px #00000029;
+  opacity: 1;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  cursor: pointer;
+
+  svg {
+    width: 31px;
+    height: 35px;
+  }
+
+  &:hover {
+    box-shadow: none;
+  }
+}

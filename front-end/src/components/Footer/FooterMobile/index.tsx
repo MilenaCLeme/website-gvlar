@@ -11,6 +11,7 @@ import EmailGVLAR from '../components/EmailGVLAR';
 import Contact from '../components/Contact';
 import SocialNetWork from '../components/SocialNetWork';
 import NavFooter from '../components/NavFooter';
+import { Environment } from '@/env';
 
 const FooterMobile = () => {
   return (
@@ -39,9 +40,14 @@ const FooterMobile = () => {
               <SocialNetWork />
             </div>
           </div>
-          <NavLink className={style.act} to='/'>
+          <a
+            className={style.act}
+            target='_blank'
+            rel='noopener noreferrer'
+            href={`${Environment.URL_DOMINIO}/termos`}
+          >
             termos e condições de uso
-          </NavLink>
+          </a>
         </div>
         <div className={style.main__third}>
           <p className={style.website}>
