@@ -35,8 +35,7 @@ O backend foi desenvolvido utilizando as seguintes tecnologias:
 Para executar o backend localmente, siga estas etapas:
 
 1. Navegue até o diretório `backend`: `cd backend/`
-2. Instale as dependências: `npm install` ou `yarn install`
-3. Inicie o servidor de desenvolvimento: `npm run start:dev` ou `yarn start:dev`
+2. Inicie o servidor de desenvolvimento: `docker compose up`
 
 ## Status do Projeto
 
