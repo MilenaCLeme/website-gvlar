@@ -44,8 +44,7 @@ Atualmente, estamos na finalização na primeira versão de desenvolvimento inic
 
 ## Contato
 
-Para mais informações sobre o projeto, entre em contato com a equipe de desenvolvimento:
+Para mais informações sobre o projeto, entre em contato:
 
-- Email: [projetostech@donutstech.com.br]
 - Website: [www.gvlar.com]
 
