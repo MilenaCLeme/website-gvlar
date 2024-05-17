@@ -38,14 +38,6 @@ Para executar o backend localmente, siga estas etapas:
 2. Instale as dependências: `npm install` ou `yarn install`
 3. Inicie o servidor de desenvolvimento: `npm run start:dev` ou `yarn start:dev`
 
-## Como Contribuir
-
-1. Faça um fork deste repositório
-2. Crie uma nova branch (`git checkout -b feature/nova-feature`)
-3. Faça suas alterações e commit (`git commit -am 'Adiciona nova feature'`)
-4. Faça um push para a branch (`git push origin feature/nova-feature`)
-5. Crie um novo Pull Request
-
 ## Status do Projeto
 
 Atualmente, estamos na finalização na primeira versão de desenvolvimento inicial do projeto.
