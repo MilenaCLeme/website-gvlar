@@ -6,11 +6,11 @@ import {
   forwardRef,
 } from '@nestjs/common';
 import { join } from 'path';
-import { FileService } from 'src/file/file.service';
-import { PropertyService } from 'src/property/property.service';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { v4 } from 'uuid';
 import { User } from '@prisma/client';
+import { FileService } from '../file/file.service';
+import { PropertyService } from '../property/property.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class PhotographService {

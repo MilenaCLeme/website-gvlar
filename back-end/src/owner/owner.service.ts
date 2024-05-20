@@ -6,12 +6,12 @@ import {
   NotFoundException,
   forwardRef,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateOwnerDTO } from './dto/create-owner.dto';
 import { Owner, Prisma } from '@prisma/client';
-import { PropertyService } from 'src/property/property.service';
 import { UpdatePatchOwnerDTO } from './dto/update-patch-owner.dto';
-import { PropertyAndOwnerService } from 'src/propertyandowner/propertyandowner.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { PropertyService } from '../property/property.service';
+import { PropertyAndOwnerService } from '../propertyandowner/propertyandowner.service';
 
 @Injectable()
 export class OwnerService {

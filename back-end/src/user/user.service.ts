@@ -5,18 +5,16 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
-import { AuthService } from 'src/auth/auth.service';
-import { PrismaService } from 'src/prisma/prisma.service';
 import * as bycrpt from 'bcrypt';
 import { UpdatePatchUserDTO } from './dto/update-patch-user.dto';
-import { MailService } from 'src/mail/mail.service';
-import { PropertyService } from 'src/property/property.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { MailService } from '../mail/mail.service';
+import { PropertyService } from '../property/property.service';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly authService: AuthService,
     private readonly mailService: MailService,
     private readonly propertyService: PropertyService,
   ) {}

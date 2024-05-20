@@ -1,9 +1,9 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { DeletePropertyAndOwnerDTO } from './dto/delete-propertyandowner.dto';
 import { InsertPropertyAndOwnerDTO } from './dto/insert-propertyandowner.dto';
-import { OwnerService } from 'src/owner/owner.service';
-import { PropertyService } from 'src/property/property.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { OwnerService } from '../owner/owner.service';
+import { PropertyService } from '../property/property.service';
 
 @Injectable()
 export class PropertyAndOwnerService {

@@ -5,11 +5,11 @@ import {
   forwardRef,
 } from '@nestjs/common';
 import { Prisma, User, Property } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { FilterPagePropertyDTO } from './dto/filter-page-property.dto';
-import { PropertyAndOwnerService } from 'src/propertyandowner/propertyandowner.service';
 import { shuffle } from 'lodash';
-import { PhotographService } from 'src/photograph/photograph.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { PropertyAndOwnerService } from '../propertyandowner/propertyandowner.service';
+import { PhotographService } from '../photograph/photograph.service';
 
 @Injectable()
 export class PropertyService {

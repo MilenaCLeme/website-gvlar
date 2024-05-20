@@ -7,13 +7,13 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { UserService } from 'src/user/user.service';
 import { AuthRegisterDTO } from './dto/auth-register.dto';
 import * as bycrpt from 'bcrypt';
-import { MailService } from 'src/mail/mail.service';
 import { AuthUpdatePatchRegisterDTO } from './dto/auth-update-patch-register.dto';
 import { AuthChangeDTO } from './dto/auth-change.dto';
+import { PrismaService } from '../prisma/prisma.service';
+import { UserService } from '../user/user.service';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class AuthService {
