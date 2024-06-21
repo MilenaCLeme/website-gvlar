@@ -7,7 +7,7 @@ export const UserRepositoryMock = {
   useValue: {
     user: jest.fn().mockResolvedValue(userEntityList[0]),
     users: jest.fn(),
-    showId: jest.fn(),
+    showId: jest.fn().mockResolvedValue(userEntityList[0]),
     showEmail: jest.fn(),
     listUsers: jest.fn(),
     encodeString: jest.fn(),
