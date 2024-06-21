@@ -7,6 +7,13 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors({
+    origin: '*', // Especifique a origem permitida (seu front-end)
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  });
+
   const config = new DocumentBuilder()
     .setTitle('Documentação com Swagger - Fábrica de Sinapse')
     .setDescription(
@@ -14,22 +21,16 @@ async function bootstrap() {
     )
     .setVersion('1.0')
     .addTag('users')
+    .addServer('http://localhost:8000')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  app.enableCors({
-    origin: 'http://localhost:5173', // Especifique a origem permitida (seu front-end)
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-  });
-
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   // app.useGlobalInterceptors(LogInterceptor);
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.PORT || 8000);
 }
 bootstrap();

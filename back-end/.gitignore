@@ -4,6 +4,7 @@
 package-lock.json
 /.docker/dbdata
 .env
+/.docker/entrypoint.sh
 
 # Logs
 logs
