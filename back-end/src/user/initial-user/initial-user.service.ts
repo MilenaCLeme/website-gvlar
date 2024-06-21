@@ -10,6 +10,7 @@ export class InitialUserService {
     try {
       const existUserFrist = await this.prisma.user.findFirst();
 
+      console.log(existUserFrist);
       if (!existUserFrist) {
         const password = await bycrpt.hash('Teste123', await bycrpt.genSalt());
 

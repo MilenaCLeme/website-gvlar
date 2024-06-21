@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
-import * as bycrpt from 'bcrypt';
+import * as bycrpt from 'bcryptjs';
 import { UpdatePatchUserDTO } from './dto/update-patch-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { MailService } from '../mail/mail.service';
@@ -77,6 +77,7 @@ export class UserService {
           'O e-mail já está em uso. Por favor, escolha um e-mail diferente.',
         );
       }
+      console.error(error);
       throw new InternalServerErrorException(
         'Ocorreu um erro inesperado ao cadastrar',
       );
