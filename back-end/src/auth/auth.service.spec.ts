@@ -8,12 +8,14 @@ import {
   data,
 } from '../testing/jwtService-repository.mock';
 import { userEntityList } from '../testing/user-entity-list.mock';
+import { UserService } from '../user/user.service';
 
 describe('AuthService', () => {
   const token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InRlc3RlIG1hc3RlciIsImVtYWlsIjoic2VndW5kYTRAdW9yYWsuY29tIiwiaWF0IjoxNzE4OTMwNTcwLCJleHAiOjE3MTk1MzUzNzAsImF1ZCI6InVzZXJzIiwiaXNzIjoiZ3ZsYXIiLCJzdWIiOiIxIn0.brLD5JMiDTgf6ISlTGUj5O8Mhk9W7o0aInvX0d9p1v4';
 
   let authService: AuthService;
+  let userService: UserService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -27,6 +29,7 @@ describe('AuthService', () => {
     }).compile();
 
     authService = module.get<AuthService>(AuthService);
+    userService = module.get<UserService>(UserService);
   });
 
   afterEach(() => {
@@ -35,6 +38,7 @@ describe('AuthService', () => {
 
   test('Validar a definição', () => {
     expect(authService).toBeDefined();
+    expect(userService).toBeDefined();
   });
 
   describe('token', () => {
@@ -72,22 +76,33 @@ describe('AuthService', () => {
       expect(result).toEqual({ accessToken: token, user: userEntityList[0] });
     });
 
-    test('login with passowrd Error', async () => {
-      /*
-      const result = await authService.login('segunda4@uorak.com', 'Teste');
-
-      expect(result).toEqual({
-        UnauthorizedException: 'Email e/ou senha incorretos.',
-      });
-      */
-    });
-
     test('method forget', async () => {
       const result = await authService.forget('segunda4@uorak.com');
 
       expect(result).toEqual({ sucess: 'Ok' });
     });
 
-    // test('method reset', async () => {});
+    test('method forget', async () => {
+      const result = await authService.reset(1, 'Teste123', token);
+
+      expect(result).toEqual({ sucess: 'Ok' });
+    });
+
+    test('method change Password', async () => {
+      const result = await authService.changePassword(1, {
+        passwordNew: 'Teste123',
+        passwordOld: 'Teste123',
+      });
+
+      expect(result).toEqual(userEntityList[0]);
+    });
+
+    test('method validation', async () => {
+      jest.spyOn(userService, 'user').mockResolvedValueOnce(userEntityList[2]);
+
+      const result = await authService.validation(3);
+
+      expect(result).toEqual({ sucess: 'Ok' });
+    });
   });
 });
