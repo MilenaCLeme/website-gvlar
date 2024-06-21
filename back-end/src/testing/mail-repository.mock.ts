@@ -5,5 +5,6 @@ export const mailRepositoryMock = {
   useValue: {
     sendEmailConfirmtion: jest.fn(),
     sendEmailForgotPassWord: jest.fn().mockResolvedValue(true),
+    sendEmailResetPassWord: jest.fn(),
   },
 };
