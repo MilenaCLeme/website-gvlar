@@ -21,17 +21,21 @@ import { LogInterceptor } from 'src/interceptors/log.interceptor';
 import { User as UserType } from '@prisma/client';
 import { ParamId } from 'src/decorators/param-id.decorator';
 import { AuthChangeDTO } from './dto/auth-change.dto';
+import { ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
 
 @UseInterceptors(LogInterceptor)
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
+  @ApiBody({ type: AuthLoginDTO })
   async login(@Body() { email, password }: AuthLoginDTO) {
     return this.authService.login(email, password);
   }
 
   @Post('register')
+  @ApiBody({ type: AuthRegisterDTO })
   async register(@Body() body: AuthRegisterDTO) {
     return this.authService.register(body);
   }
@@ -50,6 +54,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Patch('register')
+  @ApiBody({ type: AuthUpdatePatchRegisterDTO })
   async registerUpdate(
     @User('id') id: number,
     @Body() body: AuthUpdatePatchRegisterDTO,
@@ -59,11 +64,14 @@ export class AuthController {
 
   @Throttle(10, 60)
   @Post('forget')
+  @ApiBody({ type: AuthForgetDTO })
   async forget(@Body() { email }: AuthForgetDTO) {
     return this.authService.forget(email);
   }
 
   @Post('reset/:id')
+  @ApiParam({ name: 'id', description: 'ID do usuário' })
+  @ApiBody({ type: AuthResetDTO })
   async reset(
     @ParamId() id: number,
     @Body() { password, number }: AuthResetDTO,
@@ -73,16 +81,19 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Patch('changepassword')
+  @ApiBody({ type: AuthChangeDTO })
   async changePassword(@User('id') id: number, @Body() body: AuthChangeDTO) {
     return this.authService.changePassword(id, body);
   }
 
   @Get('validation/:id')
+  @ApiParam({ name: 'id', description: 'ID do usuário' })
   async validation(@ParamId() id: number) {
     return this.authService.validation(id);
   }
 
   @Throttle(10, 60)
+  @ApiBody({ type: AuthValidateDTO })
   @Post('validate')
   async validate(@Body() { email }: AuthValidateDTO) {
     return this.authService.validate(email);
