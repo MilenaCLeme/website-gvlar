@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
@@ -7,14 +8,17 @@ import {
 } from 'class-validator';
 
 export class AuthRegisterDTO {
+  @ApiProperty({ description: 'O nome do usuário.' })
   @IsNotEmpty({ message: 'O nome é obrigatório.' })
   @IsString({ message: 'O nome está incorreto.' })
   name: string;
 
+  @ApiProperty({ description: 'O email do usuário.' })
   @IsNotEmpty({ message: 'O email é obrigatório.' })
   @IsEmail({}, { message: 'O email deve ser válido.' })
   email: string;
 
+  @ApiProperty({ description: 'A senha do usuário.' })
   @IsNotEmpty({ message: 'A senha é obrigatório.' })
   @IsStrongPassword(
     { minLength: 6, minSymbols: 0 },
@@ -25,6 +29,7 @@ export class AuthRegisterDTO {
   )
   hashedPassword: string;
 
+  @ApiProperty({ description: 'O Telefone do usuário.' })
   @IsNotEmpty({ message: 'O telefone é obrigatório.' })
   @IsPhoneNumber('BR', { message: 'O telefone deve ser válido para o Brasil.' })
   phone: string;

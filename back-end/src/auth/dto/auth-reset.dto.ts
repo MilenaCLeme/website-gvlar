@@ -1,6 +1,8 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsStrongPassword } from 'class-validator';
 
 export class AuthResetDTO {
+  @ApiProperty({ description: 'A senha nova do usuário.' })
   @IsNotEmpty({ message: 'A senha é obrigatório.' })
   @IsStrongPassword(
     { minLength: 6, minSymbols: 0 },
@@ -11,6 +13,7 @@ export class AuthResetDTO {
   )
   password: string;
 
+  @ApiProperty({ description: 'O numero secreto para resetar a senha.' })
   @IsString()
   @IsNotEmpty()
   number: string;
