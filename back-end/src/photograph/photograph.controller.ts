@@ -12,12 +12,12 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PhotographService } from './photograph.service';
-import { ParamId } from 'src/decorators/param-id.decorator';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { RoleGuard } from 'src/guards/role.guard';
-import { User } from 'src/decorators/user.decorator';
+import { ParamId } from '../decorators/param-id.decorator';
+import { AuthGuard } from '../guards/auth.guard';
+import { RoleGuard } from '../guards/role.guard';
+import { User } from '../decorators/user.decorator';
 import { User as typeUser } from '@prisma/client';
-import { LogInterceptor } from 'src/interceptors/log.interceptor';
+import { LogInterceptor } from '../interceptors/log.interceptor';
 
 @UseGuards(AuthGuard, RoleGuard)
 @UseInterceptors(LogInterceptor)

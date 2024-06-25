@@ -1,11 +1,11 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { OwnerController } from './owner.controller';
 import { OwnerService } from './owner.service';
-import { PrismaModule } from 'src/prisma/prisma.module';
-import { PropertyModule } from 'src/property/property.module';
-import { AuthModule } from 'src/auth/auth.module';
-import { UserModule } from 'src/user/user.module';
-import { PropertyAndOwnerModule } from 'src/propertyandowner/propertyandowner.module';
+import { PrismaModule } from '../prisma/prisma.module';
+import { PropertyModule } from '../property/property.module';
+import { AuthModule } from '../auth/auth.module';
+import { UserModule } from '../user/user.module';
+import { PropertyAndOwnerModule } from '../propertyandowner/propertyandowner.module';
 
 @Module({
   imports: [

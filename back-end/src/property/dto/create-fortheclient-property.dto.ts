@@ -8,8 +8,8 @@ import {
   Min,
   Validate,
 } from 'class-validator';
-import { IsBusinessValidConstraint } from 'src/validators/isbusinessvalidconstraint';
-import { IsTypePropertyValidConstraint } from 'src/validators/istypepropertyvalidconstraint';
+import { IsBusinessValidConstraint } from '../../validators/isbusinessvalidconstraint';
+import { IsTypePropertyValidConstraint } from '../../validators/istypepropertyvalidconstraint';
 
 export class CreateForTheClientPropertyDTO {
   @IsString()

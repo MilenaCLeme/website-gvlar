@@ -5,13 +5,13 @@ import {
   RequestMethod,
   forwardRef,
 } from '@nestjs/common';
-import { PrismaModule } from 'src/prisma/prisma.module';
+import { PrismaModule } from '../prisma/prisma.module';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { UserIdCheckMiddleware } from 'src/middlewares/user-id-check.middleware';
-import { AuthModule } from 'src/auth/auth.module';
-import { MailModule } from 'src/mail/mail.module';
-import { PropertyModule } from 'src/property/property.module';
+import { UserIdCheckMiddleware } from '../middlewares/user-id-check.middleware';
+import { AuthModule } from '../auth/auth.module';
+import { MailModule } from '../mail/mail.module';
+import { PropertyModule } from '../property/property.module';
 
 @Module({
   imports: [

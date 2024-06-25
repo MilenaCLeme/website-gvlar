@@ -1,6 +1,6 @@
 import { IsOptional, IsString, Validate } from 'class-validator';
-import { AuthRegisterDTO } from 'src/auth/dto/auth-register.dto';
-import { IsRoleValidConstraint } from 'src/validators/isrolevalidconstraint';
+import { AuthRegisterDTO } from '../../auth/dto/auth-register.dto';
+import { IsRoleValidConstraint } from '../../validators/isrolevalidconstraint';
 
 export class CreateUserDTO extends AuthRegisterDTO {
   @IsOptional()

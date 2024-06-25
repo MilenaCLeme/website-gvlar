@@ -1,11 +1,11 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { PropertyController } from './property.controller';
 import { PropertyService } from './property.service';
-import { PrismaModule } from 'src/prisma/prisma.module';
-import { AuthModule } from 'src/auth/auth.module';
-import { UserModule } from 'src/user/user.module';
-import { PropertyAndOwnerModule } from 'src/propertyandowner/propertyandowner.module';
-import { PhotographModule } from 'src/photograph/photograph.module';
+import { PrismaModule } from '../prisma/prisma.module';
+import { AuthModule } from '../auth/auth.module';
+import { UserModule } from '../user/user.module';
+import { PropertyAndOwnerModule } from '../propertyandowner/propertyandowner.module';
+import { PhotographModule } from '../photograph/photograph.module';
 
 @Module({
   imports: [

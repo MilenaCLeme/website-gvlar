@@ -7,9 +7,9 @@ import {
   UnauthorizedException,
   forwardRef,
 } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
-import { UserService } from 'src/user/user.service';
-import * as bycrpt from 'bcrypt';
+import { AuthService } from '../auth/auth.service';
+import { UserService } from '../user/user.service';
+import * as bycrpt from 'bcryptjs';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

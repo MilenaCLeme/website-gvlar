@@ -10,15 +10,15 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { OwnerService } from './owner.service';
-import { ParamId } from 'src/decorators/param-id.decorator';
+import { ParamId } from '../decorators/param-id.decorator';
 import { CreateOwnerDTO } from './dto/create-owner.dto';
 import { UpdatePatchOwnerDTO } from './dto/update-patch-owner.dto';
 import { UpdatePutOwnerDTO } from './dto/update-put-owner.dto';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { RoleGuard } from 'src/guards/role.guard';
-import { LogInterceptor } from 'src/interceptors/log.interceptor';
-import { Roles } from 'src/decorators/roles.decorator';
-import { Role } from 'src/enums/role.enum';
+import { AuthGuard } from '../guards/auth.guard';
+import { RoleGuard } from '../guards/role.guard';
+import { LogInterceptor } from '../interceptors/log.interceptor';
+import { Roles } from '../decorators/roles.decorator';
+import { Role } from '../enums/role.enum';
 
 @UseGuards(AuthGuard, RoleGuard)
 @UseInterceptors(LogInterceptor)

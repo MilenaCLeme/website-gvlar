@@ -10,17 +10,17 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { PropertyService } from './property.service';
-import { ParamId } from 'src/decorators/param-id.decorator';
+import { ParamId } from '../decorators/param-id.decorator';
 import { CreatePropertyDTO } from './dto/create-property.dto';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { User } from 'src/decorators/user.decorator';
+import { AuthGuard } from '../guards/auth.guard';
+import { User } from '../decorators/user.decorator';
 import { User as UserType } from '@prisma/client';
 import { UpdatePutPropertyDTO } from './dto/update-put-property.dto';
 import { UpdatePatchPropertyDTO } from './dto/update-patch-property.dto';
-import { RoleGuard } from 'src/guards/role.guard';
-import { LogInterceptor } from 'src/interceptors/log.interceptor';
-import { Roles } from 'src/decorators/roles.decorator';
-import { Role } from 'src/enums/role.enum';
+import { RoleGuard } from '../guards/role.guard';
+import { LogInterceptor } from '../interceptors/log.interceptor';
+import { Roles } from '../decorators/roles.decorator';
+import { Role } from '../enums/role.enum';
 import { CreateForTheClientPropertyDTO } from './dto/create-fortheclient-property.dto';
 import { UpdatePatchForTheClientPropertyDTO } from './dto/update-patch-fortheclient-property.dto';
 import { FilterPagePropertyDTO } from './dto/filter-page-property.dto';

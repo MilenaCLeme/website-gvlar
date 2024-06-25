@@ -12,14 +12,14 @@ import { AuthForgetDTO } from './dto/auth-forget.dto';
 import { AuthLoginDTO } from './dto/auth-login.dto';
 import { AuthRegisterDTO } from './dto/auth-register.dto';
 import { AuthResetDTO } from './dto/auth-reset.dto';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { User } from 'src/decorators/user.decorator';
+import { AuthGuard } from '../guards/auth.guard';
+import { User } from '../decorators/user.decorator';
 import { AuthValidateDTO } from './dto/auth-validate.dto';
 import { AuthUpdatePatchRegisterDTO } from './dto/auth-update-patch-register.dto';
 import { Throttle } from '@nestjs/throttler';
-import { LogInterceptor } from 'src/interceptors/log.interceptor';
+import { LogInterceptor } from '../interceptors/log.interceptor';
 import { User as UserType } from '@prisma/client';
-import { ParamId } from 'src/decorators/param-id.decorator';
+import { ParamId } from '../decorators/param-id.decorator';
 import { AuthChangeDTO } from './dto/auth-change.dto';
 import { ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
 
