@@ -14,6 +14,7 @@ import { AuthChangeDTO } from './dto/auth-change.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
 import { MailService } from '../mail/mail.service';
+import { Role } from '../enums/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -90,7 +91,7 @@ export class AuthService {
   }
 
   async register(data: AuthRegisterDTO) {
-    return await this.userService.createUser(data);
+    return await this.userService.createUser({ ...data, role: Role.client });
   }
 
   async updateRegister(id: number, data: AuthUpdatePatchRegisterDTO) {
