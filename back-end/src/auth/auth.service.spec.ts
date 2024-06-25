@@ -1,19 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
-import { UserRepositoryMock } from '../testing/user-repository.mock';
+import { UserServiceMock } from '../testing/user-service.mock';
 import { PrismaRepositoryMock } from '../testing/prisma-repository.mock';
-import { mailRepositoryMock } from '../testing/mail-repository.mock';
+import { mailServiceMock } from '../testing/mail/mail-service.mock';
 import {
   JwtServiceRepositoryMock,
   data,
 } from '../testing/jwtService-repository.mock';
 import { userEntityList } from '../testing/user-entity-list.mock';
 import { UserService } from '../user/user.service';
+import { token } from '../testing/token.mock';
 
 describe('AuthService', () => {
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InRlc3RlIG1hc3RlciIsImVtYWlsIjoic2VndW5kYTRAdW9yYWsuY29tIiwiaWF0IjoxNzE4OTMwNTcwLCJleHAiOjE3MTk1MzUzNzAsImF1ZCI6InVzZXJzIiwiaXNzIjoiZ3ZsYXIiLCJzdWIiOiIxIn0.brLD5JMiDTgf6ISlTGUj5O8Mhk9W7o0aInvX0d9p1v4';
-
   let authService: AuthService;
   let userService: UserService;
 
@@ -21,9 +19,9 @@ describe('AuthService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
-        UserRepositoryMock,
+        UserServiceMock,
         PrismaRepositoryMock,
-        mailRepositoryMock,
+        mailServiceMock,
         JwtServiceRepositoryMock,
       ],
     }).compile();
@@ -36,7 +34,7 @@ describe('AuthService', () => {
     jest.clearAllMocks();
   });
 
-  test('Validar a definição', () => {
+  test('Validate the definition', () => {
     expect(authService).toBeDefined();
     expect(userService).toBeDefined();
   });
@@ -82,7 +80,7 @@ describe('AuthService', () => {
       expect(result).toEqual({ sucess: 'Ok' });
     });
 
-    test('method forget', async () => {
+    test('method reset', async () => {
       const result = await authService.reset(1, 'Teste123', token);
 
       expect(result).toEqual({ sucess: 'Ok' });
