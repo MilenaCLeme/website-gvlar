@@ -8,11 +8,11 @@ import {
 import { PropertyAndOwnerService } from './propertyandowner.service';
 import { DeletePropertyAndOwnerDTO } from './dto/delete-propertyandowner.dto';
 import { InsertPropertyAndOwnerDTO } from './dto/insert-propertyandowner.dto';
-import { LogInterceptor } from 'src/interceptors/log.interceptor';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { RoleGuard } from 'src/guards/role.guard';
-import { Roles } from 'src/decorators/roles.decorator';
-import { Role } from 'src/enums/role.enum';
+import { LogInterceptor } from '../interceptors/log.interceptor';
+import { AuthGuard } from '../guards/auth.guard';
+import { RoleGuard } from '../guards/role.guard';
+import { Roles } from '../decorators/roles.decorator';
+import { Role } from '../enums/role.enum';
 
 @UseGuards(AuthGuard, RoleGuard)
 @UseInterceptors(LogInterceptor)
