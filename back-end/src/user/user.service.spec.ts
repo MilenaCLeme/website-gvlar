@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { PrismaRepositoryMock } from '../testing/prisma-repository.mock';
-import { mailRepositoryMock } from '../testing/mail-repository.mock';
-import { propertyRepositoryMock } from '../testing/propertyService.mock';
+import { mailServiceMock } from '../testing/mail/mail-service.mock';
+import { propertyServiceMock } from '../testing/property-service.mock';
 import { userEntityList } from '../testing/user-entity-list.mock';
 import { MailService } from '../mail/mail.service';
 import { createUserDTO } from '../testing/create-user-dto.mock';
@@ -28,8 +28,8 @@ describe('UserService', () => {
       providers: [
         UserService,
         PrismaRepositoryMock,
-        mailRepositoryMock,
-        propertyRepositoryMock,
+        mailServiceMock,
+        propertyServiceMock,
       ],
     }).compile();
 
@@ -42,7 +42,7 @@ describe('UserService', () => {
     jest.clearAllMocks();
   });
 
-  test('Validar a definição', () => {
+  test('Validate the definition', () => {
     expect(userService).toBeDefined();
     expect(prisma).toBeDefined();
     expect(mailService).toBeDefined();
