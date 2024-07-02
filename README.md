@@ -43,7 +43,7 @@ Atualmente, estamos na finalização na primeira versão de desenvolvimento inic
 
 ## Contato
 
-Para mais informações sobre o projeto, entre em contato:
+Para mais informações sobre o projeto, entre em contato.
 
-- Website: [www.gvlar.com]
+- Website: [www.gvlar.com.br]
 
